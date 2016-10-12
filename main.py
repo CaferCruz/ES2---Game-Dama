@@ -1,15 +1,19 @@
 #!C:\Python27\python
 board = []
-
-class Blackpiece:
-        inner_html = "<img src=\"p1.png\">"
+class Piece:
+        inner_html = ""
+        def __init__(self, value):
+                self.inner_html = value
         def __str__(self):
                 return self.inner_html
+        
+class Blackpiece(Piece):
+        def __init__(self):
+                Piece.__init__(self, "<img src=\"p1.png\">")
 
-class Whitepiece:
-        inner_html = "<img src=\"p2.png\">"
-        def __str__(self):
-                return self.inner_html
+class Whitepiece(Piece):
+        def __init__(self):
+                Piece.__init__(self, "<img src=\"p2.png\">")
                 
 def makeboard():
         
@@ -90,9 +94,9 @@ def main():
         print "<h1>DamEx</h1>"
         printboard()
         print "<form>"
+        input_button("Novo Jogo")
         input_button("Salvar Jogo")
         input_button("Carregar Jogo")
-        input_button("Novo Jogo")
         print "</form>"
         print "</body>"
         print "</HTML>"
