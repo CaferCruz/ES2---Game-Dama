@@ -1,12 +1,13 @@
 #!C:\Python27\python
-# -*- coding: ut-8 -*-
+board = []
+
 class Blackpiece:
-        inner_html = "p1.png"
-        def to_string():
-                print self.inner_html
+        inner_html = "<img src=\"p1.png\">"
+        def __str__(self):
+                return self.inner_html
                 
 def makeboard():
-        board = []
+        
         line = []
         line1 = []
         line2 = []
@@ -19,27 +20,27 @@ def makeboard():
         p7 = Blackpiece()
         p8 = Blackpiece()
         pieces = [p1, p2, p3, p4, p5, p6, p7, p8]
-        for i in range(7):
+        for i in range(8):
                 if i % 2:
                         line1.append("<br>")
                 else:
                         line1.append(pieces[(i-1)/2])
-        for i in range(7):
+        for i in range(8):
                 if i % 2:
                         line2.append(pieces[(i+4)/2])
                 else:
                         line2.append("<br>")
         board.append(line1)
         board.append(line2)
-        for i in range(7):
-                line.append("br")
-        for i in range(2, 7):
+        for i in range(8):
+                line.append("<br>")
+        for i in range(2, 8):
                 board.append(line)
-        return board()
+        
         
         
 def printboard():
-	board = makeboard()
+	makeboard()
 	s = ""
 	print "<table>"
 	print "<tbody>"
@@ -51,7 +52,7 @@ def printboard():
 			else:
 				s = "b" if x % 2 else "a"
 			print "<td class=%s>" % s
-			print board[n][j].to_string()
+			print board[n][x]
 			print "</td>"
 		print "</tr>"
 	print "</tbody>"
@@ -73,5 +74,5 @@ def main():
         print "</body>"
         print "</HTML>"
         
-#main()
-printboard()
+main()
+#printboard()
