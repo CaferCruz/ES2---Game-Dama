@@ -105,10 +105,19 @@ def header():
 	print "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">"
 	print "</head>"
 
+def input_button(text):
+        print "<input type=\"button\" name=\"%s\" value=\"%s\">" % (text, text) 
+
 def main():
         header()
         print "<body>"
+        print "<h1>Jogo de Damas</h1>"
         printboard()
+        print "<form>"
+        input_button("Salvar Jogo")
+        input_button("Carregar Jogo")
+        input_button("Novo Jogo")
+        print "</form>"
         print "</body>"
         print "</HTML>"
         
