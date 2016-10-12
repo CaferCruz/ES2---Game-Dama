@@ -80,7 +80,7 @@ def makeboard():
 def printboard():
 	makeboard()
 	s = ""
-	print "<table>"
+	print "<table frame=\"box\">"
 	print "<tbody>"
 	for n in range(8):
 		print "<tr>"
