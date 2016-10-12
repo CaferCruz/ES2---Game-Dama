@@ -5,6 +5,11 @@ class Blackpiece:
         inner_html = "<img src=\"p1.png\">"
         def __str__(self):
                 return self.inner_html
+
+class Whitepiece:
+        inner_html = "<img src=\"p1.png\">"
+        def __str__(self):
+                return self.inner_html
                 
 def makeboard():
         
@@ -22,14 +27,15 @@ def makeboard():
         pieces = [p1, p2, p3, p4, p5, p6, p7, p8]
         for i in range(8):
                 if i % 2:
-                        line1.append("<br>")
-                else:
                         line1.append(pieces[(i-1)/2])
+                        line
+                else:
+                        line1.append("<br>")
         for i in range(8):
                 if i % 2:
-                        line2.append(pieces[(i+4)/2])
+			line2.append("<br>")
                 else:
-                        line2.append("<br>")
+			line2.append(pieces[(i+4)/2])
         board.append(line1)
         board.append(line2)
         for i in range(8):
