@@ -95,7 +95,7 @@ def avaliacao2(avalia_tabuleiro):
         INF se PRETO ganhou
         Senao usa uma estrategia para avaliar a jogada
         Olhar comentario acima do avaliador para ver qual e a estrategia
-    """
+    ""
 
     # Alguem ganhou o jogo? Se sim retorna o valor INFINITO
     if avalia_tabuleiro.jogoGanho == avalia_tabuleiro.PRETA:
