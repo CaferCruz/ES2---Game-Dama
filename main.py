@@ -49,7 +49,7 @@ while t.jogoGanho == -1:
     print "Vez do computador: computador pensando..."
     temp = minMax2(t)
     t = temp[0]
-    print "~~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~~"
+    print "~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~"
     t.printa_tabuleiro()
     if t.jogoGanho == t.BRANCA:
         print "Usuario ganhou o jogo"
