@@ -1,105 +1,61 @@
-#!C:\Python27\python
-board = []
-class Piece:
-        inner_html = ""
-        def __init__(self, value):
-                self.inner_html = value
-        def __str__(self):
-                return self.inner_html
-        
-class Blackpiece(Piece):
-        def __init__(self):
-                Piece.__init__(self, "<img src=\"p1.png\">")
+# Main conduz o jogo
+from minmax import *
+from tabuleiro import *
 
-class Whitepiece(Piece):
-        def __init__(self):
-                Piece.__init__(self, "<img src=\"p2.png\">")
-                
-def makeboard():
-        
-        line = []
-        line0 = []
-        line1 = []
-        line2 = []
-        line5 = []
-        line6 = []
-        line7 = []
-        pieces = [Blackpiece() for i in range(12)]
-        wpieces = [Whitepiece() for i in range(12)]
-        for i in range(8):
-                if i % 2:
-                        line0.append(pieces[(i-1)/2])
-                        line6.append(wpieces[(i-1)/2])
-                        line2.append(pieces[(i+7)/2])
-                else:
-                        line0.append("<br>")
-                        line2.append("<br>")
-                        line6.append("<br>")
-        for i in range(8):
-                if i % 2:
-			line1.append("<br>")
-			line5.append("<br>")
-			line7.append("<br>")
-                else:
-			line1.append(pieces[(i+4)/2])
-			line5.append(wpieces[(i+8)/2])
-                        line7.append(wpieces[(i+4)/2])
-        board.append(line0)
-        board.append(line1)
-        board.append(line2)
-        for i in range(8):
-                line.append("<br>")
-        for i in range(3, 5):
-                board.append(line)
-        board.append(line5)
-        board.append(line6)
-        board.append(line7)
-        
-        
-        
-def printboard():
-	makeboard()
-	s = ""
-	print "<table frame=\"box\">"
-	print "<tbody>"
-	for n in range(8):
-		print "<tr>"
-		for x in range(8):
-			if n % 2:
-				s = "a" if x % 2 else "b"
-			else:
-				s = "b" if x % 2 else "a"
-			print "<td class=%s>" % s
-			print board[n][x]
-			print "</td>"
-		print "</tr>"
-	print "</tbody>"
-	print "</table>"
+# Configura os tamanhos do tabuleiro
+largura = 8
+altura = 8
+primeiroJogador = 0
 
-def header():
-	print "<!DOCTYPE html>"
-	print "<HTML>"
-	print "<head>"
-	print "<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\">"
-	print "<title>Checkers EX2</title>"
-	print "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">"
-	print "</head>"
+# Recebe o input do usuario
 
-def input_button(text):
-        print "<input type=\"button\" name=\"%s\" value=\"%s\">" % (text, text) 
+def get_jogada_usuario(t):
 
-def main():
-        header()
-        print "<body>"
-        print "<h1>DamEx</h1>"
-        printboard()
-        print "<form>"
-        input_button("Novo Jogo")
-        input_button("Salvar Jogo")
-        input_button("Carregar Jogo")
-        print "</form>"
-        print "</body>"
-        print "</HTML>"
-        
-main()
-#printboard()
+    aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
+    print(aviso1)
+    while True: # Enquanto nao receber input valido
+        jogada = []
+        jogada = raw_input().lower().split()
+        if not(len(jogada) == 2):
+            print "Essa jogada nao e valida, tente novamente.", aviso1
+            continue
+        move_de_tup = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
+        move_para_tup = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
+        # A peca movida pertence ao jogador?
+        if not (move_de_tup in t.lista_das_brancas):
+            print "Voce nao pertence a peca ", move_de_tup, ". Por favor, selecione uma das suas pecas.", t.whitelist
+            continue
+        break
+    jogada = (move_de_tup, move_para_tup, t.ND)
+    return jogada
+
+### MAIN  ###
+
+t = tabuleiro(largura, altura, primeiroJogador)
+t.printa_tabuleiro()
+print("DamEX")
+
+# loop
+while t.jogoGanho == -1:
+    # Usuario comeca jogando
+    jogada_usuario = get_jogada_usuario(t)
+    try:
+        t.move_branca(*jogada_usuario)
+    except Exception:
+        print "Jogada invalida"
+        continue
+
+    # Vez da maquina
+    print "Vez do computador: computador pensando..."
+    temp = minMax2(t)
+    t = temp[0]
+    print "~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~"
+    t.printa_tabuleiro()
+    if t.jogoGanho == t.BRANCA:
+        print "Usuario ganhou o jogo"
+        print "Game Over"
+        break
+    elif t.jogoGanho == t.PRETA:
+        print "Computador ganhou o jogo"
+        print "Game Over"
+        break
