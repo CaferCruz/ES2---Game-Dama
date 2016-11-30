@@ -1,6 +1,6 @@
 # Main conduz o jogo
-from minmax import *
-from tabuleiro import *
+from Model.Minmax import *
+from Model.Tabuleiro import *
 
 # Configura os tamanhos do tabuleiro
 largura = 8
