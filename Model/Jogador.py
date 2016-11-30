@@ -7,11 +7,16 @@ class Jogador(object):
 
     def moverPecas(self, tabuleiro, peca, posDestino):
         if peca.cor == 0:
-            tabuleiro.lista_das_brancas.remove(peca)
-            tabuleiro.lista_das_brancas.append(Peca(peca.cor, posDestino))
+
+            for pecab in tabuleiro.lista_das_brancas:
+                if(pecab.coordenadas == peca.coordenadas):
+                    pecab.coordenadas = posDestino
+
         if peca.cor == 1:
-            tabuleiro.lista_das_pretas.remove(peca)
-            tabuleiro.lista_das_pretas.append(Peca(peca.cor, posDestino))
+            for pecap in tabuleiro.lista_das_pretas:
+                if (pecap.coordenadas == peca.coordenadas):
+                    pecap.coordenadas = posDestino
+
 
 
 

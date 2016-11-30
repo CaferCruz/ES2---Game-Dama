@@ -62,6 +62,7 @@ while regras.vitoria(tabuleiro) == -1:
         print "Jogada invalida"
         continue
 
+    tabuleiro.printa_tabuleiro()
     # Vez da maquina
     print "Vez do computador: computador pensando..."
     temp = minMax2(tabuleiro)
