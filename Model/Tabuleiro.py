@@ -21,8 +21,8 @@ class Tabuleiro(object):
 
         # Colocando as pecas nas posicoes iniciais
         for i in range(largura):
-            self.lista_das_pretas.append(Peca(1,(i, i % 2),0),0)
-            self.lista_das_brancas.append(Peca(0,(i, altura - (i % 2) - 1)),0)
+            self.lista_das_pretas.append(Peca(1,(i, i % 2),0))
+            self.lista_das_brancas.append(Peca(0,(i, altura - (i % 2) - 1),0))
             if (largura == 8) and (i == 0):
                 self.lista_das_brancas.append(Peca(0,(i, 5),0))
                 self.lista_das_brancas.append(Peca(0,(2, 5),0))

@@ -1,6 +1,9 @@
 # Main conduz o jogo
 from Model.Minmax import *
 from Model.Tabuleiro import *
+from Model.Jogo import *
+from Model.Jogador import *
+from Model.Regras import *
 
 # Configura os tamanhos do tabuleiro
 largura = 8
@@ -19,43 +22,52 @@ def get_jogada_usuario(t):
         if not(len(jogada) == 2):
             print "Essa jogada nao e valida, tente novamente.", aviso1
             continue
-        move_de_tup = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
-        move_para_tup = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
+        origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
+        peca = Peca(0,origem)
+        destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
         # A peca movida pertence ao jogador?
-        if not (move_de_tup in t.lista_das_brancas):
-            print "Voce nao pertence a peca ", move_de_tup, ". Por favor, selecione uma das suas pecas.", t.whitelist
+        if not (origem in t.lista_das_brancas):
+            print "Voce nao pertence a peca ", origem, ". Por favor, selecione uma das suas pecas.", t.whitelist
             continue
         break
-    jogada = (move_de_tup, move_para_tup, t.ND)
+    jogada = (peca, destino)
     return jogada
 
 ### MAIN  ###
 
-t = tabuleiro(largura, altura, primeiroJogador)
-t.printa_tabuleiro()
+tabuleiro = Tabuleiro(largura, altura, primeiroJogador)
+jogador1 = Jogador(tabuleiro.lista_das_brancas, "Lucas")
+jogador2 = Jogador(tabuleiro.lista_das_pretas)
+jogo = Jogo(jogador1, jogador2, tabuleiro)
+tabuleiro.printa_tabuleiro()
 print("DamEX")
 
 # loop
-while t.jogoGanho == -1:
+while Regras.vitoria() == -1:
     # Usuario comeca jogando
-    jogada_usuario = get_jogada_usuario(t)
+    jogada_usuario = get_jogada_usuario(tabuleiro)
     try:
-        t.move_branca(*jogada_usuario)
+        jogador1.moverPecas(tabuleiro, jogada_usuario[0], jogada_usuario[1])
     except Exception:
         print "Jogada invalida"
         continue
 
     # Vez da maquina
     print "Vez do computador: computador pensando..."
-    temp = minMax2(t)
-    t = temp[0]
+    temp = minMax2(tabuleiro)
+    tabuleiro = temp[0]
     print "~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~"
-    t.printa_tabuleiro()
-    if t.jogoGanho == t.BRANCA:
+    tabuleiro.printa_tabuleiro()
+    if Regras.vitoria(tabuleiro) == 0:
         print "Usuario ganhou o jogo"
         print "Game Over"
         break
-    elif t.jogoGanho == t.PRETA:
+    elif Regras.vitoria(tabuleiro) == 1:
         print "Computador ganhou o jogo"
         print "Game Over"
         break
+    elif Regras.empate(rodadasSemComer):
+        print "Empatou"
+        print "Game Over"
+        break
+
