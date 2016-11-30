@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # Tabuleiro do jogo. Precisa de uma altura e uma largura para ser instanciado
 
 class tabuleiro(object):
@@ -183,6 +185,9 @@ class tabuleiro(object):
         """
         # Atauliza o estado do tabuleiro
         self.atualiza_tabuleiro()
+
+
+
         linhas = []
         # Printa o numero no topo do tabuleiro
         linhas.append('    ' + '   '.join(map(str, range(self.largura))))

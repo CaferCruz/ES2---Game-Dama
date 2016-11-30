@@ -14,36 +14,46 @@ primeiroJogador = 0
 
 def get_jogada_usuario(t):
 
-    aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
-    print(aviso1)
+    #aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
+    print("aviso 1")
     while True: # Enquanto nao receber input valido
         jogada = []
         jogada = raw_input().lower().split()
         if not(len(jogada) == 2):
-            print "Essa jogada nao e valida, tente novamente.", aviso1
+            print "Essa jogada nao e valida, tente novamente.", " aviso1"
             continue
         origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
-        peca = Peca(0,origem)
+        peca = Peca(0,origem, 0)
         destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
+
+        pecab=peca
+        pertence = False
         # A peca movida pertence ao jogador?
-        if not (origem in t.lista_das_brancas):
-            print "Voce nao pertence a peca ", origem, ". Por favor, selecione uma das suas pecas.", t.whitelist
+        for pecab in t.lista_das_brancas:
+            if pecab.coordenadas == peca.coordenadas:
+                pertence = True
+                break
+
+        if not (pertence):
+            print "peca: ", peca," esta dentro de ", t.lista_das_brancas
+            print "Voce nao pertence a peca ", origem, ". Por favor, selecione uma das suas pecas."#, t.lista_das_brancas
             continue
         break
     jogada = (peca, destino)
     return jogada
 
 ### MAIN  ###
-
+nome = "Lucas"
 tabuleiro = Tabuleiro(largura, altura, primeiroJogador)
-jogador1 = Jogador(tabuleiro.lista_das_brancas, "Lucas")
+jogador1 = Jogador(tabuleiro.lista_das_brancas)
 jogador2 = Jogador(tabuleiro.lista_das_pretas)
 jogo = Jogo(jogador1, jogador2, tabuleiro)
 tabuleiro.printa_tabuleiro()
 print("DamEX")
 
+regras = Regras()
 # loop
-while Regras.vitoria() == -1:
+while regras.vitoria(tabuleiro) == -1:
     # Usuario comeca jogando
     jogada_usuario = get_jogada_usuario(tabuleiro)
     try:
@@ -66,8 +76,5 @@ while Regras.vitoria() == -1:
         print "Computador ganhou o jogo"
         print "Game Over"
         break
-    elif Regras.empate(rodadasSemComer):
-        print "Empatou"
-        print "Game Over"
-        break
+
 
