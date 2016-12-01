@@ -177,7 +177,7 @@ class tabuleiro(object):
         """
             Printa o tabuleiro no console
         """
-        print unicode(self)
+        print (tabuleiro.__unicode__(self))
         
     def __unicode__(self):
         """

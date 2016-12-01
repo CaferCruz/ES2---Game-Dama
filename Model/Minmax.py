@@ -5,7 +5,7 @@ def jogo_ganho(tabuleiro):
     """
         Retorna true se o jogo foi ganho
     """
-    return tabuleiro.jogoGanho <> tabuleiro.ND
+    return tabuleiro.jogoGanho != tabuleiro.ND
         
 
 def minMax2(tabuleiro):

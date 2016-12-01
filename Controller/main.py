@@ -19,7 +19,7 @@ def get_jogada_usuario(t):
     print("aviso 1")
     while True: # Enquanto nao receber input valido
         jogada = []
-        jogada = raw_input().lower().split()
+        jogada = input().lower().split()
         if not(len(jogada) == 2):
             print ("Essa jogada nao e valida, tente novamente.", " aviso1")
             continue

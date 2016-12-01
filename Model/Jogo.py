@@ -8,7 +8,9 @@ class Jogo(object):
 
     def novoJogo(self, jogador1, jogador2):
         self.init(jogador1, jogador2, Tabuleiro(8,8,jogador1))
+
     def salvarJogo(self, caminhoDoArquivo):
         return
+
     def carregarJogo(self, caminhoDoArquivo):
         return
