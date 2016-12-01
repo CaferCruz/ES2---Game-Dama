@@ -77,3 +77,9 @@ class Tabuleiro(object):
             self.estado_tabuleiro[peca.coordenadas[1]][peca.coordenadas[0]] = u'◆'
         for peca in self.lista_das_brancas:
             self.estado_tabuleiro[peca.coordenadas[1]][peca.coordenadas[0]] = u'◇'
+
+    def removePreta(self, peca):
+        self.lista_das_pretas.remove(peca)
+
+    def removeBranca(self, peca):
+        self.lista_das_brancas.remove(peca)

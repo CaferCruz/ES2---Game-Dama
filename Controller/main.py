@@ -57,7 +57,9 @@ regras = Regras()
 while regras.vitoria(tabuleiro) == -1:
     # Usuario comeca jogando
     #jogada_usuario = get_jogada_usuario(tabuleiro)
+
     jogada_usuario = Regras.mover(tabuleiro, 0)
+
     try:
         jogador1.moverPecas(tabuleiro, jogada_usuario[0], jogada_usuario[1])
     except Exception:
@@ -71,7 +73,7 @@ while regras.vitoria(tabuleiro) == -1:
     #tabuleiro = temp[0]
     #jogada_usuario2 = get_jogada_usuario(tabuleiro)
     jogada_usuario2 = Regras.mover(tabuleiro, 1)
-    print(jogada_usuario2[0])
+
     try:
         jogador2.moverPecas(tabuleiro, jogada_usuario2[0], jogada_usuario2[1])
     except Exception:
