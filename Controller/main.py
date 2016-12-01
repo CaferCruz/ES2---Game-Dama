@@ -4,6 +4,7 @@ from Model.Tabuleiro import *
 from Model.Jogo import *
 from Model.Jogador import *
 from Model.Regras import *
+from Model.Peca import *
 
 # Configura os tamanhos do tabuleiro
 largura = 8
@@ -20,7 +21,7 @@ def get_jogada_usuario(t):
         jogada = []
         jogada = raw_input().lower().split()
         if not(len(jogada) == 2):
-            print "Essa jogada nao e valida, tente novamente.", " aviso1"
+            print ("Essa jogada nao e valida, tente novamente.", " aviso1")
             continue
         origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
         peca = Peca(0,origem, 0)
@@ -35,8 +36,8 @@ def get_jogada_usuario(t):
                 break
 
         if not (pertence):
-            print "peca: ", peca," esta dentro de ", t.lista_das_brancas
-            print "Voce nao pertence a peca ", origem, ". Por favor, selecione uma das suas pecas."#, t.lista_das_brancas
+            print ("peca: ", peca," esta dentro de ", t.lista_das_brancas)
+            print ("Voce nao pertence a peca ", origem, ". Por favor, selecione uma das suas pecas.")#, t.lista_das_brancas
             continue
         break
     jogada = (peca, destino)
@@ -55,27 +56,36 @@ regras = Regras()
 # loop
 while regras.vitoria(tabuleiro) == -1:
     # Usuario comeca jogando
-    jogada_usuario = get_jogada_usuario(tabuleiro)
+    #jogada_usuario = get_jogada_usuario(tabuleiro)
+    jogada_usuario = Regras.mover(tabuleiro, 0)
     try:
         jogador1.moverPecas(tabuleiro, jogada_usuario[0], jogada_usuario[1])
     except Exception:
-        print "Jogada invalida"
+        print ("Jogada invalida")
         continue
 
     tabuleiro.printa_tabuleiro()
     # Vez da maquina
-    print "Vez do computador: computador pensando..."
-    temp = minMax2(tabuleiro)
-    tabuleiro = temp[0]
-    print "~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~"
+    print ("Vez do computador: computador pensando...")
+    #temp = minMax2(tabuleiro)
+    #tabuleiro = temp[0]
+    #jogada_usuario2 = get_jogada_usuario(tabuleiro)
+    jogada_usuario2 = Regras.mover(tabuleiro, 1)
+    print(jogada_usuario2[0])
+    try:
+        jogador2.moverPecas(tabuleiro, jogada_usuario2[0], jogada_usuario2[1])
+    except Exception:
+        print("Jogada invalida")
+        continue
+    print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
     tabuleiro.printa_tabuleiro()
-    if Regras.vitoria(tabuleiro) == 0:
-        print "Usuario ganhou o jogo"
-        print "Game Over"
+    if regras.vitoria(tabuleiro) == 0:
+        print ("Usuario ganhou o jogo")
+        print ("Game Over")
         break
-    elif Regras.vitoria(tabuleiro) == 1:
-        print "Computador ganhou o jogo"
-        print "Game Over"
+    elif regras.vitoria(tabuleiro) == 1:
+        print ("Computador ganhou o jogo")
+        print ("Game Over")
         break
 
 
