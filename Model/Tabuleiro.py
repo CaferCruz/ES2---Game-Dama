@@ -1,6 +1,6 @@
 # coding: utf-8
 # Tabuleiro do jogo. Precisa de uma altura e uma largura para ser instanciado
-from Peca import *
+from Model.Peca import *
 class Tabuleiro(object):
     PRETA = 1
     BRANCA = 0
@@ -18,27 +18,27 @@ class Tabuleiro(object):
         self.lista_das_pretas = []
         self.lista_das_brancas = []
 
-        # Colocando as pecas nas posicoes iniciais
-        for i in range(largura):
-            self.lista_das_pretas.append(Peca(1,(i, i % 2),0))
-            self.lista_das_brancas.append(Peca(0,(i, altura - (i % 2) - 1),0))
-            if (largura == 8) and (i == 0):
-                self.lista_das_brancas.append(Peca(0,(i, 5),0))
-                self.lista_das_brancas.append(Peca(0,(2, 5),0))
-                self.lista_das_brancas.append(Peca(0,(4, 5),0))
-                self.lista_das_brancas.append(Peca(0,(6, 5),0))
-                self.lista_das_pretas.append(Peca(1,(i, 2),0))
-                self.lista_das_pretas.append(Peca(1,(2, 2),0))
-                self.lista_das_pretas.append(Peca(1,(4, 2),0))
-                self.lista_das_pretas.append(Peca(1,(6, 2),0))
+        for l in range(0,3):
+            for c in range(0,8):
+                if(l % 2):
+                    if(c % 2):
+                        self.lista_das_pretas.append(Peca(1, (c, l), 0))
+                    else:
+                        self.lista_das_brancas.append(Peca(0, (c, 7 - l), 0))
+                else:
+                    if (c % 2):
+                        self.lista_das_brancas.append(Peca(1, (c, 7 - l), 0))
+                    else:
+                        self.lista_das_pretas.append(Peca(0, (c, l), 0))
 
         # estado_tabuleiro guarda o estado atual do tabuleiro para printar e para avaliar
         self.estado_tabuleiro = [[' '] * self.largura for x in range(self.altura)]
+
     def printa_tabuleiro(self):
         """
             Printa o tabuleiro no console
         """
-        print unicode(self)
+        print (Tabuleiro.__unicode__(self))
 
     def __unicode__(self):
         """
@@ -72,6 +72,7 @@ class Tabuleiro(object):
         for i in range(self.largura):
             for j in range(self.altura):
                 self.estado_tabuleiro[i][j] = " "
+
         for peca in self.lista_das_pretas:
             self.estado_tabuleiro[peca.coordenadas[1]][peca.coordenadas[0]] = u'◆'
         for peca in self.lista_das_brancas:
