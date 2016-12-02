@@ -28,7 +28,7 @@ class Regras(object):
             return True
         return False
 
-    def mover(tabuleiro, cor):
+    def mover(self,tabuleiro, cor):
         if(cor == 0): # Peca branca
 
             # aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
@@ -38,7 +38,7 @@ class Regras(object):
 
                 jogada = []
 
-                jogada = input().lower().split()
+                jogada = raw_input().lower().split()
 
                 if not (len(jogada) == 2):
                     print("Essa jogada nao e valida, tente novamente.", " aviso1")
@@ -62,7 +62,7 @@ class Regras(object):
                     continue
                 break
 
-            Regras.comerPreta(tabuleiro, peca, origem, destino)
+            self.comerPreta(tabuleiro, peca, origem, destino)
             jogada = (peca, destino)
             return jogada
         else:
@@ -70,7 +70,7 @@ class Regras(object):
             print("aviso 1")
             while True:  # Enquanto nao receber input valido
                 jogada = []
-                jogada = input().lower().split()
+                jogada = raw_input().lower().split()
                 if not (len(jogada) == 2):
                     print("Essa jogada nao e valida, tente novamente.", " aviso1")
                     continue
@@ -92,26 +92,29 @@ class Regras(object):
                           ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
                     continue
                 break
-                Regras.comerBranca(tabuleiro, peca, origem, destino)
+                self.comerBranca(tabuleiro, peca, origem, destino)
             jogada = (peca, destino)
 
             return jogada
         return None
 
-    def comerPreta(tabuleiro, peca, origem, destino):
+    def comerPreta(self, tabuleiro, peca, origem, destino):
         y = 0
         if(origem[0] < destino[0]):
-            for l in range(origem[0] + 1,destino [0] + 1):
+            for l in range(origem[0] + 1, destino [0] + 1):
                 y = y + 1
                 coord = (l, origem[1] - y)
                 for cod in tabuleiro.lista_das_pretas:
                     if cod.coordenadas == coord:
                         tabuleiro.removePreta(cod)
-
         else:
+            print(origem[0], origem[1])
             for l in range(origem[0] - 1, destino[0] -1, -1):
+                print(origem[0] - 1, destino[0] -1)
                 y = y - 1
-                coord = (l, origem[1] - y)
+                coord = (l, origem[1] + y)
+                print(coord)
                 for cod in tabuleiro.lista_das_pretas:
                     if cod.coordenadas == coord:
                         tabuleiro.removePreta(cod)
+

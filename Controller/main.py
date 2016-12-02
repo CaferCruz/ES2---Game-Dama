@@ -58,7 +58,7 @@ while regras.vitoria(tabuleiro) == -1:
     # Usuario comeca jogando
     #jogada_usuario = get_jogada_usuario(tabuleiro)
 
-    jogada_usuario = Regras.mover(tabuleiro, 0)
+    jogada_usuario = regras.mover(tabuleiro, 0)
 
     try:
         jogador1.moverPecas(tabuleiro, jogada_usuario[0], jogada_usuario[1])
@@ -72,7 +72,7 @@ while regras.vitoria(tabuleiro) == -1:
     #temp = minMax2(tabuleiro)
     #tabuleiro = temp[0]
     #jogada_usuario2 = get_jogada_usuario(tabuleiro)
-    jogada_usuario2 = Regras.mover(tabuleiro, 1)
+    jogada_usuario2 = regras.mover(tabuleiro, 1)
 
     try:
         jogador2.moverPecas(tabuleiro, jogada_usuario2[0], jogada_usuario2[1])
