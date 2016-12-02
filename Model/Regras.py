@@ -30,10 +30,8 @@ class Regras(object):
 
     def mover(self,tabuleiro, cor):
         if(cor == 0): # Peca branca
-
             # aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
-            print("aviso 1")
-
+            print("informe a jogada:")
             while True:  # Enquanto nao receber input valido
 
                 jogada = []
@@ -67,7 +65,7 @@ class Regras(object):
             return jogada
         else:
             # aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
-            print("aviso 1")
+            print("informe a jogada:")
             while True:  # Enquanto nao receber input valido
                 jogada = []
                 jogada = raw_input().lower().split()
@@ -92,7 +90,7 @@ class Regras(object):
                           ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
                     continue
                 break
-                self.comerBranca(tabuleiro, peca, origem, destino)
+            self.comerBranca(tabuleiro, peca, origem, destino)
             jogada = (peca, destino)
 
             return jogada
@@ -113,8 +111,26 @@ class Regras(object):
                 print(origem[0] - 1, destino[0] -1)
                 y = y - 1
                 coord = (l, origem[1] + y)
-                print(coord)
                 for cod in tabuleiro.lista_das_pretas:
                     if cod.coordenadas == coord:
                         tabuleiro.removePreta(cod)
 
+    def comerBranca(self, tabuleiro, peca, origem, destino):
+        y = 0
+        print('origem:', origem[0],origem[1])
+        if(origem[0] > destino[0]):
+            for l in range(origem[0] - 1, destino [0] - 1, -1):
+                y = y + 1
+                coord = (l, origem[1] + y)
+                print(coord)
+                for cod in tabuleiro.lista_das_brancas:
+                    if cod.coordenadas == coord:
+                        tabuleiro.removeBranca(cod)
+        else:
+            for l in range(origem[0] + 1, destino[0]+1):
+                y = y + 1
+                coord = (l, origem[1] + y)
+                print(coord)
+                for cod in tabuleiro.lista_das_brancas:
+                    if cod.coordenadas == coord:
+                        tabuleiro.removeBranca(cod)
