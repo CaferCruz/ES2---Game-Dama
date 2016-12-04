@@ -28,7 +28,10 @@ class Regras(object):
             return True
         return False
 
-    def mover(self,tabuleiro, cor):
+
+    #TODO: corrigir validação, peças se movimentam em qualquer direção
+    """
+    def mover(self,tabuleiro, cor):  #valida movimento
         if(cor == 0): # Peca branca
             # aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
             print("informe a jogada:")
@@ -95,7 +98,17 @@ class Regras(object):
 
             return jogada
         return None
+    """
 
+    def valida_mover(self,tabuleiro,peca,origem,destino):
+        if(peca.cor == 0): #peca branca
+            for peca_branca in tabuleiro.lista_das_brancas:
+                    if(peca_branca.tipo==0) #se peca é pedra
+                        
+       return 
+        
+    
+    
     def comerPreta(self, tabuleiro, peca, origem, destino):
         y = 0
         if(origem[0] < destino[0]):
