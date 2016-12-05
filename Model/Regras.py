@@ -101,6 +101,10 @@ class Regras(object):
     """
 
     def existe_peca_em(self, tabuleiro, coordenada):
+        """
+        Retorna a peca se existente na coordenada passada
+        Senao retorna None
+        """
         for peca_branca in tabuleiro.lista_das_brancas:
             if peca_branca.coordenadas == coordenada:
                 return peca_branca
@@ -112,75 +116,67 @@ class Regras(object):
 
     def valida_mover(self,tabuleiro,peca,origem,destino):
         """
-        # for na lista das pecas do tabuleiro do inimigo e
-        # verfica se alguma peca esta na casa diagonal esq e dir
-        # for na lista das pecas do tabuleiro das proprias pecas e
-        # verfica se alguma peca esta na casa diagonal esq e dir
-        # se estiver livre coloque essa posicao na lista de jogadas possiveis
+        Se voce nao eh obrigado a comer entao ve se o movimento
+        esta dentro do tabuleiro e esta sendo feito com uma peca que voce pertence
+
         """
-        pode_comer = []
-        tem_peca_atras = False
-        if peca.cor == 0: #peca branca
-            for peca_branca in tabuleiro.lista_das_brancas:
-                    if peca_branca.tipo == 0: #se peca é pedra
-                        # verficar se e posssivel comer
-                        for peca_preta in tabuleiro.lista_das_pretas: # for na lista das pecas do adversario
-                            pode_comer=[]
-                            if peca_preta.coordenadas[0] == peca_branca.coordenadas[0]+1 and tabuleiro.lista_das_pretas.coordenada[1] == peca_branca.coordenadas[1]-1:
-                                # se existe alguma peca nas casas diagonais a frente
-                                # verifique se a casa na diagonal da peca do inimigo esta livre (a direita)
-                                for peca_preta_detras in tabuleiro.lista_das_pretas:
-                                    if peca_preta_detras.coordenadas[0] == peca_branca.coordenadas[0]+2 and peca_preta_detras.coordenadas[1] == peca_branca.coordenadas[1]-2:
-                                       tem_peca_atras = True #se tem peca atras
-                                if not tem_peca_atras: #se nao tem peca preta atras verifica se tem peca branca atras
-                                    for peca_branca_detras in tabuleiro.lista_das_brancas:
-                                        if not peca_branca_detras.coordenadas[0] == peca_branca.coordenadas[
-                                            0] + 2 and peca_branca_detras.coordenadas[1] == peca_branca.coordenadas[
-                                            1] - 2:
-                                            peca_branca.jogadas_possiveis.append(
-                                                [peca_branca.coordenadas[0] + 2, peca_branca.coordenadas[1] - 2])
-                                            pode_comer.append(peca_branca.coordenadas)
-                            tem_peca_atras = False
 
-                            if peca_preta.coordenadas[0] == peca_branca.coordenadas[0]-1 and \
-                               peca_preta.coordenadas[1] == peca_branca.coordenadas[1]-1 :
-                                # se existe alguma peca nas casas diagonais a frente
-                                # verifique se a casa na diagonal da peca do inimigo esta livre (a esquerda)
-                                for peca_preta_detras in tabuleiro.lista_das_pretas:
-                                    if peca_preta_detras.coordenadas[0] == peca_branca.coordenadas[0] - 2 and \
-                                                    peca_preta_detras.coordenadas[1] == peca_branca.coordenadas[1] - 2:
-                                        tem_peca_atras = True  # se tem peca atras
-                                if not tem_peca_atras:  # se nao tem peca preta atras verifica se tem peca branca atras
-                                    for peca_branca_detras in tabuleiro.lista_das_brancas:
-                                        if not peca_branca_detras.coordenadas[0] == peca_branca.coordenadas[
-                                            0] - 2 and peca_branca_detras.coordenadas[1] == peca_branca.coordenadas[
-                                            1] - 2:
-                                            peca_branca.jogadas_possiveis.append(
-                                                [peca_branca.coordenadas[0] - 2,peca_branca.coordenadas[1] - 2])
-                                            pode_comer.append(peca_branca.coordenadas)
-                            tem_peca_atras = False
 
-    def pecas_pretas_podem_comer(self, tabuleiro): #retorna lista de pecas pretas QUE PODEM COMER
-
+    def pedras_pretas_podem_comer(self, tabuleiro): #retorna lista de pecas pretas QUE PODEM COMER
+        """
+        Retorna lista de pedras pretas que podem comer e
+        atribui as movimentacoes as jogadas possiveis da peca
+        se a lista for vazia nao existe movimento para comer
+        """
         podem_comer = []
         for peca_preta in tabuleiro.lista_das_pretas:
-            peca_em_coordenada = existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] + 1, peca_preta.coordenadas[1] + 1])
-            if peca_em_coordenada is None and peca_em_coordenada != peca_preta.cor:
-                if existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] + 2, peca_em_coordenada[1] + 2]) is None:
-                    # ESCREVER: adicionar coordenada a lista de jogadas possiveis da peca preta
-                    podem_comer.append(peca_preta)
+            if peca_preta.tipo == 0:
+                coluna = peca_branca.coordenadas[0]
+                linha = peca_branca.coordenadas[1]
+                if (dentro_do_tabuleiro(coluna + 1, linha + 1)) and (dentro_do_tabuleiro(coluna + 2, linha + 2)): #baixo direita
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] + 1, peca_preta.coordenadas[1] + 1])
+                    if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_preta.cor):
+                        if existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] + 2, peca_preta.coordenadas[1] + 2]) is None:
+                            peca_preta.jogadas_possiveis.append([peca_preta.coordenadas[0] + 2, peca_preta.coordenadas[1] + 2])
+                            podem_comer.append(peca_preta)
+                if (dentro_do_tabuleiro(coluna - 1, linha + 1)) and (dentro_do_tabuleiro(coluna - 2, linha + 2)): #baixo esquerda
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] - 1, peca_preta.coordenadas[1] + 1])
+                    if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_preta.cor):
+                        if existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] - 2, peca_em_coordenada[1] + 2]) is None:
+                            peca_preta.jogadas_possiveis.append([peca_preta.coordenadas[0] - 2, peca_preta.coordenadas[1] + 2])
+                            podem_comer.append(peca_preta)
+        return podem_comer
 
-            if existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] - 1, peca_preta.coordenadas[1] + 1]):
+    def pedras_brancas_podem_comer(self, tabuleiro):
+        """
+        Retorna lista de pedras brancas que podem comer e
+        atribui as movimentacoes as jogadas possiveis da peca
+        se a lista for vazia nao existe movimento para comer
+        """
+        podem_comer = []
+        for peca_branca in tabuleiro.lista_das_brancas:
+            if peca_branca.tipo == 0:
+                coluna = peca_branca.coordenadas[0]
+                linha = peca_branca.coordenadas[1]
+                if (dentro_do_tabuleiro(coluna - 1, linha - 1)) and (dentro_do_tabuleiro(coluna - 2, linha - 2)): # cima esquerda
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - 1, linha - 1])
+                    if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_branca.cor):
+                        if existe_peca_em(coluna - 2, linha - 2) is None:
+                            peca_branca.jogadas_possiveis.append(coluna - 2, linha - 2)
+                            podem_comer.append(peca_branca)
+                if (dentro_do_tabuleiro(coluna + 1, linha - 1)) and (dentro_do_tabuleiro(coluna + 2, linha - 2)): # cima direita
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + 1, linha - 1])
+                    if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_branca.cor):
+                        if existe_peca_em(coluna + 2, linha - 2) is None:
+                            peca_branca.jogadas_possiveis.append(coluna + 2, linha - 2)
+                            podem_comer.append(peca_branca)
 
 
-
-
-
-                        
-
-        
-
-
+    def dentro_do_tabuleiro(self, coluna, linha):
+        if(coluna < 0) or (coluna > 7) or (linha < 0) or linha (linha > 7):
+            return False
+        print "coordenada: (coluna: ", coluna,", linha: ",linha, ") nao esta dentro do tabuleiro."
+        return True
 
     def comerPreta(self, tabuleiro, peca, origem, destino):
         y = 0
