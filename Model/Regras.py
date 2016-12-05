@@ -101,14 +101,64 @@ class Regras(object):
     """
 
     def valida_mover(self,tabuleiro,peca,origem,destino):
-        if(peca.cor == 0): #peca branca
+        """
+        # for na lista das pecas do tabuleiro do inimigo e
+        # verfica se alguma peca esta na casa diagonal esq e dir
+        # for na lista das pecas do tabuleiro das proprias pecas e
+        # verfica se alguma peca esta na casa diagonal esq e dir
+        # se estiver livre coloque essa posicao na lista de jogadas possiveis
+        """
+        pode_comer = []
+        tem_peca_atras = False
+        if peca.cor == 0: #peca branca
             for peca_branca in tabuleiro.lista_das_brancas:
-                    if(peca_branca.tipo==0) #se peca é pedra
+                    if peca_branca.tipo == 0: #se peca é pedra
+                        # verficar se e posssivel comer
+                        for peca_preta in tabuleiro.lista_das_pretas: # for na lista das pecas do adversario
+                            pode_comer=[]
+                            if peca_preta.coordenadas[0] == peca_branca.coordenadas[0]+1 and tabuleiro.lista_das_pretas.coordenada[1] == peca_branca.coordenadas[1]-1:
+                                # se existe alguma peca nas casas diagonais a frente
+                                # verifique se a casa na diagonal da peca do inimigo esta livre (a direita)
+                                for peca_preta_detras in tabuleiro.lista_das_pretas:
+                                    if peca_preta_detras.coordenadas[0] == peca_branca.coordenadas[0]+2 and peca_preta_detras.coordenadas[1] == peca_branca.coordenadas[1]-2:
+                                       tem_peca_atras = True #se tem peca atras
+                                if not tem_peca_atras: #se nao tem peca preta atras verifica se tem peca branca atras
+                                    for peca_branca_detras in tabuleiro.lista_das_brancas:
+                                        if not peca_branca_detras.coordenadas[0] == peca_branca.coordenadas[
+                                            0] + 2 and peca_branca_detras.coordenadas[1] == peca_branca.coordenadas[
+                                            1] - 2:
+                                            peca_branca.jogadas_possiveis.append(
+                                                [peca_branca.coordenadas[0] + 2, peca_branca.coordenadas[1] - 2])
+                                            pode_comer.append(peca_branca.coordenadas)
+                            tem_peca_atras = False
+
+                            if peca_preta.coordenadas[0] == peca_branca.coordenadas[0]-1 and \
+                               peca_preta.coordenadas[1] == peca_branca.coordenadas[1]-1 :
+                                # se existe alguma peca nas casas diagonais a frente
+                                # verifique se a casa na diagonal da peca do inimigo esta livre (a esquerda)
+                                for peca_preta_detras in tabuleiro.lista_das_pretas:
+                                    if peca_preta_detras.coordenadas[0] == peca_branca.coordenadas[0] - 2 and \
+                                                    peca_preta_detras.coordenadas[1] == peca_branca.coordenadas[1] - 2:
+                                        tem_peca_atras = True  # se tem peca atras
+                                if not tem_peca_atras:  # se nao tem peca preta atras verifica se tem peca branca atras
+                                    for peca_branca_detras in tabuleiro.lista_das_brancas:
+                                        if not peca_branca_detras.coordenadas[0] == peca_branca.coordenadas[
+                                            0] - 2 and peca_branca_detras.coordenadas[1] == peca_branca.coordenadas[
+                                            1] - 2:
+                                            peca_branca.jogadas_possiveis.append(
+                                                [peca_branca.coordenadas[0] - 2,peca_branca.coordenadas[1] - 2])
+                                            pode_comer.append(peca_branca.coordenadas)
+                            tem_peca_atras = False
+
+
+
+
                         
-       return 
+
         
-    
-    
+
+
+
     def comerPreta(self, tabuleiro, peca, origem, destino):
         y = 0
         if(origem[0] < destino[0]):

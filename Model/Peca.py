@@ -4,3 +4,5 @@ class Peca(object):
         self.cor = cor
         self.coordenadas = coordenadas
         self.tipo = tipo
+        self.jogadas_possiveis = []
+
