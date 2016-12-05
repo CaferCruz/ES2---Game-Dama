@@ -130,10 +130,109 @@ class Regras(object):
         else:
             print "Coordenada passada esta fora do tabuleiro."
 
+    def valida_movimento_dama(self, tabuleiro, peca, origem, destino):
+        coluna = peca.coordenadas[0]
+        linha = peca.coordenadas[1]
+        i = 1
+        # verificar nordeste se tem uma casa livre entre origem e destino nessa direcao antes de encontrar uma peca branca
+        # se a coluna destino e maior que a origem e linha destino menor que linha origem movimento nordeste
+        if (origem[0] < destino[0]) and (origem[1] > destino[1]):
+            peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha - i])
+            if peca_em_coordenada is None: # se tem pelo menos uma casa livre a nordeste, conte quantas livres casas a nordeste tem
+                while peca_em_coordenada is None:
+                    i += 1
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha - i])
+                    #IF NOT PECA DENTRO DO TABULEIRO BREAK
+                print "Dama pode andar ", i, " colunas e ", i, " linhas."
+                if (destino[0] - origem[0] > 0) and (destino[0] - origem[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
+                    print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a nordeste."
+                    return True
+                else: print "Dama deve andar no minimo 1 casa a nordeste e no maximo ", i, " casas a nordeste."
+            else:
+                print "Dama nao tem para onde andar, ", i - 1, " casas vazias a nordeste."
+        # se a coluna destino e maior que a origem e linha destino menor que linha origem movimento noroeste
+        if (origem[0] > destino[0]) and (origem[1] > destino [1]):
+            peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - i, linha - i])
+            if peca_em_coordenada is None: # se tem pelo menos uma casa livre a noroeste, conte quantas casas livres a noroeste tem
+                while peca_em_coordenada is None:
+                    i += 1
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - i, linha - i])
+                    # IF NOT PECA DENTRO DO TABULEIRO BREAK
+                print "Dama pode andar ", i, " colunas e ", i, " linhas."
+                if (origem[0] - destino[0] > 0) and (origem[0] - destino[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
+                    print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a noroeste."
+                    return True
+                else: print "Dama deve andar no minimo 1 casa a noroeste e no maximo ", i, " casas a noroeste."
+            else:
+                print "Dama nao tem para onde andar, ", i - 1, " casas vazias a noroeste."
+        # se a coluna destino e maior que a origem e linha destino maior que linha origem movimento sudeste
+        if (destino[0] > origem[0]) and (origem[1] > destino [1]):
+            peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha + i])
+            if peca_em_coordenada is None: # se tem pelo menos uma casa livre a sudeste, conte quantas casas livres a sudeste tem
+                while peca_em_coordenada is None:
+                    i += 1
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha + i])
+                    # IF NOT PECA DENTRO DO TABULEIRO BREAK
+                print "Dama pode andar ", i, " colunas e ", i, " linhas."
+                if (destino[0] - origem[0] > 0) and (destino[0] - origem[0] <= i) and (destino[1] - origem[1] > 0) and (destino[1] - origem[1] <= i):
+                    print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a sudeste."
+                    return True
+                else: print "Dama deve andar no minimo 1 casa a sudeste e no maximo ", i, " casas a sudeste."
+            else:
+                print "Dama nao tem para onde andar, ", i - 1, " casas vazias a sudeste."
+        # se a coluna destino e menor que a origem e a linha destino maior que linha origem movimento sudoeste
+        if (destino[0] < origem[0]) and (origem[1] < origem[0]):
+            peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - i, linha + i])
+            if peca_em_coordenada is None: # se tem pelo menos uma casa livre a sudoeste, conta quantas casas livres a sudoeste tem
+                while peca_em_coordenada is None:
+                    i += 1
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - i, linha + i])
+                    # IF NOT PECA DENTRO DO TABULEIRO BREAK
+                print "Dama pode andar ", i, " colunas e ", i, " linhas."
+                if (origem[0] - destino[0] > 0) and (origem[0] - destino[0] <= i) and (destino[1] - origem[1] > 0) and (destino[1] - origem[1] <= i):
+                    print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a sudoeste."
+                    return True
+                else: print "Dama deve andar no minimo 1 casa a sudoeste e no maximo ", i, " casas a sudoeste"
+            else:
+                print "Dama nao tem para onde andar, ", i-1, " casas vazias a sudoeste."
+
     def valida_movimento_peca_branca(self, tabuleiro, peca, origem, destino):
+        if peca.tipo == 0: #peca e pedra
+            #verifica se e pra cima direita
+            if (origem[0] + 1 == destino[0]) and (origem[1] - 1 == destino[1]):
+                return True
+            # verifica se e pra cima esquerda
+            if (origem[0] - 1 == destino[0]) and (origem[1] - 1 == destino[1]):
+                return True
+            else:
+                print "Peca ", peca.coordenadas," e pedra entao pode se mover apenas uma casa para nordeste (cima direita) ou noroeste (cima esquerda)."
+                return False
+        if peca.tipo == 1: #peca e dama
+            coluna = peca.coordenadas[0]
+            linha = peca.coordenadas[1]
+            i = 1
+            #verificar nordeste se tem uma casa livre entre origem e destino nessa direcao antes de encontrar uma peca branca
+            # se a coluna destino e maior que a origem e linha destino menor que linha origem movimento nordeste
+            if (origem[0] < destino[0]) and (origem[1] > destino[1]):
+                peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha - i])
+                if peca_em_coordenada is None:
+                    while peca_em_coordenada is None:
+                        i += 1
+                        peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha - i])
+                    print "Dama pode andar ",i," colunas e ",i, " linhas."
+                else: print "Dama nao tem para onde andar, ",i-1, " casas vazias a nordeste."
 
-    def valida_movimento_peca_preta(self, tabuleiro, peca, origem, destino):
-
+    def valida_movimento_peca_preta(self, peca, origem, destino):
+        if peca.tipo == 0: #peca e pedra
+            #verifica se e pra baixo direita
+            if (origem[0] + 1 == destino[0]) and (origem[1] + 1 == destino[1]):
+                return True
+            #verifica se e pra baixo esquerda
+            if (origem[0] - 1 == destino[0]) and (origem[1] + 1 == destino[1]):
+                return True
+            else:
+                print "Peca ", peca.coordenadas, " e pedra entao pode se mover apenas uma casa para sudeste (baixo direita) ou sudoeste (baixo esquerda)."
+                return False
 
 
 
