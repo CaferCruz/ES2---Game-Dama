@@ -100,6 +100,7 @@ class Regras(object):
         return None
     """
 
+
     def valida_mover(self,tabuleiro,peca,origem,destino):
         """
         # for na lista das pecas do tabuleiro do inimigo e
