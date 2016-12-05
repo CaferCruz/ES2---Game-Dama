@@ -100,6 +100,15 @@ class Regras(object):
         return None
     """
 
+    def existe_peca_em(self, tabuleiro, coordenada):
+        for peca_branca in tabuleiro.lista_das_brancas:
+            if peca_branca.coordenadas == coordenada:
+                return peca_branca
+        for peca_preta in tabuleiro.lista_das_pretas:
+            if peca_preta.coordenadas == coordenada:
+                return peca_preta
+        return None
+
 
     def valida_mover(self,tabuleiro,peca,origem,destino):
         """
@@ -150,6 +159,19 @@ class Regras(object):
                                                 [peca_branca.coordenadas[0] - 2,peca_branca.coordenadas[1] - 2])
                                             pode_comer.append(peca_branca.coordenadas)
                             tem_peca_atras = False
+
+    def pecas_pretas_podem_comer(self, tabuleiro): #retorna lista de pecas pretas QUE PODEM COMER
+
+        podem_comer = []
+        for peca_preta in tabuleiro.lista_das_pretas:
+            peca_em_coordenada = existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] + 1, peca_preta.coordenadas[1] + 1])
+            if peca_em_coordenada is None and peca_em_coordenada != peca_preta.cor:
+                if existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] + 2, peca_em_coordenada[1] + 2]) is None:
+                    # ESCREVER: adicionar coordenada a lista de jogadas possiveis da peca preta
+                    podem_comer.append(peca_preta)
+
+            if existe_peca_em(tabuleiro, [peca_preta.coordenadas[0] - 1, peca_preta.coordenadas[1] + 1]):
+
 
 
 
