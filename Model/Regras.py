@@ -1,4 +1,5 @@
 from Model.Peca import *
+from Model.Jogo import *
 from tabuleiro import tabuleiro
 
 
@@ -134,3 +135,34 @@ class Regras(object):
                 for cod in tabuleiro.lista_das_brancas:
                     if cod.coordenadas == coord:
                         tabuleiro.removeBranca(cod)
+
+
+    def novoJogo(self):
+        largura = 8
+        altura = 8
+
+        tabuleiro = Tabuleiro(largura, altura)
+        jogador1 = Jogador(tabuleiro.lista_das_brancas)
+        jogador2 = Jogador(tabuleiro.lista_das_pretas)
+
+        return Jogo(jogador1, jogador2, tabuleiro)
+
+    def save_jogo(self, NomeSave):
+        Jogo.salvarJogo(tabuleiro)
+        return None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
