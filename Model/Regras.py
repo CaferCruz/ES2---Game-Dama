@@ -120,9 +120,11 @@ class Regras(object):
             if peca_em_coordenada is not None: # se tem alguma peca
                 if peca.cor == peca_em_coordenada.cor: #se a peca que esta na casa eh da cor da peca que foi passada
                     if peca.cor == 0:
-                        #chama movimento peca branca
-                    else peca.cor == 1:
-                        #chama movimento peca preta
+                        if valida_movimento_peca_branca(tabuleiro, peca, origem, destino):
+                            print "Pode mover peca ", peca.coordenadas #CHAMA A FUNCAO DE MOVER AGORA!!!!
+                    elif peca.cor == 1:
+                        if valida_movimento_peca_preta(tabuleiro, peca, origem, destino):
+                            print "Pode mover peca ", peca.coordenadas #CHAMA A FUNCAO DE MOVER AGORA!!!!
                 else:
                     print "Cor da peca encontrada em origem diferente da cor da peca recebida como parametro."
             else:
@@ -143,6 +145,7 @@ class Regras(object):
                     i += 1
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha - i])
                     #IF NOT PECA DENTRO DO TABULEIRO BREAK
+                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break
                 print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (destino[0] - origem[0] > 0) and (destino[0] - origem[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
                     print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a nordeste."
@@ -158,6 +161,7 @@ class Regras(object):
                     i += 1
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - i, linha - i])
                     # IF NOT PECA DENTRO DO TABULEIRO BREAK
+                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break
                 print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (origem[0] - destino[0] > 0) and (origem[0] - destino[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
                     print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a noroeste."
@@ -173,6 +177,7 @@ class Regras(object):
                     i += 1
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha + i])
                     # IF NOT PECA DENTRO DO TABULEIRO BREAK
+                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break
                 print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (destino[0] - origem[0] > 0) and (destino[0] - origem[0] <= i) and (destino[1] - origem[1] > 0) and (destino[1] - origem[1] <= i):
                     print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a sudeste."
@@ -188,6 +193,7 @@ class Regras(object):
                     i += 1
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - i, linha + i])
                     # IF NOT PECA DENTRO DO TABULEIRO BREAK
+                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break
                 print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (origem[0] - destino[0] > 0) and (origem[0] - destino[0] <= i) and (destino[1] - origem[1] > 0) and (destino[1] - origem[1] <= i):
                     print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a sudoeste."
@@ -208,19 +214,8 @@ class Regras(object):
                 print "Peca ", peca.coordenadas," e pedra entao pode se mover apenas uma casa para nordeste (cima direita) ou noroeste (cima esquerda)."
                 return False
         if peca.tipo == 1: #peca e dama
-            coluna = peca.coordenadas[0]
-            linha = peca.coordenadas[1]
-            i = 1
-            #verificar nordeste se tem uma casa livre entre origem e destino nessa direcao antes de encontrar uma peca branca
-            # se a coluna destino e maior que a origem e linha destino menor que linha origem movimento nordeste
-            if (origem[0] < destino[0]) and (origem[1] > destino[1]):
-                peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha - i])
-                if peca_em_coordenada is None:
-                    while peca_em_coordenada is None:
-                        i += 1
-                        peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha - i])
-                    print "Dama pode andar ",i," colunas e ",i, " linhas."
-                else: print "Dama nao tem para onde andar, ",i-1, " casas vazias a nordeste."
+            if valida_movimento_dama(self, tabuleiro, peca, origem, destino):
+                print "Pode mover dama branca: ", peca.coordenadas #chama move dama de origem pra destino
 
     def valida_movimento_peca_preta(self, peca, origem, destino):
         if peca.tipo == 0: #peca e pedra
@@ -233,8 +228,10 @@ class Regras(object):
             else:
                 print "Peca ", peca.coordenadas, " e pedra entao pode se mover apenas uma casa para sudeste (baixo direita) ou sudoeste (baixo esquerda)."
                 return False
-
-
+        if peca.tipo == 1: #peca e dama
+            if valida_movimento_dama(self, tabuleiro, peca, origem, destino):
+                print "Pode mover dama preta: ", peca.coordenadas #chama move dama de origem pra destino
+                #chama move dama de origem pra destino
 
     def pedras_pretas_podem_comer(self, tabuleiro):
         """
@@ -285,6 +282,10 @@ class Regras(object):
                             peca_branca.jogadas_possiveis.append([coluna + 2, linha - 2])
                             podem_comer.append(peca_branca)
         return podem_comer
+
+    def damas_podem_comer(self, tabuleiro, peca):
+        podem_comer[]
+
 
     def dentro_do_tabuleiro(self, coluna, linha):
         if (coluna < 0) or (coluna > 7) or (linha < 0) or linha(linha > 7):
