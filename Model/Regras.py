@@ -1,5 +1,7 @@
 from Model.Peca import *
 from Model.Jogo import *
+import os
+import json
 from tabuleiro import tabuleiro
 
 
@@ -147,8 +149,16 @@ class Regras(object):
 
         return Jogo(jogador1, jogador2, tabuleiro)
 
-    def save_jogo(self, NomeSave):
-        Jogo.salvarJogo(tabuleiro)
+    def salvarJogo(self, NomeSave):
+        caminho = "../save/" + NomeSave
+        dados_json = {}
+        dados = []
+        dados_json["altura"] = 8
+        dados_json["largura"] = 8
+
+
+        with open(caminho, 'w') as outfile:
+            json.dump(dados_json, outfile)
         return None
 
 

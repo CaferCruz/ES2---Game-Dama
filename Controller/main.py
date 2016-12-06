@@ -8,7 +8,7 @@ from Model.Peca import *
 from Model.Jogo import *
 
 # Configura os tamanhos do tabuleiro
-
+regras = Regras()
 
 # Recebe o input do usuario
 class Main(object):
@@ -42,9 +42,9 @@ class Main(object):
         return jogada
 
 
-    def initJogo(regras):
+    def initJogo():
         while (True):
-            print("Gostaria de abrir um jogo salvo s/n")
+            print("Gostaria de abrir um jogo salvo? s/n")
             resp = raw_input().lower()
 
             if str(resp) == 's':
@@ -61,7 +61,22 @@ class Main(object):
 
             print ("Escolha invalida, tente novamente")
 
+    def salvarJogo():
+        while (True):
+            print("Deseja salvar o jogo? s/n")
+            resp = raw_input().lower()
 
+            if str(resp) == 's':
+                regras.salvarJogo("save.json")
+                print("Jogo salvo com sucesso.")
+                break
+            else:
+                if str(resp) == 'n':
+                    break
+
+            print ("Escolha invalida, tente novamente")
+
+        return None
 
     ### MAIN  ###
     nome = "Lucas"
@@ -69,13 +84,13 @@ class Main(object):
     print("Comandos: Mover -> posInicio posDestino, ex: a1 b2")
     print("Comando: save")
     print("######################")
-    regras = Regras()
-    tabuleiro = initJogo(regras)
+
+    tabuleiro = initJogo()
 
 
     # loop
     while regras.vitoria(tabuleiro) == -1:
-
+        salvarJogo()
         # Usuario comeca jogando
         #jogada_usuario = get_jogada_usuario(tabuleiro)
 
