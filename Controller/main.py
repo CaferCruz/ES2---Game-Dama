@@ -61,13 +61,13 @@ class Main(object):
 
             print ("Escolha invalida, tente novamente")
 
-    def salvarJogo():
+    def salvarJogo(tabuleiro):
         while (True):
             print("Deseja salvar o jogo? s/n")
             resp = raw_input().lower()
 
             if str(resp) == 's':
-                regras.salvarJogo("save.json")
+                regras.salvarJogo(tabuleiro, "save.json")
                 print("Jogo salvo com sucesso.")
                 break
             else:
@@ -87,10 +87,9 @@ class Main(object):
 
     tabuleiro = initJogo()
 
-
     # loop
     while regras.vitoria(tabuleiro) == -1:
-        salvarJogo()
+        salvarJogo(tabuleiro)
         # Usuario comeca jogando
         #jogada_usuario = get_jogada_usuario(tabuleiro)
 

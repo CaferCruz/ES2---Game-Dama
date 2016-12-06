@@ -149,16 +149,31 @@ class Regras(object):
 
         return Jogo(jogador1, jogador2, tabuleiro)
 
-    def salvarJogo(self, NomeSave):
+    def salvarJogo(self, tabuleiro, NomeSave):
         caminho = "../save/" + NomeSave
         dados_json = {}
         dados = []
         dados_json["altura"] = 8
         dados_json["largura"] = 8
+        dados_json["branco_peca"] = []
+        dados_json["branco_dama"] = []
+        dados_json["preto_peca"] = []
+        dados_json["preto_dama"] = []
 
+        for b in tabuleiro.lista_das_brancas:
+            if b.tipo :
+                dados_json["branco_dama"].append(b.coordenadas)
+            else:
+                dados_json["branco_peca"].append(b.coordenadas)
+
+        for b in tabuleiro.lista_das_pretas:
+            if b.tipo :
+                dados_json["preto_dama"].append(b.coordenadas)
+            else:
+                dados_json["preto_peca"].append(b.coordenadas)
 
         with open(caminho, 'w') as outfile:
-            json.dump(dados_json, outfile)
+            json.dump(dados_json, outfile,indent=4)
         return None
 
 
