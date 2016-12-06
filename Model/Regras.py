@@ -256,6 +256,18 @@ class Regras(object):
                         if existe_peca_em(tabuleiro, [coluna - 2, linha + 2]) is None:
                             peca_preta.jogadas_possiveis.append([coluna - 2, linha + 2])
                             podem_comer.append(peca_preta)
+                if (dentro_do_tabuleiro(coluna + 1, linha - 1)) and (dentro_do_tabuleiro(coluna + 2, linha - 2)): # cima direita
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + 1, linha - 1])
+                    if(peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_preta.cor):
+                        if existe_peca_em(tabuleiro, [coluna + 2, linha - 2]) is None:
+                            peca_preta.jogadas_possiveis.append([coluna + 2, linha - 2])
+                            podem_comer.append(peca_preta)
+                if (dentro_do_tabuleiro(coluna - 1, linha - 1)) and (dentro_do_tabuleiro(coluna - 2, linha - 2)): # cima esquerda
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - 1, linha - 1])
+                    if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_preta.cor):
+                        if existe_peca_em(tabuleiro, [coluna - 2, linha -2]) is None:
+                            peca_preta.jogadas_possiveis.append([coluna - 2, linha - 2])
+                            podem_comer.append(peca_preta)
         return podem_comer
 
     def pedras_brancas_podem_comer(self, tabuleiro):
@@ -269,6 +281,18 @@ class Regras(object):
             if peca_branca.tipo == 0:
                 coluna = peca_branca.coordenadas[0]
                 linha = peca_branca.coordenadas[1]
+                if (dentro_do_tabuleiro(coluna + 1, linha + 1)) and (dentro_do_tabuleiro(coluna + 2, linha + 2)):  # baixo direita
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + 1, linha + 1])
+                    if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_branca.cor):
+                        if existe_peca_em(tabuleiro, [coluna + 2, linha + 2]) is None:
+                            peca_branca.jogadas_possiveis.append([coluna + 2, linha + 2])
+                            podem_comer.append(peca_branca)
+                if (dentro_do_tabuleiro(coluna - 1, linha + 1)) and (dentro_do_tabuleiro(coluna - 2, linha + 2)):  # baixo esquerda
+                    peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - 1, linha + 1])
+                    if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_branca.cor):
+                        if existe_peca_em(tabuleiro, [coluna - 2, linha + 2]) is None:
+                            peca_branca.jogadas_possiveis.append([coluna - 2, linha + 2])
+                            podem_comer.append(peca_branca)
                 if (dentro_do_tabuleiro(coluna - 1, linha - 1)) and (dentro_do_tabuleiro(coluna - 2, linha - 2)):  # cima esquerda
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - 1, linha - 1])
                     if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_branca.cor):
@@ -284,7 +308,20 @@ class Regras(object):
         return podem_comer
 
     def damas_podem_comer(self, tabuleiro, peca):
-        podem_comer[]
+        podem_comer = []
+        lista_pecas_adversario = []
+        lista_minhas_pecas = []
+        if peca.cor == 0: # se a dama e branca
+            lista_minhas_pecas = tabuleiro.lista_das_brancas
+            lista_pecas_adversario = tabuleiro.lista_das_pretas
+        elif peca.cor == 1: # se a dama e preta
+            lista_minhas_pecas = tabuleiro.lista_das_pretas
+            lista_pecas_adversario = tabuleiro.lista_das_brancas
+        # conta quantas casas livres tem em cada diagonal
+        # se encontrar uma peca verifica se e peca do adversario
+        # se for do adversario verifica se existe uma casa livre apos essa peca
+        # se existir entao adicione esse movimento a    podem_comer
+        if  # movimento na sudoeste
 
 
     def dentro_do_tabuleiro(self, coluna, linha):
