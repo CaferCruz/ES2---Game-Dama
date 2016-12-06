@@ -6,7 +6,7 @@ class Tabuleiro(object):
     BRANCA = 0
     ND = -1
 
-    def __init__(self, altura, largura, primeiroJogador):
+    def __init__(self, altura, largura):
         """
             Monta o tauleiro, profundidade eh estaticamente atribuida
         """
