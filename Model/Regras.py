@@ -149,10 +149,10 @@ class Regras(object):
 
         return Jogo(jogador1, jogador2, tabuleiro)
 
-    def salvarJogo(self, tabuleiro, NomeSave):
-        caminho = "../save/" + NomeSave
+    def salvarJogo(self, tabuleiro, nomeSave):
+        caminho = "../save/" + nomeSave
         dados_json = {}
-        dados = []
+
         dados_json["altura"] = 8
         dados_json["largura"] = 8
         dados_json["branco_peca"] = []
@@ -172,9 +172,37 @@ class Regras(object):
             else:
                 dados_json["preto_peca"].append(b.coordenadas)
 
-        with open(caminho, 'w') as outfile:
-            json.dump(dados_json, outfile,indent=4)
-        return None
+        with open(caminho, 'w') as infile:
+            json.dump(dados_json, infile)
+        infile.close()
+
+    def carregarJogo(self, nomeSave):
+        caminho = "../save/" + nomeSave
+
+        outfile = open(caminho, 'r')
+        out = outfile.readline()
+        data = json.loads(out)
+
+        tabuleiro = Tabuleiro(data['largura'], data['altura'])
+        tabuleiro.esvaziar_lista()
+        for b in data['branco_peca']:
+            tabuleiro.addPeca(0, b, 0)
+
+        for b in data['branco_dama']:
+            tabuleiro.addPeca(0, b, 1)
+
+        for p in data['preto_peca']:
+            tabuleiro.addPeca(1, p, 0)
+
+        for p in data['preto_dama']:
+            tabuleiro.addPeca(1, p, 1)
+
+        jogador1 = Jogador(tabuleiro.lista_das_brancas)
+        jogador2 = Jogador(tabuleiro.lista_das_pretas)
+
+        return Jogo(jogador1, jogador2, tabuleiro)
+
+
 
 
 

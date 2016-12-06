@@ -48,7 +48,7 @@ class Main(object):
             resp = raw_input().lower()
 
             if str(resp) == 's':
-                j = regras.novoJogo()
+                j = regras.carregarJogo('save.json')
                 j.tabuleiro.printa_tabuleiro()
                 return j.tabuleiro
                 break

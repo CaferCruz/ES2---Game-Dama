@@ -83,3 +83,13 @@ class Tabuleiro(object):
 
     def removeBranca(self, peca):
         self.lista_das_brancas.remove(peca)
+
+    def addPeca(self, cor, coord, tipo):
+        if(cor):
+            self.lista_das_pretas.append(Peca(cor, (coord[0], coord[1]), tipo))
+        else:
+            self.lista_das_brancas.append(Peca(cor, (coord[0], coord[1]), tipo))
+
+    def esvaziar_lista(self):
+        self.lista_das_brancas = []
+        self.lista_das_pretas = []
