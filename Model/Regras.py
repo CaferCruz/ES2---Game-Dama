@@ -32,70 +32,58 @@ class Regras(object):
         return False
 
     def mover(self,tabuleiro, cor):
+        pertence = False
         if(cor == 0): # Peca branca
-            # aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
             print("informe a jogada:")
-            while True:  # Enquanto nao receber input valido
-
-                jogada = []
+            while not pertence:  # Enquanto nao receber input valido
 
                 jogada = raw_input().lower().split()
-
                 if not (len(jogada) == 2):
-                    print("Essa jogada nao e valida, tente novamente.", " aviso1")
+                    print("Jogada nao e valida, tente novamente:")
                     continue
                 origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
                 peca = Peca(0, origem, 0)
                 destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
 
-                pecab = peca
-                pertence = False
                 # A peca movida pertence ao jogador?
                 for pecab in tabuleiro.lista_das_brancas:
                     if pecab.coordenadas == peca.coordenadas:
                         pertence = True
+                        pecab.coordenadas = destino
                         break
 
-                if not (pertence):
-                    print("peca: ", peca, " esta dentro de ", tabuleiro.lista_das_brancas)
-                    print("Voce nao pertence a peca ", origem,
-                          ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
-                    continue
-                break
+                print("peca: ", peca, " esta dentro de ", tabuleiro.lista_das_brancas)
+                print("Voce nao pertence a peca ", origem,
+                      ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
 
             self.comerPreta(tabuleiro, peca, origem, destino)
             jogada = (peca, destino)
             return jogada
         else:
-            # aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
             print("informe a jogada:")
-            while True:  # Enquanto nao receber input valido
-                jogada = []
+            while not pertence:  # Enquanto nao receber input valido
+
                 jogada = raw_input().lower().split()
                 if not (len(jogada) == 2):
-                    print("Essa jogada nao e valida, tente novamente.", " aviso1")
+                    print("Jogada nao e valida, tente novamente:")
                     continue
                 origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
                 peca = Peca(1, origem, 0)
                 destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
 
-                pecab = peca
-                pertence = False
                 # A peca movida pertence ao jogador?
                 for pecab in tabuleiro.lista_das_pretas:
                     if pecab.coordenadas == peca.coordenadas:
                         pertence = True
+                        pecab.coordenadas = destino
                         break
 
-                if not (pertence):
-                    print("peca: ", peca, " esta dentro de ", tabuleiro.lista_das_pretas)
-                    print("Voce nao pertence a peca ", origem,
-                          ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
-                    continue
-                break
+                print("peca: ", peca, " esta dentro de ", tabuleiro.lista_das_brancas)
+                print("Voce nao pertence a peca ", origem,
+                      ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
+
             self.comerBranca(tabuleiro, peca, origem, destino)
             jogada = (peca, destino)
-
             return jogada
         return None
 
@@ -109,7 +97,6 @@ class Regras(object):
                     if cod.coordenadas == coord:
                         tabuleiro.removePreta(cod)
         else:
-            print(origem[0], origem[1])
             for l in range(origem[0] - 1, destino[0] -1, -1):
                 print(origem[0] - 1, destino[0] -1)
                 y = y - 1

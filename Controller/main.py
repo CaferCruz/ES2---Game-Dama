@@ -91,31 +91,14 @@ class Main(object):
     while regras.vitoria(tabuleiro) == -1:
         salvarJogo(tabuleiro)
         # Usuario comeca jogando
-        #jogada_usuario = get_jogada_usuario(tabuleiro)
-
         jogada_usuario = regras.mover(tabuleiro, 0)
 
-        try:
-            "a"
-           # jogador1.moverPecas(tabuleiro, jogada_usuario[0], jogada_usuario[1])
-        except Exception:
-            print ("Jogada invalida")
-            continue
-
         tabuleiro.printa_tabuleiro()
-        # Vez da maquina
-        print ("Vez do computador: computador pensando...")
-        #temp = minMax2(tabuleiro)
-        #tabuleiro = temp[0]
-        #jogada_usuario2 = get_jogada_usuario(tabuleiro)
-        jogada_usuario2 = regras.mover(tabuleiro, 1)
 
-        try:
-            "a"
-            #jogador2.moverPecas(tabuleiro, jogada_usuario2[0], jogada_usuario2[1])
-        except Exception:
-            print("Jogada invalida")
-            continue
+        # Segundo jogador / IA
+        print ("Seu adversario ira jogar!")
+        jogada_usuario = regras.mover(tabuleiro, 1)
+
         print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
         tabuleiro.printa_tabuleiro()
         if regras.vitoria(tabuleiro) == 0:
