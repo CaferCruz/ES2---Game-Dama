@@ -6,7 +6,7 @@ class Tabuleiro(object):
     BRANCA = 0
     ND = -1
 
-    def __init__(self, altura, largura, primeiroJogador):
+    def __init__(self, altura, largura):
         """
             Monta o tauleiro, profundidade eh estaticamente atribuida
         """
@@ -76,6 +76,7 @@ class Tabuleiro(object):
         for peca in self.lista_das_pretas:
             self.estado_tabuleiro[peca.coordenadas[1]][peca.coordenadas[0]] = u'◆'
         for peca in self.lista_das_brancas:
+            print(peca.coordenadas)
             self.estado_tabuleiro[peca.coordenadas[1]][peca.coordenadas[0]] = u'◇'
 
     def removePreta(self, peca):
@@ -83,3 +84,13 @@ class Tabuleiro(object):
 
     def removeBranca(self, peca):
         self.lista_das_brancas.remove(peca)
+
+    def addPeca(self, cor, coord, tipo):
+        if(cor):
+            self.lista_das_pretas.append(Peca(cor, (coord[0], coord[1]), tipo))
+        else:
+            self.lista_das_brancas.append(Peca(cor, (coord[0], coord[1]), tipo))
+
+    def esvaziar_lista(self):
+        self.lista_das_brancas = []
+        self.lista_das_pretas = []
