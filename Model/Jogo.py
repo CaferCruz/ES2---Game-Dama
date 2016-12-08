@@ -1,4 +1,4 @@
-from Model.Tabuleiro import *
+from Tabuleiro import *
 class Jogo(object):
 
     def __init__(self, jogador1, jogador2, tabuleiro):

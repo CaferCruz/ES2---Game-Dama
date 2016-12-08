@@ -1,6 +1,6 @@
 # coding: utf-8
 # Tabuleiro do jogo. Precisa de uma altura e uma largura para ser instanciado
-from Model.Peca import *
+from Peca import *
 class Tabuleiro(object):
     PRETA = 1
     BRANCA = 0

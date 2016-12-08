@@ -1,5 +1,5 @@
-from Model.Peca import *
-from tabuleiro import tabuleiro
+from Peca import *
+from Tabuleiro import *
 
 
 class Regras(object):
@@ -27,8 +27,8 @@ class Regras(object):
             return True
         return False
 
-    # TODO: corrigir validação, peças se movimentam em qualquer direção
-    """
+    # TODO: corrigir validacao, pecas se movimentam em qualquer direcao
+
     def mover(self,tabuleiro, cor):  #valida movimento
         if(cor == 0): # Peca branca
             # aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
@@ -45,6 +45,8 @@ class Regras(object):
                 origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
                 peca = Peca(0, origem, 0)
                 destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
+
+
 
                 pecab = peca
                 pertence = False
@@ -96,7 +98,8 @@ class Regras(object):
 
             return jogada
         return None
-    """
+
+
 
     def existe_peca_em(self, tabuleiro, coordenada):
         """
@@ -116,6 +119,8 @@ class Regras(object):
         Verificar antes se jogador eh obrigado a comer
         """
         peca_em_coordenada = existe_peca_em(tabuleiro, peca.coordenadas)
+        if peca.tipo == 1:
+            valida_movimento_dama(tabuleiro, peca, origem, destino)
         if dentro_do_tabuleiro(origem[0], origem[1]) and dentro_do_tabuleiro(destino[0], destino[1]): #se origem e destino esta dentro do tabuleiro
             if peca_em_coordenada is not None: # se tem alguma peca
                 if peca.cor == peca_em_coordenada.cor: #se a peca que esta na casa eh da cor da peca que foi passada
@@ -144,8 +149,7 @@ class Regras(object):
                 while peca_em_coordenada is None:
                     i += 1
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha - i])
-                    #IF NOT PECA DENTRO DO TABULEIRO BREAK
-                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break
+                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break #IF NOT PECA DENTRO DO TABULEIRO BREAK
                 print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (destino[0] - origem[0] > 0) and (destino[0] - origem[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
                     print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a nordeste."
@@ -160,8 +164,7 @@ class Regras(object):
                 while peca_em_coordenada is None:
                     i += 1
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - i, linha - i])
-                    # IF NOT PECA DENTRO DO TABULEIRO BREAK
-                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break
+                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break # IF NOT PECA DENTRO DO TABULEIRO BREAK
                 print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (origem[0] - destino[0] > 0) and (origem[0] - destino[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
                     print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a noroeste."
@@ -176,8 +179,7 @@ class Regras(object):
                 while peca_em_coordenada is None:
                     i += 1
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna + i, linha + i])
-                    # IF NOT PECA DENTRO DO TABULEIRO BREAK
-                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break
+                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break # IF NOT PECA DENTRO DO TABULEIRO BREAK
                 print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (destino[0] - origem[0] > 0) and (destino[0] - origem[0] <= i) and (destino[1] - origem[1] > 0) and (destino[1] - origem[1] <= i):
                     print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a sudeste."
@@ -192,8 +194,7 @@ class Regras(object):
                 while peca_em_coordenada is None:
                     i += 1
                     peca_em_coordenada = existe_peca_em(tabuleiro, [coluna - i, linha + i])
-                    # IF NOT PECA DENTRO DO TABULEIRO BREAK
-                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break
+                    if not dentro_do_tabuleiro(peca_em_coordenada[0], peca_em_coordenada[1]): break # IF NOT PECA DENTRO DO TABULEIRO BREAK
                 print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (origem[0] - destino[0] > 0) and (origem[0] - destino[0] <= i) and (destino[1] - origem[1] > 0) and (destino[1] - origem[1] <= i):
                     print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a sudoeste."
@@ -233,7 +234,7 @@ class Regras(object):
                 print "Pode mover dama preta: ", peca.coordenadas #chama move dama de origem pra destino
                 #chama move dama de origem pra destino
 
-    def pedras_pretas_podem_comer(self, tabuleiro):
+    def pedras_pretas_podem_comer(self, tabuleiro): #essa funcao e facilmente modularizavel ja que agora e possivel comer pra frente e pra tras
         """
         Retorna lista de pedras pretas que podem comer e
         atribui as movimentacoes as jogadas possiveis da peca
@@ -270,7 +271,7 @@ class Regras(object):
                             podem_comer.append(peca_preta)
         return podem_comer
 
-    def pedras_brancas_podem_comer(self, tabuleiro):
+    def pedras_brancas_podem_comer(self, tabuleiro): #essa funcao e facilmente modularizavel ja que agora e possivel comer pra frente e pra tras
         """
         Retorna lista de pedras brancas que podem comer e
         atribui as movimentacoes as jogadas possiveis da peca
@@ -307,21 +308,41 @@ class Regras(object):
                             podem_comer.append(peca_branca)
         return podem_comer
 
-    def damas_podem_comer(self, tabuleiro, peca):
+    def damas_podem_comer(self, tabuleiro, peca): # passar a peca serve apenas para representar de quem e a vez atual
         podem_comer = []
         lista_pecas_adversario = []
         lista_minhas_pecas = []
+        coordenada_dama = []
         if peca.cor == 0: # se a dama e branca
             lista_minhas_pecas = tabuleiro.lista_das_brancas
             lista_pecas_adversario = tabuleiro.lista_das_pretas
         elif peca.cor == 1: # se a dama e preta
             lista_minhas_pecas = tabuleiro.lista_das_pretas
             lista_pecas_adversario = tabuleiro.lista_das_brancas
-        # conta quantas casas livres tem em cada diagonal
-        # se encontrar uma peca verifica se e peca do adversario
-        # se for do adversario verifica se existe uma casa livre apos essa peca
-        # se existir entao adicione esse movimento a    podem_comer
-        if  # movimento na sudoeste
+        for minha_peca in lista_minhas_pecas:
+            if minha_peca.tipo == 1:
+                coordenada_dama.append(minha_peca.coordenadas)
+        if len(coordenada_dama) == 0:
+            return False # se nao tem dama, dama nao pode comer, duh.
+        for dama in coordenada_dama:
+            # conta quantas casas livres tem em cada diagonal
+            i = 1
+            coluna = peca.coordenadas[0]
+            linha = peca.coordenadas[1]
+
+            while existe_peca_em(tabuleiro, [coluna + i, linha - i]) is None: #nordeste
+                if dentro_do_tabuleiro(coluna + i, linha - i):
+                    i += 1
+
+                else:
+                    print "Saiu do tabuleiro"
+                    encontrou_adversario = False
+                    break
+            print i," casas livres a nordeste."
+            # se encontrar uma peca verifica se e peca do adversario
+            # se for do adversario verifica se existe uma casa livre apos essa peca
+            # se existir entao adicione esse movimento a    podem_comer
+            # movimento na sudoeste
 
 
     def dentro_do_tabuleiro(self, coluna, linha):

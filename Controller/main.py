@@ -1,10 +1,10 @@
 # Main conduz o jogo
-from Model.Minmax import *
-from Model.Tabuleiro import *
-from Model.Jogo import *
-from Model.Jogador import *
-from Model.Regras import *
-from Model.Peca import *
+from Minmax import *
+from Tabuleiro import *
+from Jogo import *
+from Jogador import *
+from Regras import *
+from Peca import *
 
 # Configura os tamanhos do tabuleiro
 largura = 8
@@ -62,8 +62,10 @@ while regras.vitoria(tabuleiro) == -1:
 
     try:
         jogador1.moverPecas(tabuleiro, jogada_usuario[0], jogada_usuario[1])
+
+
     except Exception:
-        print ("Jogada invalida")
+        print ("Jogada invalida..")
         continue
 
     tabuleiro.printa_tabuleiro()
@@ -75,9 +77,10 @@ while regras.vitoria(tabuleiro) == -1:
     jogada_usuario2 = regras.mover(tabuleiro, 1)
 
     try:
+        #print regras.pedras_pretas_podem_comer(tabuleiro)
         jogador2.moverPecas(tabuleiro, jogada_usuario2[0], jogada_usuario2[1])
     except Exception:
-        print("Jogada invalida")
+        print("Jogada invalida...")
         continue
     print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
     tabuleiro.printa_tabuleiro()
