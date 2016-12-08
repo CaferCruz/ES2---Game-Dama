@@ -6,3 +6,5 @@ class Peca(object):
         self.tipo = tipo # 0 eh pedra e 1 eh dama
         self.jogadas_possiveis = []
 
+    def printa_peca(self):
+        print "cor: ",self.cor," , \ncoordenadas: ", self.coordenadas," , \ntipo: ", self.tipo," ,\njogadas possiveis", self.jogadas_possiveis

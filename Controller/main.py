@@ -1,11 +1,11 @@
 # Main conduz o jogo
-from Model.Minmax import *
-from Model.Tabuleiro import *
+from Minmax import *
+from Tabuleiro import *
 
-from Model.Jogador import *
-from Model.Regras import *
-from Model.Peca import *
-from Model.Jogo import *
+from Jogador import *
+from Regras import *
+from Peca import *
+from Jogo import *
 
 # Configura os tamanhos do tabuleiro
 regras = Regras()
@@ -89,11 +89,12 @@ class Main(object):
 
     # loop
     while regras.vitoria(tabuleiro) == -1:
-        salvarJogo(tabuleiro)
+        #salvarJogo(tabuleiro)
         # Usuario comeca jogando
         jogada_usuario = regras.mover(tabuleiro, 0)
 
         tabuleiro.printa_tabuleiro()
+
 
         # Segundo jogador / IA
         print ("Seu adversario ira jogar!")

@@ -24,7 +24,7 @@ class Regras(object):
     # Verifica se a peca que esta sendo movida deve virar dama ou nao.
     def dentro_do_tabuleiro(self, coluna, linha):
         if (coluna < 0) or (coluna > 7) or (linha < 0) or (linha > 7):
-            print "coordenada: (coluna: ", coluna, ", linha: ", linha, ") nao esta dentro do tabuleiro."
+            #print "coordenada: (coluna: ", coluna, ", linha: ", linha, ") nao esta dentro do tabuleiro."
             return False
         return True
 
@@ -34,10 +34,15 @@ class Regras(object):
         Senao retorna None
         """
         for peca_branca in tabuleiro.lista_das_brancas:
-            if peca_branca.coordenadas == coordenada:
+            # print "*******************************"
+            # print "pb_c: ",peca_branca.coordenadas
+            # print "coordenada :",coordenada
+            # peca_branca.printa_peca()
+            # print "_______________________________"
+            if peca_branca.coordenadas[0] == coordenada[0] and peca_branca.coordenadas[1] == coordenada[1]:
                 return peca_branca
         for peca_preta in tabuleiro.lista_das_pretas:
-            if peca_preta.coordenadas == coordenada:
+            if peca_preta.coordenadas[0] == coordenada[0] and peca_preta.coordenadas[1] == coordenada[1]:
                 return peca_preta
         return None
 
@@ -78,9 +83,10 @@ class Regras(object):
                         if self.exise_peca_em(tabuleiro, [p_coluna - 2, p_linha -2]) is None:
                             peca_preta.jogadas_possiveis.append([p_coluna - 2, p_linha - 2])
                             podem_comer.append(peca_preta)
+        if len(podem_comer) > 0: print "pedras pretas podem comer"
         return podem_comer
 
-    def virarDama(peca, altura):
+    def virarDama(self, peca, altura):
         if peca.tipo == 1:
             return False
         if peca.coordenadas[1] == 0 and peca.cor == 0:
@@ -91,7 +97,7 @@ class Regras(object):
 
     def mover(self,tabuleiro, cor):
         pertence = False
-        if(cor == 0): # Peca branca
+        if cor == 0: # Peca branca
             print("informe a jogada:")
             while not pertence:  # Enquanto nao receber input valido
 
@@ -110,7 +116,6 @@ class Regras(object):
                         pecab.coordenadas = destino
                         break
 
-                print("peca: ", peca, " esta dentro de ", tabuleiro.lista_das_brancas)
                 print("Voce nao pertence a peca ", origem,
                       ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
 
@@ -120,6 +125,7 @@ class Regras(object):
                 print "pode mover sem comer"
             else:
                 print "tem que mover comendo senao nao pode mover"
+                print self.pedras_brancas_podem_comer(tabuleiro)[0].coordenadas
 
             return jogada
         else:
@@ -141,12 +147,20 @@ class Regras(object):
                         pecab.coordenadas = destino
                         break
 
+
                 print("peca: ", peca, " esta dentro de ", tabuleiro.lista_das_brancas)
                 print("Voce nao pertence a peca ", origem,
                       ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
 
             self.comerBranca(tabuleiro, peca, origem, destino)
             jogada = (peca, destino)
+            print "Printando tabuleiro: ",tabuleiro
+            if self.pedras_pretas_podem_comer(tabuleiro) == [] :
+                print "pode mover sem comer"
+            else:
+                print "tem que mover comendo senao nao pode mover"
+                print self.pedras_pretas_podem_comer(tabuleiro)
+
             return jogada
         return None
 
@@ -161,10 +175,10 @@ class Regras(object):
             if peca_em_coordenada is not None: # se tem alguma peca
                 if peca.cor == peca_em_coordenada.cor: #se a peca que esta na casa eh da cor da peca que foi passada
                     if peca.cor == 0:
-                        if valida_movimento_peca_branca(tabuleiro, peca, origem, destino):
+                        if self.valida_movimento_peca_branca(tabuleiro, peca, origem, destino):
                             print "Pode mover peca ", peca.coordenadas #CHAMA A FUNCAO DE MOVER AGORA!!!!
                     elif peca.cor == 1:
-                        if valida_movimento_peca_preta(tabuleiro, peca, origem, destino):
+                        if self.valida_movimento_peca_preta(tabuleiro, peca, origem, destino):
                             print "Pode mover peca ", peca.coordenadas #CHAMA A FUNCAO DE MOVER AGORA!!!!
                 else:
                     print "Cor da peca encontrada em origem diferente da cor da peca recebida como parametro."
@@ -254,7 +268,7 @@ class Regras(object):
             if self.valida_movimento_dama(self, tabuleiro, peca, origem, destino):
                 print "Pode mover dama branca: ", peca.coordenadas #chama move dama de origem pra destino
 
-    def valida_movimento_peca_preta(self, peca, origem, destino):
+    def valida_movimento_peca_preta(self, tabuleiro, peca, origem, destino):
         if peca.tipo == 0: #peca e pedra
             #verifica se e pra baixo direita
             if (origem[0] + 1 == destino[0]) and (origem[1] + 1 == destino[1]):
@@ -281,10 +295,15 @@ class Regras(object):
             if peca_branca.tipo == 0:
                 p_coluna = peca_branca.coordenadas[0]
                 p_linha = peca_branca.coordenadas[1]
+                print "analisando peca: ",peca_branca.coordenadas
+                # print "coordenadas a 1 lado",p_coluna+1," , ",p_linha+1, " e a 2 lado ", p_coluna + 2," , ",p_linha + 2," dentro do tabueiro?"
+                # print "existe peca em 1 lado: ",self.exise_peca_em(tabuleiro, [p_coluna + 1, p_linha - 1])
+                # print "existe peca em 2 lado: ",self.exise_peca_em(tabuleiro, [p_coluna + 2, p_linha - 2])
                 if (self.dentro_do_tabuleiro(p_coluna + 1, p_linha + 1)) and (self.dentro_do_tabuleiro(p_coluna + 2, p_linha + 2)):  # baixo direita
                     peca_em_coordenada = self.exise_peca_em(tabuleiro, [p_coluna + 1, p_linha + 1])
                     if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_branca.cor):
                         if self.exise_peca_em(tabuleiro, [p_coluna + 2, p_linha + 2]) is None:
+                            print "Pode comer em ", p_coluna + 2, ", ",p_linha + 2
                             peca_branca.jogadas_possiveis.append([p_coluna + 2, p_linha + 2])
                             podem_comer.append(peca_branca)
                 if (self.dentro_do_tabuleiro(p_coluna - 1, p_linha + 1)) and (self.dentro_do_tabuleiro(p_coluna - 2, p_linha + 2)):  # baixo esquerda
@@ -293,18 +312,25 @@ class Regras(object):
                         if self.exise_peca_em(tabuleiro, [p_coluna - 2, p_linha + 2]) is None:
                             peca_branca.jogadas_possiveis.append([p_coluna - 2, p_linha + 2])
                             podem_comer.append(peca_branca)
+                            print "Pode comer em ", p_coluna - 2, ", ",p_linha + 2
                 if (self.dentro_do_tabuleiro(p_coluna - 1, p_linha - 1)) and (self.dentro_do_tabuleiro(p_coluna - 2, p_linha - 2)):  # cima esquerda
                     peca_em_coordenada = self.exise_peca_em(tabuleiro, [p_coluna - 1, p_linha - 1])
                     if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_branca.cor):
                         if self.exise_peca_em(tabuleiro, [p_coluna - 2, p_linha - 2]) is None:
+                            print "Pode comer em ", p_coluna - 2, "," ,p_linha - 2
                             peca_branca.jogadas_possiveis.append([p_coluna - 2, p_linha - 2])
                             podem_comer.append(peca_branca)
                 if (self.dentro_do_tabuleiro(p_coluna + 1, p_linha - 1)) and (self.dentro_do_tabuleiro(p_coluna + 2, p_linha - 2)):  # cima direita
+                    print "entrou1"
                     peca_em_coordenada = self.exise_peca_em(tabuleiro, [p_coluna + 1, p_linha - 1])
                     if (peca_em_coordenada is not None) and (peca_em_coordenada.cor != peca_branca.cor):
+                        print"peca_em_coordenada ",peca_em_coordenada.coordenadas," eh ", peca_em_coordenada.cor," = peca_branca em ",peca_branca.coordenadas," eh ", peca_branca.cor
                         if self.exise_peca_em(tabuleiro, [p_coluna + 2, p_linha - 2]) is None:
+                            print"entrou3"
+                            print "Pode comer em ",p_coluna+2, ", ",p_linha-2
                             peca_branca.jogadas_possiveis.append([p_coluna + 2, p_linha - 2])
                             podem_comer.append(peca_branca)
+        if len(podem_comer) > 0: print "pedras brancas podem comer"
         return podem_comer
 
 
@@ -448,22 +474,3 @@ class Regras(object):
         jogador2 = Jogador(tabuleiro.lista_das_pretas)
 
         return Jogo(jogador1, jogador2, tabuleiro)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -18,18 +18,35 @@ class Tabuleiro(object):
         self.lista_das_pretas = []
         self.lista_das_brancas = []
 
-        for l in range(0,3):
-            for c in range(0,8):
-                if(l % 2):
-                    if(c % 2):
-                        self.lista_das_pretas.append(Peca(1, (c, l), 0))
-                    else:
-                        self.lista_das_brancas.append(Peca(0, (c, 7 - l), 0))
-                else:
-                    if (c % 2):
-                        self.lista_das_brancas.append(Peca(1, (c, 7 - l), 0))
-                    else:
-                        self.lista_das_pretas.append(Peca(0, (c, l), 0))
+        self.lista_das_brancas.append(Peca(0, (1, 5), 0))
+        self.lista_das_brancas.append(Peca(0, (3, 5), 0))
+        self.lista_das_brancas.append(Peca(0, (5, 5), 0))
+        self.lista_das_brancas.append(Peca(0, (7, 5), 0))
+
+        self.lista_das_brancas.append(Peca(0, (0, 6), 0))
+        self.lista_das_brancas.append(Peca(0, (2, 6), 0))
+        self.lista_das_brancas.append(Peca(0, (4, 6), 0))
+        self.lista_das_brancas.append(Peca(0, (6, 6), 0))
+
+        self.lista_das_brancas.append(Peca(0, (1, 7), 0))
+        self.lista_das_brancas.append(Peca(0, (3, 7), 0))
+        self.lista_das_brancas.append(Peca(0, (5, 7), 0))
+        self.lista_das_brancas.append(Peca(0, (7, 7), 0))
+
+        self.lista_das_pretas.append(Peca(1, (0, 2), 0))
+        self.lista_das_pretas.append(Peca(1, (2, 2), 0))
+        self.lista_das_pretas.append(Peca(1, (4, 2), 0))
+        self.lista_das_pretas.append(Peca(1, (6, 2), 0))
+
+        self.lista_das_pretas.append(Peca(1, (1, 1), 0))
+        self.lista_das_pretas.append(Peca(1, (3, 1), 0))
+        self.lista_das_pretas.append(Peca(1, (5, 1), 0))
+        self.lista_das_pretas.append(Peca(1, (7, 1), 0))
+
+        self.lista_das_pretas.append(Peca(1, (0, 0), 0))
+        self.lista_das_pretas.append(Peca(1, (2, 0), 0))
+        self.lista_das_pretas.append(Peca(1, (4, 0), 0))
+        self.lista_das_pretas.append(Peca(1, (6, 0), 0))
 
         # estado_tabuleiro guarda o estado atual do tabuleiro para printar e para avaliar
         self.estado_tabuleiro = [[' '] * self.largura for x in range(self.altura)]
