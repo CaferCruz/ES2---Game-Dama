@@ -1,7 +1,8 @@
 # coding: utf-8
 
 # Tabuleiro do jogo. Precisa de uma altura e uma largura para ser instanciado
-
+# MODIFIED
+# Created by Carson Wilcox for Professor Szpakowicz's AI class CSI 4106
 class tabuleiro(object):
     PRETA = 1
     BRANCA = 0
