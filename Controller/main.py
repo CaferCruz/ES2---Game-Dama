@@ -87,6 +87,20 @@ class Main(object):
 
     tabuleiro = initJogo()
 
+    # Inicializando tabuleiro para testes de pode comer
+    p = Peca(1, (5, 5), 0)
+    p1 = Peca(1, (3, 5), 0)
+    p2 = Peca(1, (3, 3), 0)
+    p3 = Peca(1, (5, 3), 0)
+    p4 = Peca(1, (0, 0), 0)
+    list =[p,p1,p2,p3, p4]
+    tabuleiro.lista_das_pretas = list
+    b = Peca(0,(4,4),0)
+    b1 = Peca (0,(1,1),0)
+    list = [b,b1]
+    tabuleiro.lista_das_brancas = list
+    tabuleiro.printa_tabuleiro()
+
     # loop
     while regras.vitoria(tabuleiro) == -1:
         #salvarJogo(tabuleiro)
@@ -94,7 +108,6 @@ class Main(object):
         jogada_usuario = regras.mover(tabuleiro, 0)
 
         tabuleiro.printa_tabuleiro()
-
 
         # Segundo jogador / IA
         print ("Seu adversario ira jogar!")
