@@ -350,7 +350,7 @@ class Regras(object):
             d_coluna = peca.coordenadas[0]
             d_linha = peca.coordenadas[1]
 
-            while self.self.exise_peca_em(tabuleiro, [d_coluna + i, d_linha - i]) is None: #nordeste
+            while self.exise_peca_em(tabuleiro, [d_coluna + i, d_linha - i]) is None: #nordeste
                 if self.dentro_do_tabuleiro(d_coluna + i, d_linha - i):
                     i += 1
 
