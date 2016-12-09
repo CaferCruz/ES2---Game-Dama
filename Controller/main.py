@@ -1,11 +1,11 @@
 # Main conduz o jogo
-from Minmax import *
-from Tabuleiro import *
+from Model.Minmax import *
+from Model.Tabuleiro import *
 
-from Jogador import *
-from Regras import *
-from Peca import *
-from Jogo import *
+from Model.Jogador import *
+from Model.Regras import *
+from Model.Peca import *
+from Model.Jogo import *
 
 # Configura os tamanhos do tabuleiro
 regras = Regras()
