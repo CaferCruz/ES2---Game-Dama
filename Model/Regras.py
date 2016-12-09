@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from Peca import *
 from Jogo import *
 import os
@@ -95,30 +98,36 @@ class Regras(object):
             return True
         return False
 
-    def mover(self,tabuleiro, cor):
-        pertence = False
-        if cor == 0: # Peca branca
-            print("informe a jogada:")
-            while not pertence:  # Enquanto nao receber input valido
+    """
+        Verifica se peça pertence ao jogador da vez.
+    """
+    def pecas_validas(self, tabuleiro, jogada, corPeca):
+        origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
 
-                jogada = raw_input().lower().split()
-                if not (len(jogada) == 2):
-                    print("Jogada nao e valida, tente novamente:")
-                    continue
-                origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
-                peca = Peca(0, origem, 0)
-                destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
+        existe = tabuleiro.get_coodenada(origem)
+        if existe is not None:
+            return True
+        return False
 
-                # A peca movida pertence ao jogador?
-                for pecab in tabuleiro.lista_das_brancas:
-                    if pecab.coordenadas == peca.coordenadas:
-                        pertence = True
-                        pecab.coordenadas = destino
-                        break
+    def atualiza_coordenada(self, peca, destino,tabuleiro):
+        p = tabuleiro.get_coodenada(peca.coordenadas)
+        if p is not None and p.cor == peca.cor:
+            p.coordenadas = destino
+            return True
+        return False
 
-                print("Voce nao pertence a peca ", origem,
-                      ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
 
+    """
+        Movimenta peça, se a peça for da lista de depças do jogador
+    """
+    def mover(self, tabuleiro, cor, jogada, tipoPeca):
+        origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
+        peca = Peca(cor, origem, tipoPeca)
+        destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
+        self.atualiza_coordenada(peca, destino, tabuleiro)
+
+        #Essa parte ainda será refatorada
+        if cor == 0:
             self.comerPreta(tabuleiro, peca, origem, destino)
             jogada = (peca, destino)
             lista_de_jogadas_comendo = self.pedras_brancas_podem_comer(tabuleiro)
@@ -137,29 +146,6 @@ class Regras(object):
                         print "essa peca nao pode comer, selecione uma peca que possa"
             return jogada
         else:
-            print("informe a jogada:")
-            while not pertence:  # Enquanto nao receber input valido
-
-                jogada = raw_input().lower().split()
-                if not (len(jogada) == 2):
-                    print("Jogada nao e valida, tente novamente:")
-                    continue
-                origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
-                peca = Peca(1, origem, 0)
-                destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
-
-                # A peca movida pertence ao jogador?
-                for pecab in tabuleiro.lista_das_pretas:
-                    if pecab.coordenadas == peca.coordenadas:
-                        pertence = True
-                        pecab.coordenadas = destino
-                        break
-
-
-                print("peca: ", peca.printa_peca(), " esta dentro das pecas brancas ")
-                print("Voce nao pertence a peca ", origem[0], " , ", origem[1],
-                      ". Por favor, selecione uma das suas pecas.")  # , t.lista_das_brancas
-
             self.comerBranca(tabuleiro, peca, origem, destino)
             jogada = (peca, destino)
 
@@ -171,10 +157,10 @@ class Regras(object):
             return jogada
         return None
 
-    def valida_mover(self, tabuleiro, peca, origem, destino):  # Verificar antes se jogador eh obrigado a comer, se ela for comer nem chame essa funcao
-        """
+    """
         Verificar antes se jogador eh obrigado a comer
-        """
+    """
+    def valida_mover(self, tabuleiro, peca, origem, destino):
         peca_em_coordenada = self.exise_peca_em(tabuleiro, peca.coordenadas)
         if peca.tipo == 1:
             self.valida_movimento_dama(tabuleiro, peca, origem, destino)
@@ -291,12 +277,12 @@ class Regras(object):
                 print "Pode mover dama preta: ", peca.coordenadas #chama move dama de origem pra destino
                 #chama move dama de origem pra destino
 
-    def pedras_brancas_podem_comer(self, tabuleiro): #essa funcao e facilmente modularizavel ja que agora e possivel comer pra frente e pra tras
-        """
+    """
         Retorna lista de pedras brancas que podem comer e
         atribui as movimentacoes as jogadas possiveis da peca
         se a lista for vazia nao existe movimento para comer
-        """
+    """
+    def pedras_brancas_podem_comer(self, tabuleiro): #essa funcao e facilmente modularizavel ja que agora e possivel comer pra frente e pra tras
         podem_comer = []
         for peca_branca in tabuleiro.lista_das_brancas:
             if peca_branca.tipo == 0:

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Main conduz o jogo
 from Model.Minmax import *
 from Model.Tabuleiro import *
@@ -11,36 +14,10 @@ from Model.Jogo import *
 regras = Regras()
 
 # Recebe o input do usuario
+
+
+
 class Main(object):
-    def get_jogada_usuario(t):
-
-        #aviso1 = "Escolha uma peca sua para mover... " + chr(t.lista_das_brancas[0][0] + 97) + str(t.lista_das_brancas[0][1])
-        print("aviso 1")
-        while True: # Enquanto nao receber input valido
-            jogada = []
-            jogada = input().lower().split()
-            if not(len(jogada) == 2):
-                print ("Essa jogada nao e valida, tente novamente.", " aviso1")
-                continue
-            origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
-            peca = Peca(0,origem, 0)
-            destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
-
-            # A peca movida pertence ao jogador?
-            pertence = False
-            for pecab in t.lista_das_brancas:
-                if pecab.coordenadas == peca.coordenadas:
-                    pertence = True
-                    break
-
-            if not (pertence):
-                print ("peca: ", peca," esta dentro de ", t.lista_das_brancas)
-                print ("Voce nao pertence a peca ", origem, ". Por favor, selecione uma das suas pecas.")#, t.lista_das_brancas
-                continue
-            break
-        jogada = (peca, destino)
-        return jogada
-
 
     def initJogo():
         while (True):
@@ -78,6 +55,20 @@ class Main(object):
 
         return None
 
+    """
+        Verifica se joga está no formato correto e se a peça é do jogador.
+    """
+    def mover(tabuleiro, corPeca):
+        print("informe a jogada:")
+        while True:  # Enquanto receber input invalido
+            jogada = raw_input().lower().split()
+            if len(jogada) == 2:
+                pecaValida = regras.pecas_validas(tabuleiro, jogada, corPeca)
+                if pecaValida:
+                    return regras.mover(tabuleiro, corPeca, jogada, 0)
+                print("Essa peça não pertence ao jogador.")
+            print("Jogada não e válida, tente novamente:")
+
     ### MAIN  ###
     nome = "Lucas"
     print("######\tDamEX\t######")
@@ -88,7 +79,7 @@ class Main(object):
     tabuleiro = initJogo()
 
     # Inicializando tabuleiro para testes de pode comer
-    p = Peca(1, (5, 5), 0)
+    """p = Peca(1, (5, 5), 0)
     p1 = Peca(1, (3, 5), 0)
     p2 = Peca(1, (3, 3), 0)
     p3 = Peca(1, (5, 3), 0)
@@ -99,22 +90,24 @@ class Main(object):
     b1 = Peca (0,(1,1),0)
     list = [b,b1]
     tabuleiro.lista_das_brancas = list
-    tabuleiro.printa_tabuleiro()
+    tabuleiro.printa_tabuleiro()"""
 
     # loop
     while regras.vitoria(tabuleiro) == -1:
-        #salvarJogo(tabuleiro)
         # Usuario comeca jogando
-        jogada_usuario = regras.mover(tabuleiro, 0)
+        mover(tabuleiro, 0)
+        #jogada_usuario = regras.mover(tabuleiro, 0)
 
         tabuleiro.printa_tabuleiro()
 
         # Segundo jogador / IA
         print ("Seu adversario ira jogar!")
-        jogada_usuario = regras.mover(tabuleiro, 1)
+        mover(tabuleiro, 1)
+        #jogada_usuario = regras.mover(tabuleiro, 1)
 
         print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
         tabuleiro.printa_tabuleiro()
+        salvarJogo(tabuleiro)
         if regras.vitoria(tabuleiro) == 0:
             print ("Usuario ganhou o jogo")
             print ("Game Over")
