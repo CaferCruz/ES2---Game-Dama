@@ -109,7 +109,10 @@ class Regras(object):
             return True
         return False
 
-    def atualiza_coordenada(self, peca, destino,tabuleiro):
+    """
+        Atualiza coordenada, quando realizado um movimento.
+    """
+    def atualiza_coordenada(self, peca, destino, tabuleiro):
         p = tabuleiro.get_coodenada(peca.coordenadas)
         if p is not None and p.cor == peca.cor:
             p.coordenadas = destino
