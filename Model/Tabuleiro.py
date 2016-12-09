@@ -18,7 +18,7 @@ class Tabuleiro(object):
         self.lista_das_pretas = []
         self.lista_das_brancas = []
 
-        self.lista_das_brancas.append(Peca(0, (1, 5), 0))
+        """self.lista_das_brancas.append(Peca(0, (1, 5), 0))
         self.lista_das_brancas.append(Peca(0, (3, 5), 0))
         self.lista_das_brancas.append(Peca(0, (5, 5), 0))
         self.lista_das_brancas.append(Peca(0, (7, 5), 0))
@@ -47,7 +47,20 @@ class Tabuleiro(object):
         self.lista_das_pretas.append(Peca(1, (2, 0), 0))
         self.lista_das_pretas.append(Peca(1, (4, 0), 0))
         self.lista_das_pretas.append(Peca(1, (6, 0), 0))
+        """
 
+        for l in range(0, 3):
+            for c in range(0, 8):
+                if (l % 2):
+                    if (c % 2):
+                        self.lista_das_pretas.append(Peca(1, (c, l), 0))
+                    else:
+                        self.lista_das_brancas.append(Peca(0, (c, 7 - l), 0))
+                else:
+                    if (c % 2):
+                        self.lista_das_brancas.append(Peca(0, (c, 7 - l), 0))
+                    else:
+                        self.lista_das_pretas.append(Peca(1, (c, l), 0))
         # estado_tabuleiro guarda o estado atual do tabuleiro para printar e para avaliar
         self.estado_tabuleiro = [[' '] * self.largura for x in range(self.altura)]
 
@@ -111,3 +124,14 @@ class Tabuleiro(object):
     def esvaziar_lista(self):
         self.lista_das_brancas = []
         self.lista_das_pretas = []
+
+    def unifica_lista(self):
+        return self.lista_das_brancas + self.lista_das_pretas
+
+    def get_coodenada(self, coordenada):
+        lista_de_pecas = self.unifica_lista()
+
+        for p in lista_de_pecas:
+            if p.coordenadas == coordenada:
+                return p
+        return None
