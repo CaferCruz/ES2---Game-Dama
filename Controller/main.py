@@ -66,8 +66,8 @@ class Main(object):
             if len(jogada) == 2:
                 pecaValida = regras.pecas_validas(tabuleiro, jogada, corPeca)
                 if pecaValida:
-                    lista_mv_obg = regras.pedras_pretas_podem_comer(tabuleiro)
-                    mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg, corPeca)
+                    lista_mv_obg = regras.pedras_pretas_podem_comer(tabuleiro, corPeca)
+                    mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg)
                     for m in lista_mv_obg:
                         print("Obrigatorio comer: ", m)
                     print(not lista_mv_obg, mv_obrigatorio)
@@ -109,6 +109,7 @@ class Main(object):
     while regras.vitoria(tabuleiro) == -1:
         #salvarJogo(tabuleiro)
         # Usuario comeca jogando
+        print(">>>>>>>SUA VEZ.<<<<<<<<")
         mover(tabuleiro, 0)
         #jogada_usuario = regras.mover(tabuleiro, 0)
 
