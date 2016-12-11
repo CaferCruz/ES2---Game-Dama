@@ -59,15 +59,27 @@ class Main(object):
         Verifica se joga está no formato correto e se a peça é do jogador.
     """
     def mover(tabuleiro, corPeca):
-        print("informe a jogada:")
-        while True:  # Enquanto receber input invalido
+        total_mv = True
+        while total_mv:  # Enquanto receber input invalido
+            print("informe a jogada:")
             jogada = raw_input().lower().split()
             if len(jogada) == 2:
                 pecaValida = regras.pecas_validas(tabuleiro, jogada, corPeca)
                 if pecaValida:
-                    return regras.mover(tabuleiro, corPeca, jogada, 0)
-                print("Essa peça não pertence ao jogador.")
-            print("Jogada não e válida, tente novamente:")
+                    lista_mv_obg = regras.pedras_pretas_podem_comer(tabuleiro)
+                    mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg, corPeca)
+                    for m in lista_mv_obg:
+                        print("Obrigatorio comer: ", m)
+                    print(not lista_mv_obg, mv_obrigatorio)
+                    if not lista_mv_obg or mv_obrigatorio:
+                        total_mv = regras.mover(tabuleiro, corPeca, jogada, 0)
+                        tabuleiro.printa_tabuleiro()
+                    else:
+                        print("Você é obrigado a comer.")
+                else:
+                    print("Essa peça não pertence ao jogador.")
+            else:
+                print("Jogada não e válida, tente novamente:")
 
     ### MAIN  ###
     nome = "Lucas"
@@ -100,15 +112,12 @@ class Main(object):
         mover(tabuleiro, 0)
         #jogada_usuario = regras.mover(tabuleiro, 0)
 
-        tabuleiro.printa_tabuleiro()
-
+        print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
         # Segundo jogador / IA
         print ("Seu adversario ira jogar!")
         mover(tabuleiro, 1)
         #jogada_usuario = regras.mover(tabuleiro, 1)
 
-        print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
-        tabuleiro.printa_tabuleiro()
         salvarJogo(tabuleiro)
         if regras.vitoria(tabuleiro) == 0:
             print ("Usuario ganhou o jogo")
