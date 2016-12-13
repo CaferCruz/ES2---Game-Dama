@@ -311,6 +311,7 @@ class Regras(object):
     def valida_movimento_peca_branca(self, tabuleiro, peca, origem, destino):
         if peca.tipo == 0: #peca e pedra
             #verifica se e pra cima direita
+            print(origem[0] + 2, destino[0],origem[1] - 2, destino[1])
             if ((origem[0] + 1 == destino[0]) and (origem[1] - 1 == destino[1]) or (origem[0] + 2 == destino[0]) and (origem[1] - 2 == destino[1])):
                 return True
             # verifica se e pra cima esquerda
@@ -323,7 +324,7 @@ class Regras(object):
             if ((origem[0] - 1 == destino[0]) and (origem[1] + 1 == destino[1]) or (origem[0] - 2 == destino[0]) and (origem[1] + 2 == destino[1])):
                 return True
             else:
-                print "Peca ", peca.coordenadas," e pedra entao pode se mover apenas uma casa para nordeste (cima direita) ou noroeste (cima esquerda)."
+                print "Peca Branca", peca.coordenadas," e pedra entao pode se mover apenas uma casa para nordeste (cima direita) ou noroeste (cima esquerda)."
                 return False
         if peca.tipo == 1: #peca e dama
             if self.valida_movimento_dama(self, tabuleiro, peca, origem, destino):
@@ -332,13 +333,19 @@ class Regras(object):
     def valida_movimento_peca_preta(self, tabuleiro, peca, origem, destino):
         if peca.tipo == 0: #peca e pedra
             #verifica se e pra baixo direita
-            if (origem[0] + 1 == destino[0]) and (origem[1] + 1 == destino[1]):
+            if ((origem[0] + 1 == destino[0]) and (origem[1] + 1 == destino[1])) or ((origem[0] + 2 == destino[0]) and (origem[1] + 2 == destino[1])):
                 return True
             #verifica se e pra baixo esquerda
-            if (origem[0] - 1 == destino[0]) and (origem[1] + 1 == destino[1]):
+            if (((origem[0] - 1 == destino[0]) and (origem[1] + 1 == destino[1])) or ((origem[0] - 2 == destino[0]) and (origem[1] + 2 == destino[1]))):
+                return True
+            #Verifica cima direita
+            if (((origem[0] + 1 == destino[0]) and (origem[1] - 1 == destino[1])) or ((origem[0] + 2 == destino[0]) and (origem[1] - 2 == destino[1]))):
+                return True
+            # verifica se e pra cima esquerda
+            if (((origem[0] - 1 == destino[0]) and (origem[1] - 1 == destino[1])) or ((origem[0] - 2 == destino[0]) and (origem[1] - 2 == destino[1]))):
                 return True
             else:
-                print "Peca ", peca.coordenadas, " e pedra entao pode se mover apenas uma casa para sudeste (baixo direita) ou sudoeste (baixo esquerda)."
+                print "Peca Preta", peca.coordenadas, " e pedra entao pode se mover apenas uma casa para sudeste (baixo direita) ou sudoeste (baixo esquerda)."
                 return False
         if peca.tipo == 1: #peca e dama
             if self.valida_movimento_dama(self, tabuleiro, peca, origem, destino):
