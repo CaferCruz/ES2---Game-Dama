@@ -71,7 +71,7 @@ class Regras(object):
                             if self.existe_peca_em(tabuleiro, [p_coluna + 2, p_linha + 2]) is None:
                                 #print("1", [p_coluna + 2, p_linha + 2])
                                 peca_preta.jogadas_possiveis.append([p_coluna + 2, p_linha + 2])
-                                podem_comer.append((p_coluna + 2, p_linha + 2))
+                                podem_comer.append(peca_preta)
                     if (self.dentro_do_tabuleiro(p_coluna - 1, p_linha + 1)) and (self.dentro_do_tabuleiro(p_coluna - 2, p_linha + 2)):  # baixo esquerda
                         peca_em_coordenada = self.existe_peca_em(tabuleiro, [p_coluna - 1, p_linha + 1])
                         #print("peca_em_coordenada: ", peca_em_coordenada, [p_coluna - 1, p_linha + 1])
@@ -79,7 +79,7 @@ class Regras(object):
                             if self.existe_peca_em(tabuleiro, [p_coluna - 2, p_linha + 2]) is None:
                                 #print("2", (p_coluna + 1 , p_linha - 1 ))
                                 peca_preta.jogadas_possiveis.append([p_coluna - 2, p_linha + 2])
-                                podem_comer.append((p_coluna - 2, p_linha + 2))
+                                podem_comer.append(peca_preta)
                     if (self.dentro_do_tabuleiro(p_coluna + 1, p_linha - 1)) and (self.dentro_do_tabuleiro(p_coluna + 2, p_linha - 2)): # cima direita
                         peca_em_coordenada = self.existe_peca_em(tabuleiro, [p_coluna + 1, p_linha - 1])
                         #print("peca_em_coordenada: ", peca_em_coordenada, [p_coluna + 1, p_linha - 1])
@@ -87,7 +87,7 @@ class Regras(object):
                             if self.existe_peca_em(tabuleiro, [p_coluna + 2, p_linha - 2]) is None:
                                 #print("3",[p_coluna + 2, p_linha - 2])
                                 peca_preta.jogadas_possiveis.append([p_coluna + 2, p_linha - 2])
-                                podem_comer.append((p_coluna + 2, p_linha - 2))
+                                podem_comer.append(peca_preta)
                     if (self.dentro_do_tabuleiro(p_coluna - 1, p_linha - 1)) and (self.dentro_do_tabuleiro(p_coluna - 2, p_linha - 2)): # cima esquerda
                         peca_em_coordenada = self.existe_peca_em(tabuleiro, [p_coluna - 1, p_linha - 1])
                         #print("peca_em_coordenada: ", peca_em_coordenada, [p_coluna - 1, p_linha - 1])
@@ -95,7 +95,7 @@ class Regras(object):
                             if self.existe_peca_em(tabuleiro, [p_coluna - 2, p_linha -2]) is None:
                                 #print("4", [p_coluna + 1, p_linha + 1])
                                 peca_preta.jogadas_possiveis.append([p_coluna - 2, p_linha - 2])
-                                podem_comer.append((p_coluna - 2, p_linha -2))
+                                podem_comer.append(peca_preta)
         else:
             print("Verificar jogada para branco comer.")
             for peca in tabuleiro.lista_das_brancas:
@@ -109,7 +109,7 @@ class Regras(object):
                             if self.existe_peca_em(tabuleiro, [p_coluna + 2, p_linha + 2]) is None:
                                 print("1", [p_coluna + 2, p_linha + 2])
                                 peca.jogadas_possiveis.append([p_coluna + 2, p_linha + 2])
-                                podem_comer.append((p_coluna + 2, p_linha + 2))
+                                podem_comer.append(peca)
                     if self.dentro_do_tabuleiro(p_coluna - 2, p_linha + 2):  # baixo esquerda
                         peca_em_coordenada = self.existe_peca_em(tabuleiro, [p_coluna - 1, p_linha + 1])
                         # print("peca_em_coordenada: ", peca_em_coordenada, [p_coluna - 1, p_linha + 1])
@@ -117,7 +117,7 @@ class Regras(object):
                             if self.existe_peca_em(tabuleiro, [p_coluna - 2, p_linha + 2]) is None:
                                 print("2", (p_coluna + 1, p_linha - 1))
                                 peca.jogadas_possiveis.append([p_coluna - 2, p_linha + 2])
-                                podem_comer.append((p_coluna - 2, p_linha + 2))
+                                podem_comer.append(peca)
                     if self.dentro_do_tabuleiro(p_coluna + 2, p_linha - 2):  # cima direita
                         peca_em_coordenada = self.existe_peca_em(tabuleiro, [p_coluna + 1, p_linha - 1])
                         # print("peca_em_coordenada: ", peca_em_coordenada, [p_coluna + 1, p_linha - 1])
@@ -125,7 +125,7 @@ class Regras(object):
                             if self.existe_peca_em(tabuleiro, [p_coluna + 2, p_linha - 2]) is None:
                                 #print("3", [p_coluna + 2, p_linha - 2])
                                 peca.jogadas_possiveis.append((p_coluna + 2, p_linha - 2))
-                                podem_comer.append([p_coluna + 2, p_linha - 2])
+                                podem_comer.append(peca)
                     if self.dentro_do_tabuleiro(p_coluna - 2, p_linha - 2):  # cima esquerda
                         peca_em_coordenada = self.existe_peca_em(tabuleiro, [p_coluna - 1, p_linha - 1])
                         # print("peca_em_coordenada: ", peca_em_coordenada, [p_coluna - 1, p_linha - 1])
@@ -133,7 +133,7 @@ class Regras(object):
                             if self.existe_peca_em(tabuleiro, [p_coluna - 2, p_linha - 2]) is None:
                                 #print("4", [p_coluna + 1, p_linha + 1])
                                 peca.jogadas_possiveis.append([p_coluna - 2, p_linha - 2])
-                                podem_comer.append((p_coluna - 2, p_linha -2))
+                                podem_comer.append(peca)
 
         return podem_comer
 
@@ -201,9 +201,9 @@ class Regras(object):
         é obrigatorio comer.
     """
     def mover_obrigatorio(self, tabuleiro, jogada, lista_obrigatoria):
-        destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
+        origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
         for o in lista_obrigatoria:
-            if (o[0], o[1]) == destino:
+            if o.coordenadas == origem:
                 return True
         return False
 
