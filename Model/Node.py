@@ -20,9 +20,74 @@ class Node(object):
                 for peca in branca_come_preta:
                     origem = peca.coordenadas
                     for jogada in peca.jogadas_possiveis:
-                        destino = peca.jogadas_possiveis
+                        destino = jogada
                         tabuleiro_temporario = self.tabuleiro
                         self.regras.mover(tabuleiro_temporario, peca.cor, [origem, destino], peca.tipo)
                         # total_mv = regras.mover(tabuleiro, corPeca, jogada, 0)
                         numero_de_filhos += 1
                         self.filhos.append(tabuleiro_temporario)
+            else: # Se nao der para comer verifica todas as pecas do jogador quais tem a diagonal livre
+                numero_de_filhos = 0 # so pra debugar, isso tem que ser igual ao numero de filhos
+                for peca in self.tabuleiro.lista_das_brancas:
+                    if peca.tipo == 0:
+                        origem = peca.coordenadas
+                        destino = [peca.coordenadas[0] - 1, peca.coordenadas[1] - 1] # Testa nordeste
+                        if self.pode_ir(self.tabuleiro, destino):
+
+                            # CHAMA OUTRA FUNCAO QUE VERIFICA SE ONDE ESTA DESTINO ESTA DENTRO DO TABULEIRO E A CASA ESTA LIVRE
+                            tabuleiro_temporario = self.tabuleiro
+                            self.regras.mover(tabuleiro_temporario, peca.cor, [origem, destino], peca.tipo)
+                            numero_de_filhos += 1
+                            self.filhos.append(tabuleiro_temporario)
+
+                        destino = [peca.coordenadas[0] + 1, peca.coordenadas[1] - 1] # Testa noroeste
+                        if self.pode_ir(self.tabuleiro, destino):
+                            tabuleiro_temporario = self.tabuleiro
+                            self.regras.mover(tabuleiro_temporario, peca.cor, [origem, destino], peca.tipo)
+                            numero_de_filhos += 1
+                            self.filhos.append(tabuleiro_temporario)
+                    #FALTA VER OS MOVIMENTOS DA DAMA
+        else:
+            # Vez e do preto
+            preta_come_branca = self.regras.pedras_podem_comer(self.tabuleiro, 1)
+            if len(preta_come_branca) > 0:
+                print "Preto e obrigado a comer. "
+                # So tabuleiro originados das comidas vao pra filhos
+                numero_de_filhos = 0 # So pra debugar
+                for peca in preta_come_branca:
+                    origem = peca.coordenadas
+                    for jogada in peca.jogadas_possiveis:
+                        destino = jogada
+                        tabuleiro_temporario = self.tabuleiro
+                        self.regras.mover(tabuleiro_temporario, peca.cor, [origem, destino], peca.tipo)
+                        numero_de_filhos += 1
+                        self.filhos.append(tabuleiro_temporario)
+            else: # Se nao der pra comer verifica todas as pecas do jogados quais tem a diagonal livre
+                numero_de_filhos = 0
+                for peca in self.tabuleiro.lista_das_pretas:
+                    if peca.tipo == 0:
+                        origem = peca.coordenadas
+                        destino = [peca.coordenadas[0] - 1, peca.coordenadas[1] + 1]  # Testa sudeste
+                        if self.pode_ir(self.tabuleiro, destino):
+
+                            #CHAMA OUTRA FUNCAO QUE VERIFICA SE ONDE ESTA DESTINO ESTA DENTRO DO TABULEIRO E A CASA ESTA LIVRE
+                            tabuleiro_temporario = self.tabuleiro
+                            self.regras.mover(tabuleiro_temporario, peca.cor, [origem, destino], peca.tipo)
+                            numero_de_filhos += 1
+                            self.filhos.append(tabuleiro_temporario)
+
+                        destino = [peca.coordenadas[0] + 1, peca.coordenadas[1] + 1]  # Testa sudoeste
+                        if self.pode_ir(self.tabuleiro, destino):
+                            tabuleiro_temporario = self.tabuleiro
+                            self.regras.mover(tabuleiro_temporario, peca.cor, [origem, destino], peca.tipo)
+                            numero_de_filhos += 1
+                            self.filhos.append(tabuleiro_temporario)
+
+                    # FALTA VER OS MOVIMENTOS DA DAMA
+
+    def pode_ir(self, tabuleiro, destino):
+        if self.regras.dentro_do_tabuleiro(destino[0], destino[1]):
+            if self.regras.existe_peca_em(tabuleiro, [destino[0], destino[1]]) is None:
+                return True
+        return False
+
