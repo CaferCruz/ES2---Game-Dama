@@ -4,9 +4,10 @@ class Node(object):
 
     def __init__(self, tabuleiro, vez, regras):
         self.tabuleiro = tabuleiro
+        self.regras = regras
         self.vez = vez
         self.filhos = [] # Popular lista dos tabuleiros de acordo com as jogadas possiveis
-        self.regras = regras
+        self.faz_filho()
         self.valor = 0 # Calcular a avaliacao do tabuleiro
 
 
@@ -31,16 +32,16 @@ class Node(object):
                 for peca in self.tabuleiro.lista_das_brancas:
                     if peca.tipo == 0:
                         origem = peca.coordenadas
-                        destino = [peca.coordenadas[0] - 1, peca.coordenadas[1] - 1] # Testa nordeste
-                        if self.pode_ir(self.tabuleiro, destino):
+                        destino = [peca.coordenadas[0] - 1, peca.coordenadas[1] - 1] # Testa noroeste
 
-                            # CHAMA OUTRA FUNCAO QUE VERIFICA SE ONDE ESTA DESTINO ESTA DENTRO DO TABULEIRO E A CASA ESTA LIVRE
+                        if self.pode_ir(self.tabuleiro, destino):
                             tabuleiro_temporario = self.tabuleiro
+
                             self.regras.mover(tabuleiro_temporario, peca.cor, [origem, destino], peca.tipo)
                             numero_de_filhos += 1
                             self.filhos.append(tabuleiro_temporario)
 
-                        destino = [peca.coordenadas[0] + 1, peca.coordenadas[1] - 1] # Testa noroeste
+                        destino = [peca.coordenadas[0] + 1, peca.coordenadas[1] - 1] # Testa nordeste
                         if self.pode_ir(self.tabuleiro, destino):
                             tabuleiro_temporario = self.tabuleiro
                             self.regras.mover(tabuleiro_temporario, peca.cor, [origem, destino], peca.tipo)
@@ -84,6 +85,7 @@ class Node(object):
                             self.filhos.append(tabuleiro_temporario)
 
                     # FALTA VER OS MOVIMENTOS DA DAMA
+        print "*********************** QUANTIDADE DE FILHOS *********************** ", len(self.filhos)
 
     def pode_ir(self, tabuleiro, destino):
         if self.regras.dentro_do_tabuleiro(destino[0], destino[1]):
