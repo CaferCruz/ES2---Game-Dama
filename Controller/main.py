@@ -9,6 +9,7 @@ from Jogador import *
 from Regras import *
 from Peca import *
 from Jogo import *
+from Node import *
 
 # Configura os tamanhos do tabuleiro
 regras = Regras()
@@ -111,7 +112,12 @@ class Main(object):
         #salvarJogo(tabuleiro)
         # Usuario comeca jogando
         print(">>>>>>>SUA VEZ.<<<<<<<<")
+
+        # TESTES USANDO NODE E FAZ_FILHO() DANDO ERRO
+        #a = Node(tabuleiro, 0, regras)
+
         mover(tabuleiro, 0)
+
         #jogada_usuario = regras.mover(tabuleiro, 0)
 
         print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
@@ -125,6 +131,7 @@ class Main(object):
             print ("Usuario ganhou o jogo")
             print ("Game Over")
             break
+
         elif regras.vitoria(tabuleiro) == 1:
             print ("Computador ganhou o jogo")
             print ("Game Over")
