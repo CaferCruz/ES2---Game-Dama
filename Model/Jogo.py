@@ -1,5 +1,5 @@
-from Model.Tabuleiro import *
-from Model.Jogador import *
+from Tabuleiro import *
+from Jogador import *
 
 class Jogo(object):
 

@@ -1,4 +1,4 @@
-from Model.Peca import *
+from Peca import *
 
 class Jogador(object):
 
