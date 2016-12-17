@@ -2,20 +2,18 @@
 # -*- coding: utf-8 -*-
 
 # Main conduz o jogo
-from Model.Minmax import *
-from Model.Tabuleiro import *
+from Minmax import *
+from Tabuleiro import *
 
-from Model.Jogador import *
-from Model.Regras import *
-from Model.Peca import *
-from Model.Jogo import *
+from Jogador import *
+from Regras import *
+from Peca import *
+from Jogo import *
 
 # Configura os tamanhos do tabuleiro
 regras = Regras()
 
 # Recebe o input do usuario
-
-
 
 class Main(object):
 
