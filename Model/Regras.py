@@ -208,9 +208,11 @@ class Regras(object):
     """
     def mover_obrigatorio(self, tabuleiro, jogada, lista_obrigatoria):
         origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
+        destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
         for o in lista_obrigatoria:
-            if o.coordenadas == origem:
-                return True
+            for d in o.jogadas_possiveis:
+                if o.coordenadas == origem and d == destino:
+                    return True
         return False
 
     """
@@ -245,10 +247,11 @@ class Regras(object):
             print "Coordenada passada esta fora do tabuleiro."
             return False
 
-    def valida_movimento_dama(self, tabuleiro, peca, origem, destino):
-        """
+    """
         Verificar antes se dama pode comer!
-        """
+    """
+    def valida_movimento_dama(self, tabuleiro, peca, origem, destino):
+
         d_coluna = peca.coordenadas[0]
         d_linha = peca.coordenadas[1]
         i = 1
@@ -315,8 +318,8 @@ class Regras(object):
                 print "Dama nao tem para onde andar, ", i-1, " casas vazias a sudoeste."
 
     """
-        O código seria para verificar se a peça está penas andando uma casa, para cima.
-        Existe casos do movimento da preta, e casos de comer. Criar funcionalidade adequada posteriormente.
+        Garante movimentação da peça apenas de uma casa.
+        Peças do tipo dama
     """
     def valida_movimento_peca_branca(self, tabuleiro, peca, origem, destino):
         if peca.tipo == 0: #peca e pedra
@@ -332,6 +335,8 @@ class Regras(object):
         if peca.tipo == 1: #peca e dama
             if self.valida_movimento_dama(self, tabuleiro, peca, origem, destino):
                 print "Pode mover dama branca: ", peca.coordenadas #chama move dama de origem pra destino
+                return True
+            return False
 
     def valida_movimento_peca_preta(self, tabuleiro, peca, origem, destino):
         if peca.tipo == 0: #peca e pedra
@@ -348,6 +353,8 @@ class Regras(object):
             if self.valida_movimento_dama(self, tabuleiro, peca, origem, destino):
                 print "Pode mover dama preta: ", peca.coordenadas #chama move dama de origem pra destino
                 #chama move dama de origem pra destino
+                return True
+            return False
 
     def valida_movimento_comer(self, tabuleiro, peca, origem, destino):
         if peca.tipo == 0: #peca e pedra
@@ -388,9 +395,10 @@ class Regras(object):
                 return False
         if peca.tipo == 1: #peca e dama
             #Ainda não verifiquei para movimentação de dama
-            if self.valida_movimento_dama(self, tabuleiro, peca, origem, destino):
-                print "Pode mover dama", peca.coordenadas #chama move dama de origem pra destino
+            #if self.valida_movimento_dama(self, tabuleiro, peca, origem, destino):
+                #print "Pode mover dama", peca.coordenadas #chama move dama de origem pra destino
                 #chama move dama de origem pra destino
+            return False
 
     """
         Retorna lista de pedras brancas que podem comer e
