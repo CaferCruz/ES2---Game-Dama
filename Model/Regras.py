@@ -216,19 +216,23 @@ class Regras(object):
         if peca.tipo == 1:
             self.valida_movimento_dama(tabuleiro, peca, origem, destino)
         if self.dentro_do_tabuleiro(origem[0], origem[1]) and self.dentro_do_tabuleiro(destino[0], destino[1]): #se origem e destino esta dentro do tabuleiro
-            if peca_em_coordenada is not None: # se tem alguma peca
-                if peca.cor == peca_em_coordenada.cor: #se a peca que esta na casa eh da cor da peca que foi passada
-                    if peca.cor == 0:
-                        if self.valida_movimento_peca_branca(tabuleiro, peca, origem, destino) or self.valida_movimento_comer(tabuleiro, peca, origem, destino):
-                            print "Pode mover peca ", peca.coordenadas
-                            return True
-                    elif peca.cor == 1:
-                        if self.valida_movimento_peca_preta(tabuleiro, peca, origem, destino) or self.valida_movimento_comer(tabuleiro, peca, origem, destino):
-                            print "Pode mover peca ", peca.coordenadas
-                            return True
+            if peca_em_coordenada is not None: # se tem alguma peca na origem
+                peca_destino = self.existe_peca_em(tabuleiro, destino)
+                if peca_destino is None: # O espaço precisa estar vazio.
+                    if peca.cor == peca_em_coordenada.cor: #se a peca que esta na casa eh da cor da peca que foi passada
+                        if peca.cor == 0:
+                            if self.valida_movimento_peca_branca(tabuleiro, peca, origem, destino) or self.valida_movimento_comer(tabuleiro, peca, origem, destino):
+                                print "Pode mover peca ", peca.coordenadas
+                                return True
+                        elif peca.cor == 1:
+                            if self.valida_movimento_peca_preta(tabuleiro, peca, origem, destino) or self.valida_movimento_comer(tabuleiro, peca, origem, destino):
+                                print "Pode mover peca ", peca.coordenadas
+                                return True
+                    else:
+                        print "Cor da peca encontrada em origem diferente da cor da peca recebida como parametro."
+                        return False
                 else:
-                    print "Cor da peca encontrada em origem diferente da cor da peca recebida como parametro."
-                    return False
+                    print "Existe peça no local de destino."
             else:
                 print "Nao existe nenhuma peca no local passado como origem."
                 return False
