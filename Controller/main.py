@@ -2,20 +2,18 @@
 # -*- coding: utf-8 -*-
 
 # Main conduz o jogo
-from Model.Minmax import *
-from Model.Tabuleiro import *
+from Minmax import *
+from Tabuleiro import *
 
-from Model.Jogador import *
-from Model.Regras import *
-from Model.Peca import *
-from Model.Jogo import *
+from Jogador import *
+from Regras import *
+from Peca import *
+from Jogo import *
 
 # Configura os tamanhos do tabuleiro
 regras = Regras()
 
 # Recebe o input do usuario
-
-
 
 class Main(object):
 
@@ -66,7 +64,7 @@ class Main(object):
             if len(jogada) == 2:
                 pecaValida = regras.pecas_validas(tabuleiro, jogada, corPeca)
                 if pecaValida:
-                    lista_mv_obg = regras.pedras_pretas_podem_comer(tabuleiro, corPeca)
+                    lista_mv_obg = regras.pedras_podem_comer(tabuleiro, corPeca)
                     mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg)
                     for m in lista_mv_obg:
                         print("Obrigatorio comer com a peça: ", m.coordenadas)
