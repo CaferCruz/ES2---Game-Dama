@@ -65,24 +65,20 @@ class Main(object):
                 origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
                 peca = Peca(corPeca, origem, 0)
                 destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
-
                 regra_mover = regras.valida_mover(tabuleiro, peca, origem, destino)
 
                 if regra_mover:
-                #pecaValida = regras.pecas_validas(tabuleiro, jogada, corPeca)
-                #if pecaValida:
                     lista_mv_obg = regras.pedras_pretas_podem_comer(tabuleiro, corPeca)
                     mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg)
                     for m in lista_mv_obg:
                         print("Obrigatorio comer com a peça: ", m.coordenadas)
-                    print(not lista_mv_obg, mv_obrigatorio)
                     if not lista_mv_obg or mv_obrigatorio:
                         total_mv = regras.mover(tabuleiro, corPeca, jogada, 0)
                         tabuleiro.printa_tabuleiro()
                     else:
                         print("Você é obrigado a comer.")
                 else:
-                    print("Essa peça não pertence ao jogador.")
+                    print("Essa jogada não está entre os critérios válidos")
             else:
                 print("Jogada não e válida, tente novamente:")
 
