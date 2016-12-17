@@ -1,13 +1,11 @@
 # coding: utf-8
 # Tabuleiro do jogo. Precisa de uma altura e uma largura para ser instanciado
-<<<<<<< HEAD
 # MODIFIED
 # Created by Carson Wilcox for Professor Szpakowicz's AI class CSI 4106
 
 from Model.Peca import *
-=======
-from Peca import *
->>>>>>> 463657bcd9dfb6d71309bb4a2aa14cc825a98135
+
+
 class Tabuleiro(object):
     PRETA = 1
     BRANCA = 0
@@ -68,10 +66,6 @@ class Tabuleiro(object):
                         self.lista_das_brancas.append(Peca(0, (c, 7 - l), 0))
                     else:
                         self.lista_das_pretas.append(Peca(1, (c, l), 0))
-<<<<<<< HEAD
-
-=======
->>>>>>> 463657bcd9dfb6d71309bb4a2aa14cc825a98135
         # estado_tabuleiro guarda o estado atual do tabuleiro para printar e para avaliar
         self.estado_tabuleiro = [[' '] * self.largura for x in range(self.altura)]
 
