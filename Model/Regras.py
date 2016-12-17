@@ -175,21 +175,22 @@ class Regras(object):
         origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
         peca = Peca(cor, origem, tipoPeca)
         destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
+
         obgComer = self.valida_mover(tabuleiro, peca, origem, destino)
 
         if obgComer:
             peca = self.atualiza_coordenada(peca, destino, tabuleiro)# Move peça
 
             if cor:
-                self.comerBranca(tabuleiro, peca, origem, destino)  # Come
+                comer = self.comerBranca(tabuleiro, peca, origem, destino)  # Come
             else:
-                self.comerPreta(tabuleiro, peca, origem, destino) # Come peças pretas
+                comer = self.comerPreta(tabuleiro, peca, origem, destino) # Come peças pretas
 
             lista_mv_obg = self.pedras_pretas_podem_comer(tabuleiro, cor)
             #mv_obrigatorio = self.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg)
             for m in lista_mv_obg:
                 print("Obrigatorio comer: ", m)
-            if lista_mv_obg:
+            if lista_mv_obg and comer:
                 print(">>>>>>>Ainda existe jogadas para você.<<<<<<<<")
                 return True
         return False
@@ -504,14 +505,15 @@ class Regras(object):
         sent_x = 1
         if origem[0] > destino[0]:
             sent_x = -1
-
+        comer = False
         for l in range(origem[0] + sent_x, destino[0] + sent_x, sent_x):
             y += sent_y
             coord = (l, origem[1] + y) #Caminha nas linhas
             for cod in tabuleiro.lista_das_pretas:
                 if cod.coordenadas == coord:
                     tabuleiro.removePreta(cod)
-                    print("Comeu Peça: ", cod)
+                    comer = True
+        return comer
 
 
 
@@ -523,13 +525,15 @@ class Regras(object):
         sent_x = 1
         if origem[0] > destino[0]:
             sent_x = -1
-
+        comer = False
         for l in range(origem[0] + sent_x, destino[0] + sent_x, sent_x):
             y += sent_y
             coord = (l, origem[1] + y)  # Caminha nas linhas
             for cod in tabuleiro.lista_das_brancas:
                 if cod.coordenadas == coord:
                     tabuleiro.removeBranca(cod)
+                    comer = True
+        return comer
 
 
     def novoJogo(self):
