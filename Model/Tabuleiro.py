@@ -3,7 +3,7 @@
 # MODIFIED
 # Created by Carson Wilcox for Professor Szpakowicz's AI class CSI 4106
 
-from Model.Peca import *
+from Peca import *
 
 
 class Tabuleiro(object):

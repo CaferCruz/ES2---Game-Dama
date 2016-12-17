@@ -56,7 +56,7 @@ class Regras(object):
         atribui as movimentacoes as jogadas possiveis da peca
         se a lista for vazia nao existe movimento para comer
     """
-    def pedras_pretas_podem_comer(self, tabuleiro, corJogada): #essa funcao e facilmente modularizavel ja que agora e possivel comer pra frente e pra tras
+    def pedras_podem_comer(self, tabuleiro, corJogada): #essa funcao e facilmente modularizavel ja que agora e possivel comer pra frente e pra tras
         podem_comer = []
         if corJogada:
             print("Verificar jogada para Pretos comer.")
@@ -96,6 +96,9 @@ class Regras(object):
                                 #print("4", [p_coluna + 1, p_linha + 1])
                                 peca_preta.jogadas_possiveis.append([p_coluna - 2, p_linha - 2])
                                 podem_comer.append(peca_preta)
+                else:
+                    podem_comer = podem_comer + self.damas_podem_comer()
+
         else:
             print("Verificar jogada para branco comer.")
             for peca in tabuleiro.lista_das_brancas:
@@ -134,6 +137,8 @@ class Regras(object):
                                 #print("4", [p_coluna + 1, p_linha + 1])
                                 peca.jogadas_possiveis.append([p_coluna - 2, p_linha - 2])
                                 podem_comer.append(peca)
+                else: #se nao e do tipo 0 entao e dama, e ai concatena com a lista gerada por damas podem comer
+                    podem_comer = podem_comer + self.damas_podem_comer(tabuleiro, peca)
 
         return podem_comer
 
@@ -186,7 +191,7 @@ class Regras(object):
             else:
                 comer = self.comerPreta(tabuleiro, peca, origem, destino) # Come peças pretas
 
-            lista_mv_obg = self.pedras_pretas_podem_comer(tabuleiro, cor)
+            lista_mv_obg = self.pedras_podem_comer(tabuleiro, cor)
             #mv_obrigatorio = self.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg)
             for m in lista_mv_obg:
                 print("Obrigatorio comer: ", m)
@@ -431,7 +436,8 @@ class Regras(object):
                             print "Pode comer em ",p_coluna+2, ", ",p_linha-2
                             peca_branca.jogadas_possiveis.append([p_coluna + 2, p_linha - 2])
                             podem_comer.append(peca_branca)
-        if len(podem_comer) > 0: print "pedras brancas podem comer"
+        if len(podem_comer) > 0:
+            print "pedras brancas podem comer"
         return podem_comer
 
 

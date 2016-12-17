@@ -15,8 +15,6 @@ regras = Regras()
 
 # Recebe o input do usuario
 
-
-
 class Main(object):
 
     def initJogo():
@@ -70,7 +68,7 @@ class Main(object):
                 regra_mover = regras.valida_mover(tabuleiro, peca, origem, destino)
 
                 if regra_mover:
-                    lista_mv_obg = regras.pedras_pretas_podem_comer(tabuleiro, corPeca)
+                    lista_mv_obg = regras.pedras_podem_comer(tabuleiro, corPeca)
                     mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg)
                     for m in lista_mv_obg:
                         print("Obrigatorio comer com a peça: ", m.coordenadas)
