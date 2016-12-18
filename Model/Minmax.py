@@ -15,7 +15,7 @@ class MinMax(object):
             aux =0
             for f in node.filhos:
                 aux = self.minmax(f,-jogador,profundidade-1)
-                if(aux > valor)
+                if(aux > valor):
                     valor= aux
         else:
             for f in node.filhos:
@@ -23,7 +23,7 @@ class MinMax(object):
                 aux = 0
                 for f in node.filhos:
                     aux = self.minmax(f, -jogador, profundidade - 1)
-                    if (aux < valor)
+                    if (aux < valor):
                         valor = aux
         return valor
     

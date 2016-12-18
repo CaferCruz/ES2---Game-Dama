@@ -177,11 +177,14 @@ class Regras(object):
         Movimenta peça, se a peça for da lista de depças do jogador
     """
     def mover(self, tabuleiro, cor, jogada, tipoPeca):
-        print "origem: ", jogada[0][1], ", ", jogada[0][0]
-        origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
+        #print "jogada [0][0]: ", jogada[0][0], ", jogada[0][1]: ", jogada[0][1]
+
+        origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97) # coluna, linha
+
+
         peca = Peca(cor, origem, tipoPeca)
         destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
-
+        print "valida mover origem: ",origem, ", destino: ", destino
         obgComer = self.valida_mover(tabuleiro, peca, origem, destino)
 
         if obgComer:
