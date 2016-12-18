@@ -4,11 +4,11 @@ class MinMax(object):
     def __init__(self):
         return
 
-# Jogador definido como um inteiro, para representar quem joga atualmente...
+# Jogador definido como um inteiro, para representar quem joga atualmente... jogador == cor
 #  esse valor ira ser multiplicado por -1  para calcular o valor do max player
     def minmax(self,node,jogador,profundidade):
         if(profundidade == 0):
-            return self.avaliaTabuleiro(node.tabuleiro)
+            return self.avaliaTabuleiro(node.tabuleiro,jogador)*jogador
         valor = 0
         if(jogador > 0):  #maxplayer quer o maior valor dos filhos
             valor = (-1)*float("inf")
@@ -22,10 +22,15 @@ class MinMax(object):
                 valor = float("inf")
                 aux = 0
                 for f in node.filhos:
-                    aux = self.minmax(f, -jogador, profundidade - 1)
-                    if (aux < valor):
+                    aux = self.minmax(f,-jogador, profundidade - 1)
+                    if (aux < valor)
                         valor = aux
         return valor
+
+
+    #TODO: implementar avaliaTabuleiro
     
-    def avaliaTabuleiro(self,tabuleiro):
-        return
+    # Heuristica escolhida: qtd de peças em jogo, i.e:peças do adversario - pecas do jogador
+    def avaliaTabuleiro(self,tabuleiro,jogador):
+        
+        return 0
