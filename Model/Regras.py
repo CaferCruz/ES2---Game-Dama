@@ -138,13 +138,14 @@ class Regras(object):
         return podem_comer
 
 
-    def virarDama(self, peca, altura):
-        if peca.tipo == 1:
-            return False
-        if peca.coordenadas[1] == 0 and peca.cor == 0:
-            return True
-        if peca.coordenadas[1] == altura and peca.cor == 1:
-            return True
+    def virarDama(self, peca):
+        if peca.tipo == 0:
+            if peca.coordenadas[1] == 0 and peca.cor == 0:
+                peca.tipo = 1
+                return True
+            if peca.coordenadas[1] == 7 and peca.cor == 1:
+                peca.tipo = 1
+                return True
         return False
 
     """
@@ -164,6 +165,7 @@ class Regras(object):
         p = tabuleiro.get_coodenada(peca.coordenadas)
         if p is not None and p.cor == peca.cor:
             p.coordenadas = destino
+            self.virarDama(peca)
             return p
         return None
 
@@ -558,9 +560,6 @@ class Regras(object):
             i += 1
         return coordenada_dama
 
-
-
-
     """
         Verifica a quantidade de peças pretas e brancas.
         Apenas pode exister 1 peça preta no caminho da dama
@@ -623,7 +622,6 @@ class Regras(object):
                     tabuleiro.removePreta(cod)
                     comer = True
         return comer
-
 
     def comerBranca(self, tabuleiro, peca, origem, destino):
         y = 0
