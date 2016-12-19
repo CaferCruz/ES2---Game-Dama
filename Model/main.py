@@ -1,4 +1,3 @@
-#!python27
 #!C:\Python27\python
 
 from Tabuleiro import *
@@ -19,11 +18,11 @@ class Piece:
         
 class Blackpiece(Piece):
         def __init__(self, id):
-                Piece.__init__(self, "<img src=\"..\images\p1.png\" id=\"b%d\">" % id)
+                Piece.__init__(self, "<img src=\"..\images\p1.png\" id=\"b%d\" draggable=\"true\" ondragstart=\"drag(event)\">" % id)
 
 class Whitepiece(Piece):
         def __init__(self, id):
-                Piece.__init__(self, "<img src=\"..\images\p2.png\" id=\"w%d\">" % id)
+                Piece.__init__(self, "<img src=\"..\images\p2.png\" id=\"w%d\" draggable=\"true\" ondragstart=\"drag(event)\">" % id)
                 
 def makeboard(tab):
         
@@ -71,7 +70,7 @@ def printboard(tab):
                                 s = "a" if x % 2 else "b"
                         else:
                                 s = "b" if x % 2 else "a"
-                        print "<td class=\"%s\" id=\"p%d%d\">" % (s, n, x)
+                        print "<td class=\"%s\" id=\"p%d%d\" ondrop=\"drop(event)\" ondragover=\"allowDrop(event)\">" % (s, n, x)
                         #print "(%d, %d)" % (n, x)
                         print board[x][n]
                         print "</td>"
@@ -111,12 +110,13 @@ def main():
         header()
         print "<body>"
         print "<h1>DamEx</h1>"
+        print  "<script src=\"..\css\script.js\"></script>"
         printboard(tabuleiro)
         print "<form>"
         input_button("Novo Jogo")
         input_button("Salvar Jogo")
         input_button("Carregar Jogo")
-        print "<input type=\"hidden\" name=\"input1\" value=\"%d\" />" % sess_id.int
+        print "<input type=\"hidden\" id=\"sid\" name=\"input1\" value=\"%d\" />" % sess_id.int
         print "</form>"
         print "</body>"
         print "</HTML>"
