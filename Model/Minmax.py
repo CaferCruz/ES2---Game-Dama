@@ -2,6 +2,7 @@ from Node import *
 
 class MinMax(object):
     def __init__(self):
+
         return
 
 # Jogador definido como um inteiro, para representar quem joga atualmente... jogador == cor
@@ -28,9 +29,22 @@ class MinMax(object):
         return valor
 
 
+
+
     #TODO: implementar avaliaTabuleiro
-    
     # Heuristica escolhida: qtd de peças em jogo, i.e:peças do adversario - pecas do jogador
     def avaliaTabuleiro(self,tabuleiro,jogador):
-        
-        return 0
+         valor = 0  # inicia assumindo igualdade
+         for p in tabuleiro.lista_das_brancas
+             if(p.cor == jogador):
+                 valor+=1
+             else:
+                 valor-=1
+
+         for p in tabuleiro.lista_das_pretas
+             if(p.cor == jogador):
+                 valor+=1
+             else:
+                 valor-=1
+
+         return valor
