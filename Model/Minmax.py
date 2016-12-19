@@ -5,17 +5,19 @@ class MinMax(object):
 
         return
 
-# Jogador definido como um inteiro, para representar quem joga atualmente... jogador == cor
+# Jogador definido como um inteiro, para representar a cor de quem joga atualmente..
 #  esse valor ira ser multiplicado por -1  para calcular o valor do max player
-    def minmax(self,node,jogador,profundidade):
+# Turno vai servir para identificar se é vez do max ou minplayer...
+
+    def minmax(self,node,jogador,profundidade,turno):
         if(profundidade == 0):
-            return self.avaliaTabuleiro(node.tabuleiro,jogador)*jogador
+            return self.avaliaTabuleiro(node.tabuleiro,jogador)*turno
         valor = 0
-        if(jogador > 0):  #maxplayer quer o maior valor dos filhos
+        if(turno > 0):  #maxplayer quer o maior valor dos filhos
             valor = (-1)*float("inf")
             aux =0
             for f in node.filhos:
-                aux = self.minmax(f,-jogador,profundidade-1)
+                aux = self.minmax(f,jogador,profundidade-1,-turno)
                 if(aux > valor):
                     valor= aux
         else:
@@ -23,7 +25,7 @@ class MinMax(object):
                 valor = float("inf")
                 aux = 0
                 for f in node.filhos:
-                    aux = self.minmax(f,-jogador, profundidade - 1)
+                    aux = self.minmax(f,jogador, profundidade - 1,-turno)
                     if (aux < valor)
                         valor = aux
         return valor
