@@ -45,11 +45,13 @@ if(works > 0):
 
     res = regra.valida_mover(tabuleiro, Peca, (frox, froy), (tox, toy))
 
+    print to, fro, sid, pid
+
     if(res):
         estado, tabuleiro = regra.capsula(tabuleiro, Peca, (frox, froy), (tox, toy))
         tabuleiro = regra.capsula_atualiza(Peca, (tox, toy), tabuleiro)
 
-        printboard(tabuleiro)
+        #printboard(tabuleiro)
 
     else:
         print "0"
