@@ -71,7 +71,7 @@ class Main(object):
                     lista_mv_obg = regras.pedras_podem_comer(tabuleiro, corPeca)
                     for m in lista_mv_obg:
                         print("Obrigatorio comer com a peca: ", m.coordenadas)
-                    mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg)
+                    mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, origem, destino, lista_mv_obg)
 
                     if not lista_mv_obg or mv_obrigatorio:
                         total_mv = regras.mover(tabuleiro, corPeca, jogada)
