@@ -38,25 +38,28 @@ if(works > 0):
     
     #tox = int(to[1])
     #toy = int(to[2])
-    tox, toy = 0, 1
+    tox, toy = 4, 2
     
     #frox = int(fro[1])
     #froy = int(fro[2])
-    frox, froy = 2, 1
+    frox, froy = 5, 3
 
     #pcode = 0 if pid[0] == 'w' else 1
     pcode = 0
-    peca = Peca(pcode, (frox, froy), 0)
+    peca = Peca(pcode, (froy, frox), 0)
 
-    res = regra.validador(tab, peca, (frox, froy), (tox, toy))
+    res = regra.validador(tab, peca, (froy, frox), (toy, tox))
 
     #print to, fro, sid, pid
 
     if(res):
-        estado, tab = regra.capsula(tab, Peca, (frox, froy), (tox, toy))
-        tab = regra.capsula_atualiza(Peca, (tox, toy), tab)
-
-        visual.printboard(tabuleiro)
+        estado, tab = regra.capsula(tab, peca, (froy, frox), (toy, tox))
+        tab = regra.capsula_atualiza(peca, (toy, tox), tab)
+        if(not regra.nova_jogada(tab, peca, estado)):
+            #manda a IA jogar
+            visual.printboard(tab)
+        else:
+            visual.printboard(tab)
 
     else:
         print "0"

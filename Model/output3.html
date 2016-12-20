@@ -1,1 +1,77 @@
-0
+Verificar jogada para branco comer.
+<!--: spam
+Content-Type: text/html
+
+<body bgcolor="#f0f0f8"><font color="#f0f0f8" size="-5"> -->
+<body bgcolor="#f0f0f8"><font color="#f0f0f8" size="-5"> --> -->
+</font> </font> </font> </script> </object> </blockquote> </pre>
+</table> </table> </table> </table> </table> </font> </font> </font><body bgcolor="#f0f0f8">
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#6622aa">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>&lt;type 'exceptions.AttributeError'&gt;</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial">Python 2.7.9: C:\python27\python.exe<br>Tue Dec 20 01:52:59 2016</font></td></tr></table>
+    
+<p>A problem occurred in a Python script.  Here is the sequence of
+function calls leading up to the error, in the order they occurred.</p>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file://C:\Users\joselicio\Documents\ES2_Game_Dama\Model\handler.py">C:\Users\joselicio\Documents\ES2_Game_Dama\Model\handler.py</a> in <strong><module></strong>()</td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;55</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(res):<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;56</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado,&nbsp;tab&nbsp;=&nbsp;regra.capsula(tab,&nbsp;peca,&nbsp;(froy,&nbsp;frox),&nbsp;(toy,&nbsp;tox))<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;&nbsp;57</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab&nbsp;=&nbsp;regra.capsula_atualiza(peca,&nbsp;(toy,&nbsp;tox),&nbsp;tab)<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;58</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(not&nbsp;regra.nova_jogada(tab,&nbsp;peca,&nbsp;estado)):<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;59</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#manda&nbsp;a&nbsp;IA&nbsp;jogar<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090"><strong>tab</strong>&nbsp;= False, <strong>regra</strong>&nbsp;= &lt;Regras.Regras object&gt;, regra.<strong>capsula_atualiza</strong>&nbsp;= &lt;bound method Regras.capsula_atualiza of &lt;Regras.Regras object&gt;&gt;, <strong>peca</strong>&nbsp;= &lt;Peca.Peca object&gt;, <strong>toy</strong>&nbsp;= 2, <strong>tox</strong>&nbsp;= 4</font></small></td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file://C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py">C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py</a> in <strong>capsula_atualiza</strong>(self=&lt;Regras.Regras object&gt;, peca=&lt;Peca.Peca object&gt;, destino=(2, 4), tabuleiro=False)</td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;196</small>&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;197</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;capsula_atualiza(self,&nbsp;peca,&nbsp;destino,&nbsp;tabuleiro):<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;198</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.atualiza_coordenada(peca,&nbsp;destino,&nbsp;tabuleiro)<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;199</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;tabuleiro<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;200</small>&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090"><strong>self</strong>&nbsp;= &lt;Regras.Regras object&gt;, self.<strong>atualiza_coordenada</strong>&nbsp;= &lt;bound method Regras.atualiza_coordenada of &lt;Regras.Regras object&gt;&gt;, <strong>peca</strong>&nbsp;= &lt;Peca.Peca object&gt;, <strong>destino</strong>&nbsp;= (2, 4), <strong>tabuleiro</strong>&nbsp;= False</font></small></td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file://C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py">C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py</a> in <strong>atualiza_coordenada</strong>(self=&lt;Regras.Regras object&gt;, peca=&lt;Peca.Peca object&gt;, destino=(2, 4), tabuleiro=False)</td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;188</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;189</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;atualiza_coordenada(self,&nbsp;peca,&nbsp;destino,&nbsp;tabuleiro):<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;190</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;=&nbsp;tabuleiro.get_coodenada(peca.coordenadas)<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;191</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;p&nbsp;is&nbsp;not&nbsp;None&nbsp;and&nbsp;p.cor&nbsp;==&nbsp;peca.cor:<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;192</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.coordenadas&nbsp;=&nbsp;destino<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090">p <em>undefined</em>, <strong>tabuleiro</strong>&nbsp;= False, tabuleiro.get_coodenada <em>undefined</em>, <strong>peca</strong>&nbsp;= &lt;Peca.Peca object&gt;, peca.<strong>coordenadas</strong>&nbsp;= (3, 5)</font></small></td></tr></table><p><strong>&lt;type 'exceptions.AttributeError'&gt;</strong>: 'bool' object has no attribute 'get_coodenada'
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>args&nbsp;=
+("'bool' object has no attribute 'get_coodenada'",)
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>message&nbsp;=
+"'bool' object has no attribute 'get_coodenada'"
+
+
+<!-- The above is a description of an error in a Python program, formatted
+     for a Web browser because the 'cgitb' module was enabled.  In case you
+     are not reading this in a Web browser, here is the original traceback:
+
+Traceback (most recent call last):
+  File "handler.py", line 57, in &lt;module&gt;
+    tab = regra.capsula_atualiza(peca, (toy, tox), tab)
+  File "C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py", line 198, in capsula_atualiza
+    self.atualiza_coordenada(peca, destino, tabuleiro)
+  File "C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py", line 190, in atualiza_coordenada
+    p = tabuleiro.get_coodenada(peca.coordenadas)
+AttributeError: 'bool' object has no attribute 'get_coodenada'
+
+-->
+

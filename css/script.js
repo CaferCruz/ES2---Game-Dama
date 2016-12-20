@@ -24,7 +24,7 @@ function drop(ev) {
         if (this.readyState == 4 && this.status == 200) {
           ready = true;
 		  if(this.responseText != "0") {
-			  
+			  document.getElementById("main").innerHTML = this.responseText;
 		  }
         }
     };

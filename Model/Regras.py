@@ -187,7 +187,7 @@ class Regras(object):
         Atualiza coordenada, quando realizado um movimento.
     """
     def atualiza_coordenada(self, peca, destino, tabuleiro):
-        p = tabuleiro.get_coodenada(peca.coordenadas)
+        p = tabuleiro.get_coordenada(peca.coordenadas)
         if p is not None and p.cor == peca.cor:
             p.coordenadas = destino
             self.virarDama(peca)
