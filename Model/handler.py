@@ -60,14 +60,9 @@ if(works > 0):
         tab, estado = regra.capsula(tab, peca, (froy, frox), (toy, tox))
         p, tab = regra.capsula_atualiza(peca, (toy, tox), tab)
         peca.coordenadas = p.coordenadas
-        if(peca.cor == 0 and tox == 0):
-            temp, tab = regra.capsulaDama(peca)
-        elif(peca.cor == 1 and tox == 7):
-            temp, tab = regra.capsulaDama(peca)
         if(not regra.nova_jogada(tab, peca, estado)):
-            
             #Inserir a jogada da IA aqui. Retornar o tabuleiro atualizado
-            
+            #tab =
             visual.printboard(tab)
             regra.salvarJogo(tab, sid)
         else:

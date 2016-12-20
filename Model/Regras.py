@@ -265,10 +265,6 @@ class Regras(object):
                 return True
         return False
 
-    def capsulaDama(self, peca):
-        val = self.virarDama(self, peca)
-        return val, tabuleiro
-
     """
         Verifica se peça pertence ao jogador da vez.
     """
