@@ -5,6 +5,7 @@ from Jogo import *
 from Jogador import *
 from Tabuleiro import *
 from Peca import *
+from main impoer makeboard, printboard
 import cgi
 import cgitb; cgitb.enable()
 

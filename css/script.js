@@ -23,6 +23,9 @@ function drop(ev) {
 	message.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           ready = true;
+		  if(this.responseText != "0") {
+			  
+		  }
         }
     };
 	var tring = "handler.py?";
