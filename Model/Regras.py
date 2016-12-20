@@ -188,7 +188,7 @@ class Regras(object):
             peca = self.atualiza_coordenada(peca, destino, tabuleiro)# Move peça
 
             if cor:
-                comer = self.comerBranca(tabuleiro, peca, origem, destino)  # Come
+                comer = self.comerBranca(tabuleiro, peca, origem, destino)  # Come peça branca
             else:
                 comer = self.comerPreta(tabuleiro, peca, origem, destino) # Come peças pretas
 
@@ -231,11 +231,13 @@ class Regras(object):
                             return resp
                         else:
                             if peca.cor == 0:
-                                if self.valida_movimento_peca_branca(tabuleiro, peca, origem, destino) or self.valida_movimento_comer(tabuleiro, peca, origem, destino):
+                                if self.valida_movimento_peca_branca(tabuleiro, peca, origem, destino) or \
+                                        self.valida_movimento_comer(tabuleiro, peca, origem, destino):
                                     print "Pode mover peca ", peca.coordenadas
                                     return True
                             elif peca.cor == 1:
-                                if self.valida_movimento_peca_preta(tabuleiro, peca, origem, destino) or self.valida_movimento_comer(tabuleiro, peca, origem, destino):
+                                if self.valida_movimento_peca_preta(tabuleiro, peca, origem, destino) or \
+                                        self.valida_movimento_comer(tabuleiro, peca, origem, destino):
                                     print "Pode mover peca ", peca.coordenadas
                                     return True
                     else:
@@ -661,7 +663,7 @@ class Regras(object):
         return Jogo(jogador1, jogador2, tabuleiro)
 
     def salvarJogo(self, tabuleiro, nomeSave):
-        caminho = "../save/" + nomeSave
+        caminho = "../save/" + nomeSave + '.json'
         dados_json = {}
 
         dados_json["altura"] = 8
@@ -688,7 +690,7 @@ class Regras(object):
         infile.close()
 
     def carregarJogo(self, nomeSave):
-        caminho = "../save/" + nomeSave
+        caminho = "../save/" + nomeSave + '.json'
 
         outfile = open(caminho, 'r')
         out = outfile.readline()
