@@ -59,6 +59,17 @@ class Regras(object):
         return False
 
     """
+        Função usada para comunicação no front.
+        Verifica se é obrigado o usuário a realizar mais alguma jogada.
+    """
+    def nova_jogada(self, tabuleiro, peca, isComeu):
+        lista_mv_obg = self.pedras_podem_comer(tabuleiro, peca.cor)
+        if lista_mv_obg and isComeu:
+            return True
+        return False
+
+
+    """
         Retorna lista de pedras pretas que podem comer e
         atribui as movimentacoes as jogadas possiveis da peca
         se a lista for vazia nao existe movimento para comer
