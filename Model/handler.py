@@ -5,7 +5,7 @@ from Jogo import *
 from Jogador import *
 from Tabuleiro import *
 from Peca import *
-from main impoer makeboard, printboard
+from main import *
 import cgi
 import cgitb; cgitb.enable()
 
@@ -46,6 +46,10 @@ if(works > 0):
     res = regra.valida_mover(tabuleiro, Peca, (frox, froy), (tox, toy))
 
     if(res):
+        estado, tabuleiro = regra.capsula(tabuleiro, Peca, (frox, froy), (tox, toy))
+        tabuleiro = regra.capsula_atualiza(Peca, (tox, toy), tabuleiro)
+
+        printboard(tabuleiro)
 
     else:
         print "0"

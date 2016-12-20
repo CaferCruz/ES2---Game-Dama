@@ -61,7 +61,7 @@ def makeboard(tab):
 def printboard(tab):
         board = makeboard(tab)
         s = ""
-        print "<table frame=\"box\">"
+        #print "<table frame=\"box\">"
         print "<tbody>"
         for n in range(8):
                 print "<tr>"
@@ -76,7 +76,7 @@ def printboard(tab):
                         print "</td>"
                 print "</tr>"
         print "</tbody>"
-        print "</table>"
+        #print "</table>"
 
 def header():
         print "<!DOCTYPE html>"
@@ -111,7 +111,9 @@ def main():
         print "<body>"
         print "<h1>DamEx</h1>"
         print  "<script src=\"..\css\script.js\"></script>"
+        print "<table frame=\"box\" id=\"main\">"
         printboard(tabuleiro)
+        print "</table>"
         print "<form>"
         input_button("Novo Jogo")
         input_button("Salvar Jogo")

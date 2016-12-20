@@ -169,6 +169,10 @@ class Regras(object):
             return p
         return None
 
+    def capsula_atualiza(self, peca, destino, tabuleiro):
+        atualiza_coordenada(self, peca, destino, tabuleiro)
+        return tabuleiro
+
 
     """
         Movimenta peça, se a peça for da lista de depças do jogador
@@ -622,6 +626,10 @@ class Regras(object):
                     tabuleiro.removePreta(cod)
                     comer = True
         return comer
+
+    def capsula(self, tabuleiro, peca, origem, destino):
+        val = comerPreta(self, tabuleiro, peca, origem, destino)
+        return tabuleiro, val
 
     def comerBranca(self, tabuleiro, peca, origem, destino):
         y = 0
