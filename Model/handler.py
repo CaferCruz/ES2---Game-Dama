@@ -5,7 +5,7 @@ from Jogo import *
 from Jogador import *
 from Tabuleiro import *
 from Peca import *
-from main import *
+from Visual import *
 import cgi
 import cgitb; cgitb.enable()
 
@@ -31,6 +31,7 @@ except:
 
 if(works > 0):
     regra = Regras()
+    visual = Visual()
     #jogo = regra.carregarJogo(sid)
     jogo = regra.carregarJogo("150659578876257975456580117709407753831")
     tab = jogo.tabuleiro
@@ -47,15 +48,15 @@ if(works > 0):
     pcode = 0
     peca = Peca(pcode, (frox, froy), 0)
 
-    res = regra.validador(tab, Peca, (frox, froy), (tox, toy))
+    res = regra.validador(tab, peca, (frox, froy), (tox, toy))
 
-    print to, fro, sid, pid
+    #print to, fro, sid, pid
 
     if(res):
         estado, tab = regra.capsula(tab, Peca, (frox, froy), (tox, toy))
         tab = regra.capsula_atualiza(Peca, (tox, toy), tab)
 
-        printboard(tabuleiro)
+        visual.printboard(tabuleiro)
 
     else:
         print "0"
