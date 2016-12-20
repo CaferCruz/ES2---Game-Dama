@@ -32,23 +32,23 @@ except:
 if(works > 0):
     regra = Regras()
     visual = Visual()
-    #jogo = regra.carregarJogo(sid)
-    jogo = regra.carregarJogo("150659578876257975456580117709407753831")
+    jogo = regra.carregarJogo(sid)
+    #jogo = regra.carregarJogo("150659578876257975456580117709407753831")
     tab = jogo.tabuleiro
     
-    #tox = int(to[1])
-    #toy = int(to[2])
-    tox, toy = 4, 2
+    tox = int(to[1])
+    toy = int(to[2])
+    #tox, toy = 4, 2
     
-    #frox = int(fro[1])
-    #froy = int(fro[2])
-    frox, froy = 5, 3
+    frox = int(fro[1])
+    froy = int(fro[2])
+    #frox, froy = 5, 3
 
-    #pcode = 0 if (pid[0] == 'w' or pid[0] == 'q') else 1
-    pcode = 0
+    pcode = 0 if (pid[0] == 'w' or pid[0] == 'q') else 1
+    #pcode = 0
 
-    #ptype = 0 if (pid[0] == 'd' or pid[0] == 'q') else 1
-    ptype = 0
+    ptype = 0 if (pid[0] == 'd' or pid[0] == 'q') else 1
+    #ptype = 0
 
     peca = Peca(pcode, (froy, frox), ptype)
 
@@ -65,10 +65,14 @@ if(works > 0):
         elif(peca.cor == 1 and tox == 7):
             temp, tab = regra.capsulaDama(peca)
         if(not regra.nova_jogada(tab, peca, estado)):
-            #manda a IA jogar
+            
+            #Inserir a jogada da IA aqui. Retornar o tabuleiro atualizado
+            
             visual.printboard(tab)
+            regra.salvarJogo(tab, sid)
         else:
             visual.printboard(tab)
+            regra.salvarJogo(tab, sid)
 
     else:
         print "0"
