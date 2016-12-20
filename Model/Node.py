@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from Regras import *
 
 class Node(object):

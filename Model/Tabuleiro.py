@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # coding: utf-8
 # Tabuleiro do jogo. Precisa de uma altura e uma largura para ser instanciado
 # MODIFIED

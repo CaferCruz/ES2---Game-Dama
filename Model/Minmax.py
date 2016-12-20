@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Fornece o funcao minmax e avaliacao dos tabuleiros
 from copy import deepcopy
 
