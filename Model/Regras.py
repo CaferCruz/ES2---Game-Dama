@@ -6,6 +6,8 @@ from Jogo import *
 import os
 import json
 from Tabuleiro import *
+from Tests import *
+import doctest
 
 
 class Regras(object):
@@ -18,6 +20,17 @@ class Regras(object):
 
     # Verifica se alguem venceu. Se preto venceu, retorna 1. Se branco venceu, retorna 0. Se ninguem venceu, retorna -1.
     def vitoria(self, tabuleiro):
+        """
+           Calcula se algum jogador ganhou.
+           >>> regras = Regras()
+           >>> tests = Tests()
+           >>> jogo = tests.vitoria_branco()
+           >>> regras.vitoria(jogo.tabuleiro)
+           0
+           >>> jogo = tests.vitoria_preto()
+           >>> regras.vitoria(jogo.tabuleiro)
+           1
+        """
         if len(tabuleiro.lista_das_brancas) == 0:
             return 1
         if len(tabuleiro.lista_das_pretas) == 0:
@@ -50,6 +63,45 @@ class Regras(object):
         de obrigatorios.
     """
     def validador(self, tabuleiro, peca, origem, destino):
+        """
+            Casos possíveis.
+            >>> regras = Regras()
+            >>> tests = Tests()
+
+            #Caso 1: Peça x ou y fora do tabuleiro
+            >>> input = tests.peca_x_fora()
+            >>> regras.validador(input[0], input[1], input[2], input[3])
+            False
+            >>> input = tests.peca_y_fora()
+            >>> regras.validador(input[0], input[1], input[2], input[3])
+            False
+
+            #Caso 2: Existe peça no local de origem
+            >>> input = tests.peca_existe()
+            >>> regras.validador(input[0], input[1], input[2], input[3])
+            True
+            >>> input = tests.peca_nao_existe()
+            >>> regras.validador(input[0], input[1], input[2], input[3])
+            False
+
+            #Caso 3: Local de destino está vazio, ou seja pode ser preenchido
+            >>> input = tests.espaco_vazio()
+            >>> regras.validador(input[0], input[1], input[2], input[3])
+            True
+            >>> input = tests.espaco_ocupado()
+            >>> regras.validador(input[0], input[1], input[2], input[3])
+            False
+
+            #Caso 4: O jogador esta movendo sua peca
+            >>> input = tests.jogador_valido()
+            >>> regras.validador(input[0], input[1], input[2], input[3])
+            True
+            >>> input = tests.jogador_invalido()
+            >>> regras.validador(input[0], input[1], input[2], input[3])
+            False
+
+
+        """
         regra_mover = self.valida_mover(tabuleiro, peca, origem, destino)
         if regra_mover:
             lista_mv_obg = self.pedras_podem_comer(tabuleiro, peca.cor)
@@ -63,6 +115,31 @@ class Regras(object):
         Verifica se é obrigado o usuário a realizar mais alguma jogada.
     """
     def nova_jogada(self, tabuleiro, peca, isComeu):
+        """
+            >>> regras = Regras()
+            >>> tests = Tests()
+
+           #Caso 1: Existe lista de pecas para comer e comeu anteriormente
+            >>> input = tests.jogada_obrigatoria()
+            >>> regras.nova_jogada(input[0], input[1], True)
+            True
+
+            #Caso 2: Existe lista de peças, mas o jogador não comeu anteriormente
+            >>> input = tests.jogada_obrigatoria()
+            >>> regras.nova_jogada(input[0], input[1], False)
+            False
+
+            #Caso 3: Não existe lista de peças e o jogador comeu antiormente
+            >>> input = tests.passar_jogada()
+            >>> regras.nova_jogada(input[0], input[1], True)
+            False
+
+            #Caso 4: Não existe lista de peças e o jogador não comeu antiormente
+            >>> input = tests.passar_jogada()
+            >>> regras.nova_jogada(input[0], input[1], False)
+            False
+        """
+
         lista_mv_obg = self.pedras_podem_comer(tabuleiro, peca.cor)
         if lista_mv_obg and isComeu:
             return True
@@ -194,7 +271,7 @@ class Regras(object):
         p = tabuleiro.get_coordenada(peca.coordenadas)
         if p is not None and p.cor == peca.cor:
             p.coordenadas = destino
-            self.virarDama(peca)
+            self.virarDama(p)
             return p
         return None
 
@@ -677,7 +754,6 @@ class Regras(object):
                     comer = True
         return comer
 
-
     def novoJogo(self):
         largura = 8
         altura = 8
@@ -740,3 +816,11 @@ class Regras(object):
         jogador2 = Jogador(tabuleiro.lista_das_pretas)
 
         return Jogo(jogador1, jogador2, tabuleiro)
+
+    def _test():
+        import doctest, Regras
+        return doctest.testmod(Regras)
+
+    if __name__ == '__main__':
+        _test()
+
