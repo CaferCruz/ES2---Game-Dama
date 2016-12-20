@@ -491,7 +491,7 @@ class Regras(object):
                             #print "Pode comer em ",p_coluna+2, ", ",p_linha-2
                             peca_branca.jogadas_possiveis.append([p_coluna + 2, p_linha - 2])
                             podem_comer.append(peca_branca)
-        if len(podem_comer) > 0:
+        #if len(podem_comer) > 0:
             #print "pedras brancas podem comer"
         return podem_comer
 
@@ -618,17 +618,17 @@ class Regras(object):
             if not qtdPreta: #Quantidade de Pretas igual a zero
                 if qtdBranca <= 1: #Existe no maximo 1 peça preta no caminho
                     mover = True
-                else:
+                #else:
                     #print "Você não pode comer duas peças de uma vez."
-            else:
+            #else:
                 #print "Não pode existir peças pretas no caminho."
         else:
             if not qtdBranca: #Quantidade de Brancas igual a zero
                 if qtdPreta <= 1: #Existe no maximo 1 peça preta no caminho
                     mover = True
-                else:
+                #else:
                     #print "Você não pode comer duas peças de uma vez."
-            else:
+            #else:
                 #print "Não pode existir peças brancas no caminho."
 
         return mover
