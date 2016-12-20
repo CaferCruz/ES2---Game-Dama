@@ -31,27 +31,31 @@ except:
 
 if(works > 0):
     regra = Regras()
-    jogo = regra.carregarJogo(sid)
+    #jogo = regra.carregarJogo(sid)
+    jogo = regra.carregarJogo("150659578876257975456580117709407753831")
     tab = jogo.tabuleiro
     
-    tox = int(to[1])
-    toy = int(to[2])
+    #tox = int(to[1])
+    #toy = int(to[2])
+    tox, toy = 0, 1
     
-    frox = int(fro[1])
-    froy = int(fro[2])
+    #frox = int(fro[1])
+    #froy = int(fro[2])
+    frox, froy = 2, 1
 
-    pcode = 0 if pid[0] == 'w' else 1
+    #pcode = 0 if pid[0] == 'w' else 1
+    pcode = 0
     peca = Peca(pcode, (frox, froy), 0)
 
-    res = regra.valida_mover(tabuleiro, Peca, (frox, froy), (tox, toy))
+    res = regra.validador(tab, Peca, (frox, froy), (tox, toy))
 
     print to, fro, sid, pid
 
     if(res):
-        estado, tabuleiro = regra.capsula(tabuleiro, Peca, (frox, froy), (tox, toy))
-        tabuleiro = regra.capsula_atualiza(Peca, (tox, toy), tabuleiro)
+        estado, tab = regra.capsula(tab, Peca, (frox, froy), (tox, toy))
+        tab = regra.capsula_atualiza(Peca, (tox, toy), tab)
 
-        #printboard(tabuleiro)
+        printboard(tabuleiro)
 
     else:
         print "0"
