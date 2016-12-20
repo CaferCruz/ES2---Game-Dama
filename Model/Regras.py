@@ -195,7 +195,7 @@ class Regras(object):
         return None
 
     def capsula_atualiza(self, peca, destino, tabuleiro):
-        atualiza_coordenada(self, peca, destino, tabuleiro)
+        self.atualiza_coordenada(peca, destino, tabuleiro)
         return tabuleiro
 
 
@@ -652,7 +652,7 @@ class Regras(object):
         return comer
 
     def capsula(self, tabuleiro, peca, origem, destino):
-        val = comerPreta(self, tabuleiro, peca, origem, destino)
+        val = self.comerPreta(tabuleiro, peca, origem, destino)
         return tabuleiro, val
 
     def comerBranca(self, tabuleiro, peca, origem, destino):

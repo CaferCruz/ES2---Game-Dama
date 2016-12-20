@@ -224,7 +224,7 @@
 <input type="button" name="Novo Jogo" value="Novo Jogo">
 <input type="button" name="Salvar Jogo" value="Salvar Jogo">
 <input type="button" name="Carregar Jogo" value="Carregar Jogo">
-<input type="hidden" id="sid" name="input1" value="236250386016986644651262669966520518624" />
+<input type="hidden" id="sid" name="input1" value="245648102607573049843822731869220605617" />
 </form>
 </body>
 </HTML>
@@ -240,7 +240,7 @@ Content-Type: text/html
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>&lt;type 'exceptions.AttributeError'&gt;</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial">Python 2.7.9: C:\python27\python.exe<br>Tue Dec 20 00:37:20 2016</font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial">Python 2.7.9: C:\python27\python.exe<br>Tue Dec 20 00:53:48 2016</font></td></tr></table>
     
 <p>A problem occurred in a Python script.  Here is the sequence of
 function calls leading up to the error, in the order they occurred.</p>
@@ -272,15 +272,15 @@ function calls leading up to the error, in the order they occurred.</p>
 <tr><td><small><font color="#909090">regra_mover <em>undefined</em>, <strong>self</strong>&nbsp;= &lt;Regras.Regras object&gt;, self.<strong>valida_mover</strong>&nbsp;= &lt;bound method Regras.valida_mover of &lt;Regras.Regras object&gt;&gt;, <strong>tabuleiro</strong>&nbsp;= &lt;Tabuleiro.Tabuleiro object&gt;, <strong>peca</strong>&nbsp;= &lt;class 'Peca.Peca'&gt;, <strong>origem</strong>&nbsp;= (2, 1), <strong>destino</strong>&nbsp;= (0, 1)</font></small></td></tr></table>
 <table width="100%" cellspacing=0 cellpadding=0 border=0>
 <tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file://C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py">C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py</a> in <strong>valida_mover</strong>(self=&lt;Regras.Regras object&gt;, tabuleiro=&lt;Tabuleiro.Tabuleiro object&gt;, peca=&lt;class 'Peca.Peca'&gt;, origem=(2, 1), destino=(0, 1))</td></tr>
-<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;232</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;243</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""<br>
 </tt></font></td></tr>
-<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;233</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;valida_mover(self,&nbsp;tabuleiro,&nbsp;peca,&nbsp;origem,&nbsp;destino):&nbsp;&nbsp;#&nbsp;Verificar&nbsp;antes&nbsp;se&nbsp;jogador&nbsp;eh&nbsp;obrigado&nbsp;a&nbsp;comer,&nbsp;se&nbsp;ela&nbsp;for&nbsp;comer&nbsp;nem&nbsp;chame&nbsp;essa&nbsp;funcao<br>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;244</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;valida_mover(self,&nbsp;tabuleiro,&nbsp;peca,&nbsp;origem,&nbsp;destino):&nbsp;&nbsp;#&nbsp;Verificar&nbsp;antes&nbsp;se&nbsp;jogador&nbsp;eh&nbsp;obrigado&nbsp;a&nbsp;comer,&nbsp;se&nbsp;ela&nbsp;for&nbsp;comer&nbsp;nem&nbsp;chame&nbsp;essa&nbsp;funcao<br>
 </tt></font></td></tr>
-<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;234</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;peca_em_coordenada&nbsp;=&nbsp;self.existe_peca_em(tabuleiro,&nbsp;peca.coordenadas)<br>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;245</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;peca_em_coordenada&nbsp;=&nbsp;self.existe_peca_em(tabuleiro,&nbsp;peca.coordenadas)<br>
 </tt></td></tr>
-<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;235</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;self.dentro_do_tabuleiro(origem[0],&nbsp;origem[1])&nbsp;and&nbsp;self.dentro_do_tabuleiro(destino[0],&nbsp;destino[1]):&nbsp;&nbsp;#&nbsp;se&nbsp;origem&nbsp;e&nbsp;destino&nbsp;esta&nbsp;dentro&nbsp;do&nbsp;tabuleiro<br>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;246</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;self.dentro_do_tabuleiro(origem[0],&nbsp;origem[1])&nbsp;and&nbsp;self.dentro_do_tabuleiro(destino[0],&nbsp;destino[1]):&nbsp;&nbsp;#&nbsp;se&nbsp;origem&nbsp;e&nbsp;destino&nbsp;esta&nbsp;dentro&nbsp;do&nbsp;tabuleiro<br>
 </tt></font></td></tr>
-<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;236</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;peca_em_coordenada&nbsp;is&nbsp;not&nbsp;None:&nbsp;#&nbsp;se&nbsp;tem&nbsp;alguma&nbsp;peca&nbsp;na&nbsp;origem<br>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;247</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;peca_em_coordenada&nbsp;is&nbsp;not&nbsp;None:&nbsp;#&nbsp;se&nbsp;tem&nbsp;alguma&nbsp;peca&nbsp;na&nbsp;origem<br>
 </tt></font></td></tr>
 <tr><td><small><font color="#909090">peca_em_coordenada <em>undefined</em>, <strong>self</strong>&nbsp;= &lt;Regras.Regras object&gt;, self.<strong>existe_peca_em</strong>&nbsp;= &lt;bound method Regras.existe_peca_em of &lt;Regras.Regras object&gt;&gt;, <strong>tabuleiro</strong>&nbsp;= &lt;Tabuleiro.Tabuleiro object&gt;, <strong>peca</strong>&nbsp;= &lt;class 'Peca.Peca'&gt;, peca.coordenadas <em>undefined</em></font></small></td></tr></table><p><strong>&lt;type 'exceptions.AttributeError'&gt;</strong>: type object 'Peca' has no attribute 'coordenadas'
 <br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>args&nbsp;=
@@ -298,7 +298,7 @@ Traceback (most recent call last):
     res = regra.validador(tab, Peca, (frox, froy), (tox, toy))
   File "C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py", line 53, in validador
     regra_mover = self.valida_mover(tabuleiro, peca, origem, destino)
-  File "C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py", line 234, in valida_mover
+  File "C:\Users\joselicio\Documents\ES2_Game_Dama\Model\Regras.py", line 245, in valida_mover
     peca_em_coordenada = self.existe_peca_em(tabuleiro, peca.coordenadas)
 AttributeError: type object 'Peca' has no attribute 'coordenadas'
 
