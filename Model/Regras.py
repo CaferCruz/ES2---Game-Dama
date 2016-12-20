@@ -45,6 +45,20 @@ class Regras(object):
         return None
 
     """
+        Função usada para validar no front-end.
+        Verifica todas as validações em valida_mover e se existe comer obrigatorio, se exitir é preciso estar na lista
+        de obrigatorios.
+    """
+    def validador(self, tabuleiro, peca, origem, destino):
+        regra_mover = self.valida_mover(tabuleiro, peca, origem, destino)
+        if regra_mover:
+            lista_mv_obg = self.pedras_podem_comer(tabuleiro, peca.cor)
+            mv_obrigatorio = self.mover_obrigatorio(tabuleiro, origem, destino, lista_mv_obg)
+            if not lista_mv_obg or mv_obrigatorio:
+                return True
+        return False
+
+    """
         Retorna lista de pedras pretas que podem comer e
         atribui as movimentacoes as jogadas possiveis da peca
         se a lista for vazia nao existe movimento para comer
@@ -202,10 +216,7 @@ class Regras(object):
         A verificação é feita apartir das coordenadas da lista de obrigatórias, se existir uma peça na posição e for diferente da cor da jogada da vez
         é obrigatorio comer.
     """
-    def mover_obrigatorio(self, tabuleiro, jogada, lista_obrigatoria):
-        origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
-        destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
-
+    def mover_obrigatorio(self, tabuleiro, origem, destino, lista_obrigatoria):
         for o in lista_obrigatoria:
             for d in o.jogadas_possiveis:
                 if o.coordenadas == origem and d == destino:

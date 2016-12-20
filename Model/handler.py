@@ -43,11 +43,11 @@ if(works > 0):
     pcode = 0 if pid[0] == 'w' else 1
     peca = Peca(pcode, (frox, froy), 0)
 
-    #res = regra.valida_mover(tabuleiro, Peca, (frox, froy), (tox, toy))
+    res = regra.valida_mover(tabuleiro, Peca, (frox, froy), (tox, toy))
 
-    #if(res):
+    if(res):
 
-    #else:
-    #    print "0"
+    else:
+        print "0"
     
 
