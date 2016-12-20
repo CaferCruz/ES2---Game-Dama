@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 # Main conduz o jogo
-from Model.Minmax import *
-from Model.Tabuleiro import *
+from Minmax import *
+from Tabuleiro import *
 
-from Model.Jogador import *
-from Model.Regras import *
-from Model.Peca import *
-from Model.Jogo import *
+from Jogador import *
+from Regras import *
+from Peca import *
+from Jogo import *
 
 # Configura os tamanhos do tabuleiro
 regras = Regras()
@@ -92,17 +92,18 @@ class Main(object):
     tabuleiro = initJogo()
 
     # Inicializando tabuleiro para testes de pode comer
-    p = Peca(1, (5, 5), 0)
+    #p = Peca(1, (5, 5), 0)
     p1 = Peca(1, (3, 5), 0)
     p3 = Peca(1, (5, 3), 0)
-    p4 = Peca(1, (0, 0), 0)
+    p4 = Peca(1, (0, 0), 1)
     p5 = Peca(1, (2, 0), 0)
-    list =[p,p1,p3, p4,p5]
+    list =[p1,p3, p4,p5]
     tabuleiro.lista_das_pretas = list
 
     b1 = Peca (0,(1,1),0)
     b2 = Peca (0,(3,3),0)
-    list = [b1,b2]
+    b3 = Peca (0,(5,5),0)
+    list = [b1,b2, b3]
     tabuleiro.lista_das_brancas = list
     tabuleiro.printa_tabuleiro()
 

@@ -106,7 +106,7 @@ class Regras(object):
 
 
                 else:
-                    podem_comer = podem_comer + self.damas_podem_comer()
+                    podem_comer = podem_comer + self.damas_podem_comer(tabuleiro, corJogada)
 
         else:
             print("Verificar jogada para branco comer.")
@@ -202,8 +202,11 @@ class Regras(object):
         obgComer = self.valida_mover(tabuleiro, peca, origem, destino)
 
         if obgComer:
-            peca = self.atualiza_coordenada(peca, destino, tabuleiro) # Move peça
 
+            print "Atualizou a origem da peca "
+            peca = self.atualiza_coordenada(peca, destino, tabuleiro) # Move peça
+            peca.jogadas_possiveis = []
+            print peca.coordenadas
             if cor:
                 comer = self.comerBranca(tabuleiro, peca, origem, destino)  # Come
 
