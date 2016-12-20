@@ -206,6 +206,7 @@ class Regras(object):
 
             if cor:
                 comer = self.comerBranca(tabuleiro, peca, origem, destino)  # Come
+
             else:
                 comer = self.comerPreta(tabuleiro, peca, origem, destino) # Come peças pretas
 

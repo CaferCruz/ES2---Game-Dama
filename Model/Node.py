@@ -26,7 +26,10 @@ class Node(object):
                     for jogada in peca.jogadas_possiveis:
                         destino = jogada
                         tabuleiro_temporario = deepcopy(self.tabuleiro)
-                        self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo)
+                        if self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo):
+                            # origem = peca.coordenadas
+                            # destino = peca.jogadas_possiveis[0]
+                            print "-----------------------------------------Voce ainda vai mover ----------------------------------------------"
                         numero_de_filhos += 1
                         self.filhos.append(tabuleiro_temporario)
             else: # Se nao der para comer verifica todas as pecas do jogador quais tem a diagonal livre
@@ -67,7 +70,12 @@ class Node(object):
                     for jogada in peca.jogadas_possiveis:
                         destino = jogada
                         tabuleiro_temporario = deepcopy(self.tabuleiro)
-                        self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo)
+                        if self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo):
+                            print "----------------------------------------- Voce ainda vai mover ----------------------------------------------"
+                            origem = peca.coordenadas
+                            for comer in peca.jogadas_possiveis:
+                                t2 = deepcopy(tabuleiro_temporario)
+                                print "Comer possivel: de ", origem," para ", comer
                         numero_de_filhos += 1
                         self.filhos.append(tabuleiro_temporario)
             else: # Se nao der pra comer verifica todas as pecas do jogados quais tem a diagonal livre

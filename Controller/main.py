@@ -92,19 +92,19 @@ class Main(object):
     tabuleiro = initJogo()
 
     # Inicializando tabuleiro para testes de pode comer
-    # p = Peca(1, (5, 5), 0)
-    # p1 = Peca(1, (3, 5), 0)
-    # p2 = Peca(1, (3, 3), 0)
-    # p3 = Peca(1, (5, 3), 0)
-    # p4 = Peca(1, (0, 0), 0)
-    # p5 = Peca(1, (2, 0), 0)
-    # list =[p,p1,p2,p3, p4,p5]
-    # tabuleiro.lista_das_pretas = list
-    # b = Peca(0,(4,4),0)
-    # b1 = Peca (0,(1,1),0)
-    # list = [b,b1]
-    # tabuleiro.lista_das_brancas = list
-    # tabuleiro.printa_tabuleiro()
+    p = Peca(1, (5, 5), 0)
+    p1 = Peca(1, (3, 5), 0)
+    p3 = Peca(1, (5, 3), 0)
+    p4 = Peca(1, (0, 0), 0)
+    p5 = Peca(1, (2, 0), 0)
+    list =[p,p1,p3, p4,p5]
+    tabuleiro.lista_das_pretas = list
+
+    b1 = Peca (0,(1,1),0)
+    b2 = Peca (0,(3,3),0)
+    list = [b1,b2]
+    tabuleiro.lista_das_brancas = list
+    tabuleiro.printa_tabuleiro()
 
     # loop
     while regras.vitoria(tabuleiro) == -1:
@@ -113,8 +113,8 @@ class Main(object):
         print(">>>>>>>SUA VEZ.<<<<<<<<")
 
         # TESTES USANDO NODE E FAZ_FILHO() DANDO ERRO
-        #a = Node(tabuleiro, 0, regras)
-
+        a = Node(tabuleiro, 0, regras)
+        b = Node(tabuleiro, 1, regras)
         mover(tabuleiro, 0)
 
         #jogada_usuario = regras.mover(tabuleiro, 0)
