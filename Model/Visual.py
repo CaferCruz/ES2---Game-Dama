@@ -11,6 +11,14 @@ class Blackpiece(Piece):
         def __init__(self, id):
                 Piece.__init__(self, "<img src=\"..\images\p1.png\" id=\"b%d\" draggable=\"true\" ondragstart=\"drag(event)\">" % id)
 
+class Blackdama(Piece):
+        def __init__(self, id):
+                Piece.__init__(self, "<img src=\"..\images\d1.png\" id=\"d%d\" draggable=\"true\" ondragstart=\"drag(event)\">" % id)
+
+class Whitedama(Piece):
+        def __init__(self, id):
+                Piece.__init__(self, "<img src=\"..\images\d2.png\" id=\"q%d\" draggable=\"true\" ondragstart=\"drag(event)\">" % id)
+
 class Whitepiece(Piece):
         def __init__(self, id):
                 Piece.__init__(self, "<img src=\"..\images\p2.png\" id=\"w%d\" draggable=\"true\" ondragstart=\"drag(event)\">" % id)
@@ -40,11 +48,11 @@ class Visual(object):
                     
             for c, p in enumerate(tab.lista_das_pretas):
                     (x, y) = p.coordenadas[0], p.coordenadas[1]
-                    board[x][y] = Blackpiece(c)
+                    board[x][y] = Blackdama(c) if p.tipo else Blackpiece(c)
 
             for c, p in enumerate(tab.lista_das_brancas):
                     (x, y) = p.coordenadas[0], p.coordenadas[1]
-                    board[x][y] = Whitepiece(c)
+                    board[x][y] = Whitedama(c) if p.tipo else Whitepiece(c)
 
             return board
                     

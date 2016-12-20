@@ -1,4 +1,4 @@
-#!C:\Python27\python
+#!/usr/bin/env python
 
 from Regras import *
 from Jogo import *
@@ -44,17 +44,26 @@ if(works > 0):
     #froy = int(fro[2])
     frox, froy = 5, 3
 
-    #pcode = 0 if pid[0] == 'w' else 1
+    #pcode = 0 if (pid[0] == 'w' or pid[0] == 'q') else 1
     pcode = 0
-    peca = Peca(pcode, (froy, frox), 0)
+
+    #ptype = 0 if (pid[0] == 'd' or pid[0] == 'q') else 1
+    ptype = 0
+
+    peca = Peca(pcode, (froy, frox), ptype)
 
     res = regra.validador(tab, peca, (froy, frox), (toy, tox))
 
     #print to, fro, sid, pid
 
     if(res):
-        estado, tab = regra.capsula(tab, peca, (froy, frox), (toy, tox))
-        tab = regra.capsula_atualiza(peca, (toy, tox), tab)
+        tab, estado = regra.capsula(tab, peca, (froy, frox), (toy, tox))
+        p, tab = regra.capsula_atualiza(peca, (toy, tox), tab)
+        peca.coordenadas = p.coordenadas
+        if(peca.cor == 0 and tox == 0):
+            temp, tab = regra.capsulaDama(peca)
+        elif(peca.cor == 1 and tox == 7):
+            temp, tab = regra.capsulaDama(peca)
         if(not regra.nova_jogada(tab, peca, estado)):
             #manda a IA jogar
             visual.printboard(tab)

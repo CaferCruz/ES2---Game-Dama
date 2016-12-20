@@ -1,4 +1,4 @@
-#!C:\Python27\python
+#!/usr/bin/env python
 
 from Tabuleiro import *
 from Peca import *

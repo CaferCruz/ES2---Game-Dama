@@ -39,5 +39,6 @@ function drop(ev) {
 	tring += "&id=";
 	tring += ssid;
 	message.open("GET", tring, true);
+	//message.open("GET", "output3.html", true);
 	message.send();
 }

@@ -77,7 +77,7 @@ class Regras(object):
     def pedras_podem_comer(self, tabuleiro, corJogada): #essa funcao e facilmente modularizavel ja que agora e possivel comer pra frente e pra tras
         podem_comer = []
         if corJogada:
-            print("Verificar jogada para Pretos comer.")
+            #print("Verificar jogada para Pretos comer.")
             for peca_preta in tabuleiro.lista_das_pretas:
                 if peca_preta.tipo == 0:
                     p_coluna = peca_preta.coordenadas[0]
@@ -119,7 +119,7 @@ class Regras(object):
                     podem_comer = podem_comer + damas
 
         else:
-            print("Verificar jogada para branco comer.")
+            #print("Verificar jogada para branco comer.")
             for peca in tabuleiro.lista_das_brancas:
                 if peca.tipo == 0:
                     p_coluna = peca.coordenadas[0]
@@ -173,6 +173,10 @@ class Regras(object):
                 return True
         return False
 
+    def capsulaDama(self, peca):
+        val = self.virarDama(self, peca)
+        return val, tabuleiro
+
     """
         Verifica se peça pertence ao jogador da vez.
     """
@@ -195,8 +199,8 @@ class Regras(object):
         return None
 
     def capsula_atualiza(self, peca, destino, tabuleiro):
-        self.atualiza_coordenada(peca, destino, tabuleiro)
-        return tabuleiro
+        p = self.atualiza_coordenada(peca, destino, tabuleiro)
+        return p, tabuleiro
 
 
     """
@@ -218,10 +222,10 @@ class Regras(object):
                 comer = self.comerPreta(tabuleiro, peca, origem, destino) # Come peças pretas
 
             lista_mv_obg = self.pedras_podem_comer(tabuleiro, cor)
-            for m in lista_mv_obg:
-                print("Obrigatorio comer: ", m)
+            #for m in lista_mv_obg:
+                #print("Obrigatorio comer: ", m)
             if lista_mv_obg and comer:
-                print(">>>>>>>Ainda existe jogadas para você.<<<<<<<<")
+                #print(">>>>>>>Ainda existe jogadas para você.<<<<<<<<")
                 return True
         return False
 
@@ -281,7 +285,7 @@ class Regras(object):
     def valida_movimento_dama(self, tabuleiro, peca, origem, destino):
         d_coluna = peca.coordenadas[0]
         d_linha = peca.coordenadas[1]
-        print "dama:", d_coluna, d_linha
+        #print "dama:", d_coluna, d_linha
         i = 1
         # verificar nordeste se tem uma casa livre entre origem e destino nessa direcao antes de encontrar uma peca branca
         # se a coluna destino e maior que a origem e linha destino meno     r que linha origem movimento nordeste
@@ -293,8 +297,8 @@ class Regras(object):
                     i += 1
                     peca_em_coordenada = self.existe_peca_em(tabuleiro, [d_coluna + i, d_linha - i])
 
-                print "1",i, (destino[0] - origem[0] > 0), (destino[0] - origem[0] <= i) , (origem[1] - destino[1] > 0) , (origem[1] - destino[1] <= i)
-                print "Dama pode andar ", i, " colunas e ", i, " linhas."
+                #print "1",i, (destino[0] - origem[0] > 0), (destino[0] - origem[0] <= i) , (origem[1] - destino[1] > 0) , (origem[1] - destino[1] <= i)
+                #print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (destino[0] - origem[0] > 0) and (destino[0] - origem[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
                     #print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a nordeste."
                     return True
@@ -312,8 +316,8 @@ class Regras(object):
                     i += 1
                     peca_em_coordenada = self.existe_peca_em(tabuleiro, [d_coluna - i, d_linha - i])
                     #if peca_em_coordenada is None or not self.dentro_do_tabuleiro(peca_em_coordenada.coordenadas[0], peca_em_coordenada.coordenadas[1]): break # IF NOT PECA DENTRO DO TABULEIRO BREAK
-                print "2"
-                print "Dama pode andar ", i, " colunas e ", i, " linhas."
+                #print "2"
+                #print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (origem[0] - destino[0] > 0) and (origem[0] - destino[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
                     #print "Movimento validado da dama: ", peca.coordenadas, " para ", destino, "andando ", i, " casas a noroeste."
                     return True

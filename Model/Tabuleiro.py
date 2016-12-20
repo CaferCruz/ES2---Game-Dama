@@ -101,7 +101,7 @@ class Tabuleiro(object):
     def unifica_lista(self):
         return self.lista_das_brancas + self.lista_das_pretas
 
-    def get_coodenada(self, coordenada):
+    def get_coordenada(self, coordenada):
         lista_de_pecas = self.unifica_lista()
 
         for p in lista_de_pecas:
