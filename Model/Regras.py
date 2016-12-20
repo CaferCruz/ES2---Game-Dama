@@ -64,7 +64,7 @@ class Regras(object):
     """
     def validador(self, tabuleiro, peca, origem, destino):
         """
-            Casos possíveis.
+            Casos possíveis. Teste de unidade
             >>> regras = Regras()
             >>> tests = Tests()
 
@@ -100,6 +100,22 @@ class Regras(object):
             >>> regras.validador(input[0], input[1], input[2], input[3])
             False
 
+            # Teste de integração
+            #Caso de integração entre passos obrigatorio e se usuario está movendo
+            #a peça obrigatoria para o local obrigatorio.
+            #Caso 1: Não possuir lista de peças a serem comidas.
+            >>> input = tests.passar_jogada()
+            >>> regras.pedras_podem_comer(input[0], 0)
+            []
+            >>> regras.mover_obrigatorio(input[0], input[2], input[3], [])
+            False
+
+            #Caso 2: Possui listas de peças e obriga a mover
+            >>> input = tests.jogada_obrigatoria()
+            >>> regras.pedras_podem_comer(input[0], 0) is not []
+            True
+            >>> regras.mover_obrigatorio(input[0], input[2], input[3], [input[1]])
+            False
 
         """
         regra_mover = self.valida_mover(tabuleiro, peca, origem, destino)
@@ -139,7 +155,6 @@ class Regras(object):
             >>> regras.nova_jogada(input[0], input[1], False)
             False
         """
-
         lista_mv_obg = self.pedras_podem_comer(tabuleiro, peca.cor)
         if lista_mv_obg and isComeu:
             return True

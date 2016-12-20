@@ -143,7 +143,7 @@ class Tests(object):
         # Adiciona uma peça a ser comida
         tabuleiro.addPeca(1, (2, 5), 0)
 
-        return [tabuleiro, peca]
+        return [tabuleiro, peca, origem, destino]
 
     """
         Caso em que o jogador não possui uma lista de obrigações para comer
@@ -156,5 +156,6 @@ class Tests(object):
         tabuleiro.esvaziar_lista()
         # Adiciona uma peça para comer
         tabuleiro.addPeca(0, origem, 0)
+        destino = (2, 5)
 
-        return [tabuleiro, peca]
+        return [tabuleiro, peca, origem, destino]
