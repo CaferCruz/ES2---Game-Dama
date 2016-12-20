@@ -23,7 +23,7 @@ class Main(object):
             resp = raw_input().lower()
 
             if str(resp) == 's':
-                j = regras.carregarJogo('save.json')
+                j = regras.carregarJogo('save')
                 j.tabuleiro.printa_tabuleiro()
                 return j.tabuleiro
                 break
@@ -42,7 +42,7 @@ class Main(object):
             resp = raw_input().lower()
 
             if str(resp) == 's':
-                regras.salvarJogo(tabuleiro, "save.json")
+                regras.salvarJogo(tabuleiro, "save")
                 print("Jogo salvo com sucesso.")
                 break
             else:
