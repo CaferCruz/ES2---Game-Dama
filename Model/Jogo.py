@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from Tabuleiro import *
 from Jogador import *
 

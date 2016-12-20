@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 class Peca(object):
 
     def __init__(self, cor, coordenadas, tipo):

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # coding: utf-8
 # Tabuleiro do jogo. Precisa de uma altura e uma largura para ser instanciado
 # MODIFIED
@@ -22,37 +23,6 @@ class Tabuleiro(object):
         # Cria duas listas, cada uma contendo as pecas que cada jogador tem
         self.lista_das_pretas = []
         self.lista_das_brancas = []
-
-        """self.lista_das_brancas.append(Peca(0, (1, 5), 0))
-        self.lista_das_brancas.append(Peca(0, (3, 5), 0))
-        self.lista_das_brancas.append(Peca(0, (5, 5), 0))
-        self.lista_das_brancas.append(Peca(0, (7, 5), 0))
-
-        self.lista_das_brancas.append(Peca(0, (0, 6), 0))
-        self.lista_das_brancas.append(Peca(0, (2, 6), 0))
-        self.lista_das_brancas.append(Peca(0, (4, 6), 0))
-        self.lista_das_brancas.append(Peca(0, (6, 6), 0))
-
-        self.lista_das_brancas.append(Peca(0, (1, 7), 0))
-        self.lista_das_brancas.append(Peca(0, (3, 7), 0))
-        self.lista_das_brancas.append(Peca(0, (5, 7), 0))
-        self.lista_das_brancas.append(Peca(0, (7, 7), 0))
-
-        self.lista_das_pretas.append(Peca(1, (0, 2), 0))
-        self.lista_das_pretas.append(Peca(1, (2, 2), 0))
-        self.lista_das_pretas.append(Peca(1, (4, 2), 0))
-        self.lista_das_pretas.append(Peca(1, (6, 2), 0))
-
-        self.lista_das_pretas.append(Peca(1, (1, 1), 0))
-        self.lista_das_pretas.append(Peca(1, (3, 1), 0))
-        self.lista_das_pretas.append(Peca(1, (5, 1), 0))
-        self.lista_das_pretas.append(Peca(1, (7, 1), 0))
-
-        self.lista_das_pretas.append(Peca(1, (0, 0), 0))
-        self.lista_das_pretas.append(Peca(1, (2, 0), 0))
-        self.lista_das_pretas.append(Peca(1, (4, 0), 0))
-        self.lista_das_pretas.append(Peca(1, (6, 0), 0))
-        """
 
         for l in range(0, 3):
             for c in range(0, 8):
@@ -132,7 +102,7 @@ class Tabuleiro(object):
     def unifica_lista(self):
         return self.lista_das_brancas + self.lista_das_pretas
 
-    def get_coodenada(self, coordenada):
+    def get_coordenada(self, coordenada):
         lista_de_pecas = self.unifica_lista()
 
         for p in lista_de_pecas:

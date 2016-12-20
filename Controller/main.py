@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 # Main conduz o jogo
-from Minmax import *
-from Tabuleiro import *
+from Model.Minmax import *
+from Model.Tabuleiro import *
 
-from Jogador import *
-from Regras import *
-from Peca import *
-from Jogo import *
+from Model.Jogador import *
+from Model.Regras import *
+from Model.Peca import *
+from Model.Jogo import *
 
 # Configura os tamanhos do tabuleiro
 regras = Regras()
@@ -23,7 +23,7 @@ class Main(object):
             resp = raw_input().lower()
 
             if str(resp) == 's':
-                j = regras.carregarJogo('save.json')
+                j = regras.carregarJogo('save')
                 j.tabuleiro.printa_tabuleiro()
                 return j.tabuleiro
                 break
@@ -42,7 +42,7 @@ class Main(object):
             resp = raw_input().lower()
 
             if str(resp) == 's':
-                regras.salvarJogo(tabuleiro, "save.json")
+                regras.salvarJogo(tabuleiro, "save")
                 print("Jogo salvo com sucesso.")
                 break
             else:
@@ -63,17 +63,18 @@ class Main(object):
             jogada = raw_input().lower().split()
             if len(jogada) == 2:
                 origem = (int(jogada[0][1]), ord(jogada[0][0]) - 97)
-                peca = Peca(corPeca, origem, 0)
+                peca = regras.existe_peca_em(tabuleiro, origem)
                 destino = (int(jogada[1][1]), ord(jogada[1][0]) - 97)
                 regra_mover = regras.valida_mover(tabuleiro, peca, origem, destino)
 
                 if regra_mover:
-                    lista_mv_obg = regras.pedras_pretas_podem_comer(tabuleiro, corPeca)
-                    mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, jogada, lista_mv_obg)
+                    lista_mv_obg = regras.pedras_podem_comer(tabuleiro, corPeca)
                     for m in lista_mv_obg:
-                        print("Obrigatorio comer com a peça: ", m.coordenadas)
+                        print("Obrigatorio comer com a peca: ", m.coordenadas)
+                    mv_obrigatorio = regras.mover_obrigatorio(tabuleiro, origem, destino, lista_mv_obg)
+                    print not lista_mv_obg, mv_obrigatorio
                     if not lista_mv_obg or mv_obrigatorio:
-                        total_mv = regras.mover(tabuleiro, corPeca, jogada, 0)
+                        total_mv = regras.mover(tabuleiro, corPeca, jogada)
                         tabuleiro.printa_tabuleiro()
                     else:
                         print("Você é obrigado a comer.")
@@ -91,6 +92,7 @@ class Main(object):
 
     tabuleiro = initJogo()
 
+    '''
     # Inicializando tabuleiro para testes de pode comer
     #p = Peca(1, (5, 5), 0)
     p1 = Peca(1, (3, 5), 0)
@@ -105,36 +107,34 @@ class Main(object):
     b3 = Peca (0,(5,5),0)
     list = [b1,b2, b3]
     tabuleiro.lista_das_brancas = list
-    tabuleiro.printa_tabuleiro()
+    tabuleiro.printa_tabuleiro()'''
+
 
     # loop
     while regras.vitoria(tabuleiro) == -1:
-        #salvarJogo(tabuleiro)
+
         # Usuario comeca jogando
         print(">>>>>>>SUA VEZ.<<<<<<<<")
 
         # TESTES USANDO NODE E FAZ_FILHO() DANDO ERRO
-        a = Node(tabuleiro, 0, regras)
-        b = Node(tabuleiro, 1, regras)
+        #a = Node(tabuleiro, 0, regras)
+        #b = Node(tabuleiro, 1, regras)
         mover(tabuleiro, 0)
 
-        #jogada_usuario = regras.mover(tabuleiro, 0)
-
-        print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
-        # Segundo jogador / IA
-        print ("Seu adversario ira jogar!")
-        mover(tabuleiro, 1)
-        #jogada_usuario = regras.mover(tabuleiro, 1)
-
-        salvarJogo(tabuleiro)
         if regras.vitoria(tabuleiro) == 0:
             print ("Usuario ganhou o jogo")
             print ("Game Over")
             break
 
-        elif regras.vitoria(tabuleiro) == 1:
+        print ("~~~~~~~~~~~~JOGADA DO COMPUTADOR~~~~~~~~~~~~")
+        # Segundo jogador / IA
+        print ("Seu adversario ira jogar!")
+        mover(tabuleiro, 1)
+
+        if regras.vitoria(tabuleiro) == 1:
             print ("Computador ganhou o jogo")
             print ("Game Over")
             break
 
+        salvarJogo(tabuleiro)
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from Peca import *
 
 class Jogador(object):
