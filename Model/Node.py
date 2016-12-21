@@ -28,8 +28,7 @@ class Node(object):
                         destino = jogada
                         tabuleiro_temporario = deepcopy(self.tabuleiro)
                         if self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1] + 97), str(origem[0])],
-                                                                              [chr(destino[1] + 97), str(destino[0])]],
-                                             peca.tipo):
+                                                                              [chr(destino[1] + 97), str(destino[0])]]):
                             print "----------------------------------------- Voce ainda vai mover ----------------------------------------------"
                             p = self.regras.existe_peca_em(tabuleiro_temporario, destino)
                             for comer in p.jogadas_possiveis:
@@ -49,36 +48,36 @@ class Node(object):
             else: # Se nao der para comer verifica todas as pecas do jogador quais tem a diagonal livre
                 numero_de_filhos = 0 # so pra debugar, isso tem que ser igual ao numero de filhos
                 for peca in self.tabuleiro.lista_das_brancas:
-                    if peca.tipo == 0:
-                        origem = peca.coordenadas
-                        destino = [peca.coordenadas[0] - 1, peca.coordenadas[1] - 1] # Testa noroeste
+                #if peca.tipo == 0:
+                    origem = peca.coordenadas
+                    destino = [peca.coordenadas[0] - 1, peca.coordenadas[1] - 1] # Testa noroeste
 
-                        if self.pode_ir(self.tabuleiro, destino):
-                            tabuleiro_temporario = deepcopy(self.tabuleiro)
-                            self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo)
-                            numero_de_filhos += 1
-                            self.filhos.append(tabuleiro_temporario)
+                    if self.pode_ir(self.tabuleiro, destino):
+                        tabuleiro_temporario = deepcopy(self.tabuleiro)
+                        self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]])
+                        numero_de_filhos += 1
+                        self.filhos.append(tabuleiro_temporario)
 
-                        destino = [peca.coordenadas[0] + 1, peca.coordenadas[1] - 1] # Testa nordeste
-                        if self.pode_ir(self.tabuleiro, destino):
-                            tabuleiro_temporario = deepcopy(self.tabuleiro)
-                            self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo)
-                            numero_de_filhos += 1
-                            self.filhos.append(tabuleiro_temporario)
-                    # peca e dama
-                    l = self.lista_damas()
-                    for dama in l:
-                        for coluna in range(7):
-                            for linha in range(7):
-                                tabuleiro_temporario = deepcopy(self.tabuleiro)
-                                origem = dama.coordenadas
-                                if self.regras.valida_movimento_dama(self.tabuleiro, dama, dama.coordenadas,
-                                                                     [coluna, linha]):
-                                    self.regras.mover(tabuleiro_temporario, dama.cor,
-                                                      [[chr(origem[1] + 97), str(origem[0])],
-                                                       [chr(linha + 97), str(coluna)]])
-                                    numero_de_filhos += 1
-                                    self.filhos.append(tabuleiro_temporario)
+                    destino = [peca.coordenadas[0] + 1, peca.coordenadas[1] - 1] # Testa nordeste
+                    if self.pode_ir(self.tabuleiro, destino):
+                        tabuleiro_temporario = deepcopy(self.tabuleiro)
+                        self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]])
+                        numero_de_filhos += 1
+                        self.filhos.append(tabuleiro_temporario)
+                # # peca e dama
+                #     l = self.lista_damas()
+                #     for dama in l:
+                #         for coluna in range(7):
+                #             for linha in range(7):
+                #                 tabuleiro_temporario = deepcopy(self.tabuleiro)
+                #                 origem = dama.coordenadas
+                #                 if self.regras.valida_movimento_dama(self.tabuleiro, dama, dama.coordenadas,
+                #                                                      [coluna, linha]):
+                #                     self.regras.mover(tabuleiro_temporario, dama.cor,
+                #                                       [[chr(origem[1] + 97), str(origem[0])],
+                #                                        [chr(linha + 97), str(coluna)]])
+                #                     numero_de_filhos += 1
+                #                     self.filhos.append(tabuleiro_temporario)
 
 
         else:
@@ -93,7 +92,7 @@ class Node(object):
                     for jogada in peca.jogadas_possiveis:
                         destino = jogada
                         tabuleiro_temporario = deepcopy(self.tabuleiro)
-                    if self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo):
+                    if self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]]):
                         print "----------------------------------------- Voce ainda vai mover ----------------------------------------------"
                         p = self.regras.existe_peca_em(tabuleiro_temporario, destino)
                         for comer in p.jogadas_possiveis:
@@ -101,7 +100,7 @@ class Node(object):
                             origem = p.coordenadas
                             self.regras.mover(t2, p.cor,
                                               [[chr(origem[1] + 97), str(origem[0])],
-                                               [chr(comer[1] + 97), str(comer[0])]], p.tipo)
+                                               [chr(comer[1] + 97), str(comer[0])]])
                             if t2 not in self.filhos:
                                 numero_de_filhos += 1
                                 self.filhos.append(t2)
@@ -114,34 +113,34 @@ class Node(object):
             else: # Se nao der pra comer verifica todas as pecas do jogados quais tem a diagonal livre
                 numero_de_filhos = 0
                 for peca in self.tabuleiro.lista_das_pretas:
-                    if peca.tipo == 0:
-                        origem = peca.coordenadas
-                        destino = [peca.coordenadas[0] - 1, peca.coordenadas[1] + 1]  # Testa sudeste
-                        if self.pode_ir(self.tabuleiro, destino):
+                # if peca.tipo == 0:
+                    origem = peca.coordenadas
+                    destino = [peca.coordenadas[0] - 1, peca.coordenadas[1] + 1]  # Testa sudeste
+                    if self.pode_ir(self.tabuleiro, destino):
 
-                            tabuleiro_temporario = deepcopy(self.tabuleiro)
-                            self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo)
-                            numero_de_filhos += 1
-                            self.filhos.append(tabuleiro_temporario)
+                        tabuleiro_temporario = deepcopy(self.tabuleiro)
+                        self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]])
+                        numero_de_filhos += 1
+                        self.filhos.append(tabuleiro_temporario)
 
-                        destino = [peca.coordenadas[0] + 1, peca.coordenadas[1] + 1]  # Testa sudoeste
-                        if self.pode_ir(self.tabuleiro, destino):
-                            tabuleiro_temporario = deepcopy(self.tabuleiro)
-                            self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]], peca.tipo)
-                            numero_de_filhos += 1
-                            self.filhos.append(tabuleiro_temporario)
+                    destino = [peca.coordenadas[0] + 1, peca.coordenadas[1] + 1]  # Testa sudoeste
+                    if self.pode_ir(self.tabuleiro, destino):
+                        tabuleiro_temporario = deepcopy(self.tabuleiro)
+                        self.regras.mover(tabuleiro_temporario, peca.cor, [[chr(origem[1]+97), str(origem[0])], [chr(destino[1]+97), str(destino[0])]])
+                        numero_de_filhos += 1
+                        self.filhos.append(tabuleiro_temporario)
 
-                #peca e dama
-                l = self.lista_damas()
-                for dama in l:
-                    for coluna in range(7):
-                        for linha in range(7):
-                            tabuleiro_temporario = deepcopy(self.tabuleiro)
-                            origem = dama.coordenadas
-                            if self.regras.valida_movimento_dama(self.tabuleiro, dama, dama.coordenadas, [coluna,linha]):
-                                self.regras.mover(tabuleiro_temporario, dama.cor,[[chr(origem[1]+97), str(origem[0])], [chr(linha+97), str(coluna)]])
-                                numero_de_filhos += 1
-                                self.filhos.append(tabuleiro_temporario)
+                # #peca e dama
+                # l = self.lista_damas()
+                # for dama in l:
+                #     for coluna in range(7):
+                #         for linha in range(7):
+                #             tabuleiro_temporario = deepcopy(self.tabuleiro)
+                #             origem = dama.coordenadas
+                #             if self.regras.valida_movimento_dama(self.tabuleiro, dama, dama.coordenadas, [coluna,linha]):
+                #                 self.regras.mover(tabuleiro_temporario, dama.cor,[[chr(origem[1]+97), str(origem[0])], [chr(linha+97), str(coluna)]])
+                #                 numero_de_filhos += 1
+                #                 self.filhos.append(tabuleiro_temporario)
 
         print "*********************** QUANTIDADE DE FILHOS *********************** ", len(self.filhos)
         for filho in self.filhos:

@@ -67,7 +67,6 @@ class Regras(object):
             Casos possíveis. Teste de unidade
             >>> regras = Regras()
             >>> tests = Tests()
-
             #Caso 1: Peça x ou y fora do tabuleiro
             >>> input = tests.peca_x_fora()
             >>> regras.validador(input[0], input[1], input[2], input[3])
@@ -75,7 +74,6 @@ class Regras(object):
             >>> input = tests.peca_y_fora()
             >>> regras.validador(input[0], input[1], input[2], input[3])
             False
-
             #Caso 2: Existe peça no local de origem
             >>> input = tests.peca_existe()
             >>> regras.validador(input[0], input[1], input[2], input[3])
@@ -83,7 +81,6 @@ class Regras(object):
             >>> input = tests.peca_nao_existe()
             >>> regras.validador(input[0], input[1], input[2], input[3])
             False
-
             #Caso 3: Local de destino está vazio, ou seja pode ser preenchido
             >>> input = tests.espaco_vazio()
             >>> regras.validador(input[0], input[1], input[2], input[3])
@@ -91,7 +88,6 @@ class Regras(object):
             >>> input = tests.espaco_ocupado()
             >>> regras.validador(input[0], input[1], input[2], input[3])
             False
-
             #Caso 4: O jogador esta movendo sua peca
             >>> input = tests.jogador_valido()
             >>> regras.validador(input[0], input[1], input[2], input[3])
@@ -99,7 +95,6 @@ class Regras(object):
             >>> input = tests.jogador_invalido()
             >>> regras.validador(input[0], input[1], input[2], input[3])
             False
-
             # Teste de integração
             #Caso de integração entre passos obrigatorio e se usuario está movendo
             #a peça obrigatoria para o local obrigatorio.
@@ -109,14 +104,12 @@ class Regras(object):
             []
             >>> regras.mover_obrigatorio(input[0], input[2], input[3], [])
             False
-
             #Caso 2: Possui listas de peças e obriga a mover
             >>> input = tests.jogada_obrigatoria()
             >>> regras.pedras_podem_comer(input[0], 0) is not []
             True
             >>> regras.mover_obrigatorio(input[0], input[2], input[3], [input[1]])
             False
-
         """
         regra_mover = self.valida_mover(tabuleiro, peca, origem, destino)
         if regra_mover:
@@ -134,22 +127,18 @@ class Regras(object):
         """
             >>> regras = Regras()
             >>> tests = Tests()
-
            #Caso 1: Existe lista de pecas para comer e comeu anteriormente
             >>> input = tests.jogada_obrigatoria()
             >>> regras.nova_jogada(input[0], input[1], True)
             True
-
             #Caso 2: Existe lista de peças, mas o jogador não comeu anteriormente
             >>> input = tests.jogada_obrigatoria()
             >>> regras.nova_jogada(input[0], input[1], False)
             False
-
             #Caso 3: Não existe lista de peças e o jogador comeu antiormente
             >>> input = tests.passar_jogada()
             >>> regras.nova_jogada(input[0], input[1], True)
             False
-
             #Caso 4: Não existe lista de peças e o jogador não comeu antiormente
             >>> input = tests.passar_jogada()
             >>> regras.nova_jogada(input[0], input[1], False)
@@ -397,7 +386,8 @@ class Regras(object):
                     #print "coordenada", [d_coluna + i, d_linha - i]
                     i += 1
                     peca_em_coordenada = self.existe_peca_em(tabuleiro, [d_coluna + i, d_linha - i])
-
+                    if self.dentro_do_tabuleiro(d_coluna+i,d_linha-i):
+                        break
                 #print "1",i, (destino[0] - origem[0] > 0), (destino[0] - origem[0] <= i) , (origem[1] - destino[1] > 0) , (origem[1] - destino[1] <= i)
                 #print "Dama pode andar ", i, " colunas e ", i, " linhas."
                 if (destino[0] - origem[0] > 0) and (destino[0] - origem[0] <= i) and (origem[1] - destino[1] > 0) and (origem[1] - destino[1] <= i):
@@ -847,4 +837,3 @@ class Regras(object):
 
     if __name__ == '__main__':
         _test()
-
