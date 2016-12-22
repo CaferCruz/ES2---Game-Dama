@@ -3,6 +3,7 @@
 
 from Peca import *
 from Jogo import *
+import math
 import os
 import json
 from Tabuleiro import *
@@ -119,17 +120,50 @@ class Regras(object):
 
         """
         regra_mover = self.valida_mover(tabuleiro, peca, origem, destino)
-        if regra_mover:
+	move_para_tras = self.movendo_para_tras(peca,origem,destino)
+	distancia_invalida = self.distancia_invalida(peca,origem,destino)
+	nao_diagonal =self.nao_diagonal(peca,origem,destino)
+	if(regra_mover and not nao_diagonal): 
             lista_mv_obg = self.pedras_podem_comer(tabuleiro, peca.cor)
             mv_obrigatorio = self.mover_obrigatorio(tabuleiro, origem, destino, lista_mv_obg)
-            if not lista_mv_obg or mv_obrigatorio:
-                return True
+	    if(mv_obrigatorio == False and move_para_tras == False):
+		return False
+	    if(distancia_invalida and not mv_obrigatorio):
+                  return False	
+            if not lista_mv_obg or  mv_obrigatorio:		 
+		 return True
+        return False
+
+    def nao_diagonal(self,peca,origem,destino):
+	distancia=math.sqrt(((origem[1]-destino[1])**2)+((origem[0]-destino[0])**2))
+	dist_diag = math.sqrt(2)
+	if(distancia % dist_diag != 0):
+	    return True
+	else:
+	    return False
+
+
+    def distancia_invalida(self,peca,origem,destino):
+	distancia=math.sqrt(((origem[1]-destino[1])**2)+((origem[0]-destino[0])**2))
+	dist_diag = math.sqrt(2)
+	if(distancia > dist_diag):
+	    return True
+	else:
+	    return False
+
+    def movendo_para_tras(self,peca,origem,destino): 
+	if(peca.cor == 0):
+	    if(origem[1] > destino[1]):
+		return True
+	else:
+	    if(origem[1] < destino[1]):
+		return True
         return False
 
     """
         Função usada para comunicação no front.
         Verifica se é obrigado o usuário a realizar mais alguma jogada.
-    """
+    """    
     def nova_jogada(self, tabuleiro, peca, isComeu):
         """
             >>> regras = Regras()
@@ -289,7 +323,6 @@ class Regras(object):
     def capsula_atualiza(self, peca, destino, tabuleiro):
         p = self.atualiza_coordenada(peca, destino, tabuleiro)
         return p, tabuleiro
-
 
     """
         Movimenta peça, se a peça for da lista de depças do jogador
@@ -744,7 +777,10 @@ class Regras(object):
         return comer
 
     def capsula(self, tabuleiro, peca, origem, destino):
-        val = self.comerPreta(tabuleiro, peca, origem, destino)
+	if(peca.cor==0):
+            val = self.comerPreta(tabuleiro, peca, origem, destino)
+	else:
+	   val = self.comerBranca(tabuleiro,peca,origem,destino)
         return tabuleiro, val
 
     def comerBranca(self, tabuleiro, peca, origem, destino):

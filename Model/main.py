@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+print("Content-Type: text/html \n\n")
+
 from Tabuleiro import *
 from Peca import *
 from Regras import *
@@ -11,16 +13,16 @@ import cgi
 import cgitb; cgitb.enable()
 
 def header():
-        print "<!DOCTYPE html>"
-        print "<HTML>"
-        print "<head>"
-        print "<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\">"
-        print "<title>Checkers EX2</title>"
-        print "<link rel=\"stylesheet\" type=\"text/css\" href=\"..\css\style.css\">"
-        print "</head>"
+        print("<!DOCTYPE html>")
+        print("<HTML>")
+        print("<head>")
+        print("<meta content=\"text/html; charset=UTF-8\" http-equiv=\"content-type\">")
+        print("<title>Checkers .:: DamEx ::.</title>")
+        print("<link rel=\"stylesheet\" type=\"text/css\" href=\"..\css\style.css\">")
+        print("</head>")
 
 def input_button(text):
-        print "<input type=\"button\" name=\"%s\" value=\"%s\">" % (text, text) 
+        print("<input type=\"button\" name=\"%s\" value=\"%s\">" % (text, text)) 
 
 def main():
         form = cgi.FieldStorage()
@@ -48,9 +50,9 @@ def main():
         visual.printboard(tabuleiro)
         print "</table>"
         print "<form>"
-        input_button("Novo Jogo")
-        input_button("Salvar Jogo")
-        input_button("Carregar Jogo")
+        #input_button("Novo Jogo")
+        #input_button("Salvar Jogo")
+        #input_button("Carregar Jogo")
         print "<input type=\"hidden\" id=\"sid\" name=\"input1\" value=\"%d\" />" % sess_id.int
         print "</form>"
         print "</body>"
