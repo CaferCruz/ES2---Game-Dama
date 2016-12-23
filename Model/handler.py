@@ -66,7 +66,7 @@ if(works > 0):
     res = regra.validador(tab, peca, (froy, frox), (toy, tox))
 
     if(save):
-        if(!fail):
+        if(not fail):
             visual.printboard(tab)
         else:
             print "0"
