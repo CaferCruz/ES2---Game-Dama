@@ -54,9 +54,8 @@ if(works > 0):
 
     res = regra.validador(tab, peca, (froy, frox), (toy, tox))
 
-    #print to, fro, sid, pid
-
     if(res):
+	print("Content-Type: text/html \n\n")
         tab, estado = regra.capsula(tab, peca, (froy, frox), (toy, tox))
         p, tab = regra.capsula_atualiza(peca, (toy, tox), tab)
         peca.coordenadas = p.coordenadas

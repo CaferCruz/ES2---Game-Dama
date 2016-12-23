@@ -1,3 +1,5 @@
 *.pyc
 *.xml
+*.html
+*.json
 .idea/ES2_Game_Dama.iml

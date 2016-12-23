@@ -14,7 +14,7 @@ function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 	var fromid = document.getElementById(data).parentNode.id;
-	var parid = ev.target.parentNode.id;
+	var parid = ev.target.id;
 	var ready;
 	//ev.target.innerHTML = "";
     //ev.target.appendChild(document.getElementById(data));
@@ -28,8 +28,8 @@ function drop(ev) {
 		  }
         }
     };
-	var tring = "handler.py?";
-	var ssid = getElementById(sid).value;
+	var tring = "../Model/handler.py?";
+	var ssid = document.getElementById('sid').value;
 	tring += "from=";
 	tring += fromid;
 	tring += "&to=";
