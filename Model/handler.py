@@ -9,6 +9,8 @@ from Visual import *
 import cgi
 import cgitb; cgitb.enable()
 
+print("Content-Type: text/html \n\n")
+
 form = cgi.FieldStorage()
 to = ""
 fro = ""
@@ -32,9 +34,18 @@ except:
 if(works > 0):
     regra = Regras()
     visual = Visual()
-    jogo = regra.carregarJogo(sid)
+    fail = False
+    jogo = ""
+    tab = ""
+    try:
+        jogo = regra.carregarJogo(sid)
+        tab = jogo.tabuleiro
+    except:
+        fail = True
+    #jogo = regra.carregarJogo(sid)
     #jogo = regra.carregarJogo("150659578876257975456580117709407753831")
-    tab = jogo.tabuleiro
+    #tab = jogo.tabuleiro
+    save = True if pid[0] = '0' else False
     
     tox = int(to[1])
     toy = int(to[2])
@@ -54,8 +65,13 @@ if(works > 0):
 
     res = regra.validador(tab, peca, (froy, frox), (toy, tox))
 
-    if(res):
-	print("Content-Type: text/html \n\n")
+    if(save):
+        if(!fail):
+            visual.printboard(tab)
+        else:
+            print "0"
+    elif(res):
+	#print("Content-Type: text/html \n\n")
         tab, estado = regra.capsula(tab, peca, (froy, frox), (toy, tox))
         p, tab = regra.capsula_atualiza(peca, (toy, tox), tab)
         peca.coordenadas = p.coordenadas

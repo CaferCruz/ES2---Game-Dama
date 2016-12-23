@@ -21,8 +21,8 @@ def header():
         print("<link rel=\"stylesheet\" type=\"text/css\" href=\"..\css\style.css\">")
         print("</head>")
 
-def input_button(text):
-        print("<input type=\"button\" name=\"%s\" value=\"%s\">" % (text, text)) 
+def input_button(text, func = ""):
+        print("<input type=\"button\" name=\"%s\" value=\"%s\", onclick=\"%s\">" % (text, text, func)) 
 
 def main():
         form = cgi.FieldStorage()
@@ -52,7 +52,7 @@ def main():
         print "<form>"
         #input_button("Novo Jogo")
         #input_button("Salvar Jogo")
-        #input_button("Carregar Jogo")
+        input_button("Carregar Jogo", "handler()")
         print "<input type=\"hidden\" id=\"sid\" name=\"input1\" value=\"%d\" />" % sess_id.int
         print "</form>"
         print "</body>"

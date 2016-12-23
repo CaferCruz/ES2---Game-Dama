@@ -7,7 +7,21 @@ function drag(ev) {
 }
 
 function handler() {
-	
+	var ssid = document.getElementById('sid').value;
+	var save = prompt("Enter save file number", ssid);
+	var req = new XMLHttpRequest();
+	req.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          ready = true;
+		  if(this.responseText != "0") {
+			  document.getElementById("main").innerHTML = this.responseText;
+		  }
+        }
+    };
+	//document.getElementById('sid').value;
+	var tring = "handler.py?from=00&to=00&this=000&id=" + save;
+	message.open("GET", tring, true);
+	message.send();
 }
 
 function drop(ev) {
